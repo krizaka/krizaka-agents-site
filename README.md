@@ -213,3 +213,18 @@ L'histoire de sa construction, chapitre par chapitre, sur le blogue :
 - [L'architecture de krizaka-agents, pour les architectes d'entreprise](https://blog.krizaka.com/fr/story/the-architecture-of-krizaka-agents/)
 
 Notre site : **https://www.krizaka.com** · nos bibliothèques libres : https://github.com/krizaka
+
+---
+
+## This repository (the site)
+
+`site/` is the information site of Krizaka Agents: six pages in French and English, a static Next.js export published on GitHub
+Pages by the shared workflow of `krizaka/.github` (`.github/workflows/pages.yml`). The words come from `content/pages/`
+(extracted from the page drafts of the company's planning repository by `site/scripts/extract-pages.mjs`).
+
+```bash
+cd site && npm ci && npm run lint && npm test && npm run build
+```
+
+The tests include the publication checks (`site/tests/publication.test.mjs`): a page that holds a secret-shaped string, a
+person's name, an internal path, a link to the private repository or an offer fails the build.
