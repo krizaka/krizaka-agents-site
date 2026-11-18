@@ -5,15 +5,16 @@ import { ThemeProvider, ThemeScript } from "@krizaka/ui/theme";
 import { SkipLink } from "@krizaka/ui/skip-link";
 import { cn } from "@krizaka/ui/cn";
 import { getMessages, localizedPath, type Locale } from "@/lib/i18n";
-import { KRIZAKA_URL, BLOG_URL } from "@/lib/site";
+import { KRIZAKA_URL, BLOG_URL, contactUrl } from "@/lib/site";
 import { NAV_LABELS, PAGES } from "@/lib/pages";
 import { displayFace, monoFace, textFace } from "../fonts";
 import ThemeToggle from "./ThemeToggle";
+import FamilyFooterBlock from "./FamilyFooterBlock";
 import "../globals.css";
 
 /* The root of one language (the two root layouts, app/(en) and app/fr, are this): the document, the Krizaka faces, the theme
    (dark by default, persisted as `kz-theme`, no flash), the bar with the way back to krizaka.com's products and the blog
-   chapters, and the footer. No form, no offer: the one door out for a reader is krizaka.com's general contact. */
+   chapters, « Write to us » and the family footer. No form here, no offer: the one door is krizaka.com's contact form. */
 export default function SiteRoot({ locale, children }: Readonly<{ locale: Locale; children: ReactNode }>) {
   const t = getMessages(locale);
   const other: Locale = locale === "en" ? "fr" : "en";
@@ -40,6 +41,9 @@ export default function SiteRoot({ locale, children }: Readonly<{ locale: Locale
               </Link>
               <div className="kz-bar-links">
                 <a href={`${company}#products`}>{t.bar.products}</a>
+                <a className="kz-bar-write" href={contactUrl(locale)}>
+                  {t.contact.label}
+                </a>
                 <a href={`${BLOG_URL}/${locale === "fr" ? "fr/" : ""}`}>{t.bar.blog}</a>
                 <Link href={localizedPath(other, "/")} lang={other} hrefLang={other}>
                   {t.bar.language}
@@ -56,13 +60,7 @@ export default function SiteRoot({ locale, children }: Readonly<{ locale: Locale
             </nav>
           </header>
           <main id="content">{children}</main>
-          <footer className="kz-footer" aria-label={t.footer.aria}>
-            <p>{t.footer.status}</p>
-            <p>{t.footer.code}</p>
-            <p>
-              {t.footer.company} <a href={`${company}/contact`}>{t.footer.contact}</a>
-            </p>
-          </footer>
+          <FamilyFooterBlock locale={locale} />
         </ThemeProvider>
       </body>
     </html>
