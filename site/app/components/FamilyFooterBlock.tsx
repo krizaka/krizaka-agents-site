@@ -10,7 +10,7 @@ export default function FamilyFooterBlock({ locale }: Readonly<{ locale: Locale 
   const t = getMessages(locale);
   const contact = { fr: contactUrl("fr"), en: contactUrl("en") };
   return (
-    <div className="kz-footer" role="group" aria-label={t.footer.aria}>
+    <div className="kz-footer">
       <p>{t.footer.status}</p>
       <p>{t.footer.code}</p>
       <FamilyFooter
