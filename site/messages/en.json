@@ -13,10 +13,10 @@
   "footer": {
     "aria": "Site footer",
     "status": "In development · internal use. Works with Claude Code.",
-    "company": "A Krizaka site, made in Montréal.",
-    "contact": "Write to Krizaka",
+    "source": "Source code",
     "code": "The code of Krizaka Agents is private; this site shows the method."
   },
+  "contact": { "label": "Write to us", "promise": "Nothing is for sale today; we answer." },
   "notFound": { "title": "This page does not exist", "back": "Back to the home" },
   "figure": { "label": "Fig. 1", "flow": "From ticket to alert, seven stations" }
 }

@@ -13,10 +13,10 @@
   "footer": {
     "aria": "Pied de page",
     "status": "En développement · usage interne. Fonctionne avec Claude Code.",
-    "company": "Un site de Krizaka, fait à Montréal.",
-    "contact": "Écrire à Krizaka",
+    "source": "Code source",
     "code": "Le code de Krizaka Agents est privé ; ce site montre la méthode."
   },
+  "contact": { "label": "Nous écrire", "promise": "Rien n'est à vendre aujourd'hui ; nous répondons." },
   "notFound": { "title": "Cette page n'existe pas", "back": "Retour à l'accueil" },
   "figure": { "label": "Fig. 1", "flow": "Du ticket à l'alerte, sept stations" }
 }

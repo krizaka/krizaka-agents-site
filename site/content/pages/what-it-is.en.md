@@ -1,11 +1,11 @@
 ---
-title: "Krizaka Agents, coding agents held by guardrails"
-description: "Krizaka Agents is our delivery harness for coding agents, working with Claude Code: automatic checks refuse what fails, a person decides."
+title: "Krizaka Agents: how we ship with coding agents"
+description: "We build our products with AI agents. Here is how: one session per ticket, checks that refuse, a person who decides. Not for sale."
 ---
 
-**For peers** — A delivery harness for coding agents that works with Claude Code.
+**For peers** — What surrounds Claude Code to ship work: one session per ticket, checks that refuse, a pull request, a person who decides.
 
-**For everyone** — The technology we build our products with: AI development agents, held by guardrails and a person who decides.
+**For everyone** — How we build our products: AI agents write the changes, automatic checks verify them, a person accepts or refuses them.
 
 > **We build our products with it, every day. It is not for sale for now.**
 
@@ -18,8 +18,7 @@ trains that merge, a watchdog that reads, a cockpit that shows. The sessions run
 agent loop, not us. What we build is what surrounds it: what delivers each change as a pull request and has it refused if
 it does not pass.
 
-« Harness » is the word for everything around a model that lets it act (tools, permissions, checks, environment). Ours is
-a **delivery** harness: it starts at the ticket and ends at the merge and its verification.
+All of it serves one job: delivery. It starts at the ticket and ends at the merge and its verification.
 
 ### § 2 — Three rules, and the rest follows
 
@@ -43,4 +42,3 @@ and not self-service, and its code stays private. This site shows the method; th
 - Any of this with an agent other than Claude Code.
 
 [The full story: the architecture of Krizaka Agents →](https://blog.krizaka.com/story/the-architecture-of-krizaka-agents/)
-· [Write to Krizaka](https://www.krizaka.com/en/contact)

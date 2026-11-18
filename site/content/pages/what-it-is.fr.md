@@ -1,11 +1,11 @@
 ---
-title: "Krizaka Agents, des agents de code encadrés"
-description: "Krizaka Agents est notre harness de livraison pour agents de code, avec Claude Code : des contrôles automatiques refusent ce qui ne passe pas, une personne décide."
+title: "Krizaka Agents : comment nous livrons avec des agents"
+description: "Nous construisons nos produits avec des agents IA. Voici comment : une session par ticket, des contrôles qui refusent, une personne qui décide. Pas à vendre."
 ---
 
-**Pour les pairs** — Un harness de livraison pour agents de code, qui fonctionne avec Claude Code.
+**Pour les pairs** — Ce qui entoure Claude Code pour livrer : une session par ticket, des contrôles qui refusent, une pull request, une personne qui décide.
 
-**Pour tout le monde** — La technologie avec laquelle nous construisons nos produits : des agents IA de développement, encadrés par des garde-fous et une personne qui décide.
+**Pour tout le monde** — La façon dont nous construisons nos produits : des agents IA écrivent les changements, des contrôles les vérifient, une personne les accepte ou les refuse.
 
 > **Nous construisons nos produits avec, chaque jour. Il n'est pas à vendre pour l'instant.**
 
@@ -18,9 +18,7 @@ garde-fous qui refusent, des trains qui fusionnent, un veilleur qui lit, un cock
 tournent dans Claude Code ; c'est Claude Code qui fournit la boucle d'agent, pas nous. Ce que nous construisons, c'est ce
 qu'il y a autour : de quoi livrer chaque changement en pull request et le faire refuser s'il ne passe pas.
 
-Le mot *harness* reste en anglais, comme *pull request*. Il désigne tout ce qui entoure un modèle pour qu'il puisse agir
-(outils, permissions, contrôles, environnement). Le nôtre est un harness **de livraison** : il commence au ticket et finit
-à la fusion et à la vérification.
+Tout sert un seul travail : livrer. Cela commence au ticket et finit à la fusion et à sa vérification.
 
 ### § 2 — Trois règles, dont tout le reste découle
 
@@ -45,4 +43,3 @@ acheter ni à demander ici.
 - Tout cela avec un autre agent que Claude Code.
 
 [Le récit complet : l'architecture de Krizaka Agents →](https://blog.krizaka.com/fr/story/the-architecture-of-krizaka-agents/)
-· [Écrire à Krizaka](https://www.krizaka.com/fr/contact)

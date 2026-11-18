@@ -4,7 +4,7 @@
 
 ## English
 
-**Krizaka Agents is a delivery harness for coding agents, working with Claude Code.** Coding agents that ship by pull request,
+**Krizaka Agents is how we ship with coding agents: what surrounds Claude Code to ship work.** Coding agents that deliver by pull request,
 with automatic refusals before the push and a person who decides.
 
 It is our own technology: the one we build our products with (Sovkora, Verikora, Folioviv, Kridoc). It is **in development**
@@ -77,7 +77,7 @@ flowchart LR
 The target (generated from the public view `agents_public_target`; dashed: planned): one event format and one sink for every
 session, train, refusal and alert; one installation profile, so it installs on another GitHub organisation by configuration
 only; environment variables named by role, never by provider, checked at start; and **ports with adapters** between the
-harness and what it depends on (VCS host, agent runtime, model provider, secrets, storage, notifications, operations store).
+system and what it depends on (VCS host, agent runtime, model provider, secrets, storage, notifications, operations store).
 The agent runtime (today Claude Code) and the model (today Claude) are two adapters behind one runtime port: either can change
 without touching the coordinator, the trains or the guards.
 
@@ -153,7 +153,7 @@ Our website: **https://www.krizaka.com** · our open-source libraries: https://g
 
 ## Français
 
-**Krizaka Agents est un harness de livraison pour agents de code, qui fonctionne avec Claude Code.** Des agents de code qui
+**Krizaka Agents est la façon dont nous livrons avec des agents de code : ce qui entoure Claude Code pour livrer.** Des agents de code qui
 livrent par pull request, avec des refus automatiques avant le push et une personne qui décide.
 
 C'est notre propre technologie : celle avec laquelle nous construisons nos produits (Sovkora, Verikora, Folioviv, Kridoc). Elle
@@ -191,7 +191,7 @@ Ce qui tourne aujourd'hui, sur une seule machine : le premier schéma de la sect
 La cible, le second schéma de la section anglaise (vue publique `agents_public_target` ; en pointillé : prévu) : un seul format
 d'événement et un seul puits pour chaque session, train, refus et alerte ; un seul profil d'installation, pour s'installer sur
 une autre organisation GitHub par la seule configuration ; des variables d'environnement nommées par rôle, jamais par
-fournisseur, vérifiées au démarrage ; et des **ports avec leurs adaptateurs** entre le harness et ce dont il dépend (hébergeur
+fournisseur, vérifiées au démarrage ; et des **ports avec leurs adaptateurs** entre le système et ce dont il dépend (hébergeur
 de code, environnement d'exécution des agents, fournisseur de modèles, secrets, stockage, notifications, magasin
 d'opérations). L'environnement d'exécution (aujourd'hui Claude Code) et le modèle (aujourd'hui Claude) sont deux adaptateurs
 derrière un seul port : chacun peut changer sans toucher au coordinateur, aux trains ni aux garde-fous.

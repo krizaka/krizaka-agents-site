@@ -326,3 +326,29 @@ main {
 .kz-prose ol {
   list-style: decimal;
 }
+
+/* ─── Write to us ─── */
+.kz-bar-links a.kz-bar-write {
+  color: var(--kz-accent-text);
+  font-weight: 600;
+}
+.kz-contact {
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--kz-border-default);
+}
+.kz-contact-link {
+  display: inline-block;
+  padding: 8px 14px;
+  border: 1px solid var(--kz-accent-text);
+  color: var(--kz-accent-text);
+  font-weight: 600;
+  text-decoration: none;
+}
+.kz-contact-link:hover {
+  text-decoration: underline;
+}
+.kz-contact p {
+  margin-top: 0.75rem;
+  color: var(--kz-text-secondary);
+}

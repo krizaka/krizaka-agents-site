@@ -3,6 +3,7 @@ import { getMessages, localizedPath, type Locale } from "@/lib/i18n";
 import { PAGES, readPage, type PageSlug } from "@/lib/pages";
 import { SITE_URL } from "@/lib/site";
 import { stations } from "@/lib/flow";
+import WriteToUs from "./WriteToUs";
 
 export const staticSlugs = () => PAGES.filter((p) => p.slug !== "").map((p) => ({ slug: p.slug }));
 
@@ -53,6 +54,7 @@ export default function PageView({ locale, slug }: Readonly<{ locale: Locale; sl
       <div className="kz-prose" dangerouslySetInnerHTML={{ __html: before }} />
       {page.figure && <Flow locale={locale} caption={page.figure} />}
       {page.figure && <div className="kz-prose" dangerouslySetInnerHTML={{ __html: after }} />}
+      <WriteToUs locale={locale} />
     </article>
   );
 }
