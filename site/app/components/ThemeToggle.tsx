@@ -15,7 +15,8 @@ const subscribe = (onChange: () => void) => {
 export default function ThemeToggle({ toLight, toDark }: Readonly<{ toLight: string; toDark: string }>) {
   const { mode, setMode } = useTheme();
   const systemDark = useSyncExternalStore(subscribe, () => globalThis.matchMedia(DARK).matches, () => true);
-  const theme = mode === "system" ? (systemDark ? "dark" : "light") : mode;
+  const systemTheme = systemDark ? "dark" : "light";
+  const theme = mode === "system" ? systemTheme : mode;
   return (
     <button
       type="button"

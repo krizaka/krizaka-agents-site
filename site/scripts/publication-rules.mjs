@@ -8,26 +8,43 @@ const NAME_HASHES = new Set(["86e08046be6344c1487dfaefe42a67f0fff79414916b0dfcdb
 /** The sentence that says there is nothing to buy: the one place the word « buy » (« acheter ») may stand. */
 const DENIAL = /(nothing to buy or to request here|rien à acheter ni à demander ici)/gi;
 
+/** Each pattern is simple on purpose (one idea, linear time): a rule fires when any of its patterns matches. */
+const SECRET_PATTERNS = [
+  /gh[pousr]_\w{20,}/,
+  /github_pat_\w{20,}/,
+  /sk-[\w-]{20,}/,
+  /AKIA[0-9A-Z]{16}/,
+  /xox[abpr]-[\w-]{10,}/,
+  /-----BEGIN [A-Z ]{0,40}PRIVATE KEY-----/,
+  /(?:api[_-]?key|secret|token|passw(?:or)?d)["']?\s{0,3}[:=]\s{0,3}["']?[\w/+-]{16,}/i,
+];
+const INTERNAL_PATTERNS = [/krizaka-hq/, /workspace\//, /\/Users\//];
+const PRIVATE_REPOSITORY = /github\.com\/krizaka\/krizaka-agents(?![\w-])/i;
+const OFFER_WORDS = new RegExp(
+  `\\b(?:${[
+    "buy", "buying", "purchase", "install", "installing", "installation", "pricing", "price", "prices",
+    "prix", "tarif", "tarifs", "acheter", "achat", "installer", "per month", "par mois", "free trial", "essai gratuit",
+  ].join("|")})\\b`,
+  "i",
+);
+const OFFER_AMOUNTS = [/[$€£]\s?\d/, /\d\s?[$€£]/, /\d\s?(?:USD|EUR|CAD)\b/];
+
+const anyOf = (patterns, text) => patterns.some((re) => re.test(text));
+const flat = (text) => text.replaceAll(/\s+/g, " ");
+const words = (text) => text.toLowerCase().match(/[a-zà-ÿ]+/g) ?? [];
+const isNameWord = (w) => NAME_HASHES.has(createHash("sha256").update(w).digest("hex"));
+
 export const RULES = [
-  {
-    id: "secret",
-    test: (text) =>
-      /(gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|sk-[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|xox[abpr]-[A-Za-z0-9-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|(api[_-]?key|secret|token|passw(or)?d)["']?\s*[:=]\s*["']?[A-Za-z0-9_\-/+]{16,})/i.test(
-        text,
-      ),
-  },
-  {
-    id: "founder-name",
-    test: (text) => (text.toLowerCase().match(/[a-zà-ÿ]+/g) ?? []).some((w) => NAME_HASHES.has(createHash("sha256").update(w).digest("hex"))),
-  },
-  { id: "internal-path", test: (text) => /krizaka-hq|workspace\/|\/Users\//.test(text) },
-  { id: "private-repository", test: (text) => /github\.com\/krizaka\/krizaka-agents(?![-\w])/i.test(text) },
+  { id: "secret", test: (text) => anyOf(SECRET_PATTERNS, text) },
+  { id: "founder-name", test: (text) => words(text).some(isNameWord) },
+  { id: "internal-path", test: (text) => anyOf(INTERNAL_PATTERNS, text) },
+  { id: "private-repository", test: (text) => PRIVATE_REPOSITORY.test(text) },
   {
     id: "offer",
-    test: (text) =>
-      /\b(buy|buying|purchase|install|installing|installation|pricing|price|prices|prix|tarifs?|acheter|achat|installer|licen[cs]e fee|per month|par mois|free trial|essai gratuit)\b|[$€£]\s?\d|\d\s?[$€£]|\d\s?(USD|EUR|CAD)\b/i.test(
-        text.replace(/\s+/g, " ").replace(DENIAL, ""),
-      ),
+    test: (text) => {
+      const plain = flat(text).replace(DENIAL, "");
+      return OFFER_WORDS.test(plain) || anyOf(OFFER_AMOUNTS, plain);
+    },
   },
 ];
 

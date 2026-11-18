@@ -17,9 +17,10 @@ mkdirSync(out, { recursive: true });
 
 const SLUGS = { "01": "what-it-is", "02": "the-flow", "03": "rules-that-say-no", "04": "alerts-and-the-watchdog", "05": "the-cockpit", "06": "proofs" };
 const pair = (line) => {
-  const m = /—\s*FR\s*«\s*(.+?)\s*»\s*·\s*EN\s*"(.+?)"\.?\s*$/.exec(line);
-  if (!m) throw new Error(`no FR/EN pair in: ${line}`);
-  return { fr: m[1], en: m[2] };
+  const [, rest = ""] = line.split("— FR ");
+  const [fr, en] = rest.split(" · EN ");
+  if (!fr || !en) throw new Error(`no FR/EN pair in: ${line}`);
+  return { fr: fr.trim().replace(/^«\s*|\s*»$/g, ""), en: en.trim().replace(/^"|"?\.?$/g, "") };
 };
 const section = (text, name) => {
   const m = new RegExp(`^## ${name}\\n([\\s\\S]*?)\\n---\\n`, "m").exec(text);

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getMessages, type Locale } from "@/lib/i18n";
+import { getMessages, localizedPath, type Locale } from "@/lib/i18n";
 import { PAGES, readPage, type PageSlug } from "@/lib/pages";
 import { SITE_URL } from "@/lib/site";
 import { stations } from "@/lib/flow";
@@ -14,8 +14,8 @@ function entry(slug: string | undefined): PageSlug {
 
 export function metadataOf(locale: Locale, slug: string | undefined) {
   const page = readPage(locale, entry(slug));
-  const path = `${locale === "en" ? "" : "/fr"}${page.slug ? `/${page.slug}` : ""}/`;
-  const alt = (l: Locale) => `${l === "en" ? "" : "/fr"}${page.slug ? `/${page.slug}` : ""}/`;
+  const alt = (l: Locale) => localizedPath(l, "/" + page.slug);
+  const path = alt(locale);
   return {
     title: page.title,
     description: page.description,
