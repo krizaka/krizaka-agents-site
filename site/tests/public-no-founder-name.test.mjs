@@ -53,17 +53,29 @@ test("the scan names the files, never the word", () => {
   assert.deepEqual(filesNamingFounder(entries, sample), ["messages/fr.json"]);
 });
 
-const outcome = guardFrom(process.env);
+/** The guard of this run, or the error that makes the secret's test fail (never an exception thrown while the file loads). */
+const load = () => {
+  try {
+    return guardFrom(process.env);
+  } catch (error) {
+    return { error };
+  }
+};
+const outcome = load();
 const skip = outcome.skipped ?? false;
 if (skip) console.warn(`::warning::${skip}`);
 
-test("no source of the pages names the founder", { skip }, () => {
+test("the secret is there wherever it is required", () => {
+  if (outcome.error) assert.fail(`::error::${outcome.error.message}`);
+});
+
+test("no source of the pages names the founder", { skip: skip || Boolean(outcome.error) }, () => {
   const files = sourceTexts();
   assert.ok(files.length > 20);
   assert.deepEqual(filesNamingFounder(files, outcome.guard), []);
 });
 
-test("no built file names the founder (when built)", { skip: skip || !built() }, () => {
+test("no built file names the founder (when built)", { skip: skip || Boolean(outcome.error) || !built() }, () => {
   const files = builtTexts();
   assert.ok(files.length > 10);
   assert.deepEqual(filesNamingFounder(files, outcome.guard), []);
