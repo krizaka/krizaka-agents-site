@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* Rule 3 of the publication check, the part that needs the network: every github.com/krizaka/<repo> link of the built site must
    answer 200 without a token. A private repository answers 404 to a visitor, so a link to it is refused.
-   Usage: node scripts/check-links.mjs [<built dir>]   (default: out). Exit 1 names each refused link and its status. */
+   Usage: node scripts/check-links.mjs   (reads the built site, site/out). Exit 1 names each refused link and its status. */
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -31,7 +31,7 @@ const walk = (dir) =>
   readdirSync(dir).flatMap((f) => (statSync(join(dir, f)).isDirectory() ? walk(join(dir, f)) : [join(dir, f)]));
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const dir = process.argv[2] ?? "out";
+  const dir = fileURLToPath(new URL("../out", import.meta.url));
   const texts = walk(dir)
     .filter((f) => /\.(html|xml|txt)$/.test(f))
     .map((f) => readFileSync(f, "utf8"));

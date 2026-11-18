@@ -59,10 +59,10 @@ const OFFER_WORDS = new RegExp(
 const OFFER_AMOUNTS = [/[$€£]\s?\d/, /\d\s?[$€£]/, /\d\s?(?:USD|EUR|CAD)\b/];
 /** Rule 7 of the plan, a warning and not a refusal: the words that make a page read like a template. */
 const AI_LOOK_WORDS = new RegExp(
-  `\\b(?:${[
+  String.raw`\b(?:${[
     "révolutionnaire", "révolutionnaires", "magique", "magiques", "seamless", "seamlessly", "supercharge", "supercharged",
     "game-changer", "game-changing", "unleash", "unleashes", "autonomous", "autonome", "autonomes", "cutting-edge",
-  ].join("|")})\\b`,
+  ].join("|")})\b`,
   "giu",
 );
 
