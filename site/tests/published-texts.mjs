@@ -21,8 +21,24 @@ export const sourceTexts = () =>
 
 export const built = () => existsSync(join(root, "out"));
 
+/** The page without its script elements (any case, any closing form, an unclosed one up to the end): only its words remain. */
+export function withoutScripts(html) {
+  const lower = html.toLowerCase();
+  let kept = "";
+  let at = 0;
+  for (;;) {
+    const open = lower.indexOf("<script", at);
+    if (open === -1) return kept + html.slice(at);
+    kept += `${html.slice(at, open)} `;
+    const close = lower.indexOf("</script", open);
+    const end = close === -1 ? -1 : lower.indexOf(">", close);
+    if (end === -1) return kept;
+    at = end + 1;
+  }
+}
+
 /** [path, text] of each built page, sitemap and robots file, without its inline scripts. */
 export const builtTexts = () =>
   walk(join(root, "out"))
     .filter((f) => /\.(html|xml)$|robots\.txt$/.test(f))
-    .map((f) => [relative(root, f), readFileSync(f, "utf8").replace(/<script[\s\S]*?<\/script>/g, "")]);
+    .map((f) => [relative(root, f), withoutScripts(readFileSync(f, "utf8"))]);

@@ -4,7 +4,7 @@ import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { aiLook, allowedSourceFile, longCodeBlocks, problems } from "../scripts/publication-rules.mjs";
 import { repositoryLinks, refusedLinks } from "../scripts/check-links.mjs";
-import { built, builtTexts, root, sourcePaths, sourceTexts } from "./published-texts.mjs";
+import { built, builtTexts, root, sourcePaths, sourceTexts, withoutScripts } from "./published-texts.mjs";
 
 // The publication checks (§ 6 of the site's plan): what is written in the pages, the messages and the built site is public.
 // The rules themselves are proven on bad samples; then they run on the sources and, when `out/` exists, on every built file.
@@ -103,6 +103,13 @@ test("the sources hold none of it", () => {
     const look = aiLook(text);
     if (look.length) console.warn(`::warning file=site/${f}::template words (rule 7): ${look.join(", ")}`);
   }
+});
+
+test("the built pages are read without their scripts, whatever their case or closing form", () => {
+  assert.equal(withoutScripts("a<script>x</script>b"), "a b");
+  assert.equal(withoutScripts('a<SCRIPT type="m">x</SCRIPT >b<script>y</script\n>c'), "a b c");
+  assert.equal(withoutScripts("a<script>never closed"), "a ");
+  assert.equal(withoutScripts("no script here"), "no script here");
 });
 
 test("the six pages exist in both languages", () => {
