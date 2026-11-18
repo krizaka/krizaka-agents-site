@@ -18,7 +18,7 @@ test("no « harness » in the sources of the site", () => {
   assert.doesNotMatch(readFileSync(join(root, "..", "README.md"), "utf8"), /harness/i, "README.md");
 });
 
-test("the title and the meta description of the home page are the decided ones", () => {
+test("the title and the meta description of the home page are the decided ones (when built)", { skip: !built() }, () => {
   const en = readBuilt("en", "");
   const fr = readBuilt("fr", "");
   assert.match(en, /<title>Krizaka Agents: how we ship with coding agents<\/title>/);

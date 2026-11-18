@@ -67,12 +67,12 @@ jobs:
       test-command: |
         npm run lint
         npm test
-      # The build, then what needs the built site: the publication checks on every built file, every org link answering 200
+      # The build, then what needs the built site: the publication and decided-words checks (skipped by `npm test`, which runs before any build) on every built file, every org link answering 200
       # without a token, and no horizontal overflow
       # (360 to 1440 px, both languages, both themes).
       build-command: |
         npm run build
-        node --test tests/publication.test.mjs
+        node --test tests/publication.test.mjs tests/words-and-contact.test.mjs
         node scripts/check-links.mjs
         mkdir -p "$RUNNER_TEMP/srv"
         ln -sfn "$PWD/out" "$RUNNER_TEMP/srv/${SITE_BASE_PATH#/}"
