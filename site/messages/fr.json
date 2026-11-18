@@ -1,0 +1,22 @@
+{
+  "site": { "name": "Krizaka Agents", "tagline": "Des agents de code encadrés" },
+  "bar": {
+    "aria": "Navigation principale",
+    "skip": "Aller au contenu",
+    "pages": "Pages",
+    "products": "Nos produits",
+    "blog": "Les chapitres",
+    "language": "English",
+    "themeToLight": "Passer au thème clair",
+    "themeToDark": "Passer au thème sombre"
+  },
+  "footer": {
+    "aria": "Pied de page",
+    "status": "En développement · usage interne. Fonctionne avec Claude Code.",
+    "company": "Un site de Krizaka, fait à Montréal.",
+    "contact": "Écrire à Krizaka",
+    "code": "Le code de Krizaka Agents est privé ; ce site montre la méthode."
+  },
+  "notFound": { "title": "Cette page n'existe pas", "back": "Retour à l'accueil" },
+  "figure": { "label": "Fig. 1", "flow": "Du ticket à l'alerte, sept stations" }
+}

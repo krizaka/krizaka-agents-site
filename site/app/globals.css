@@ -1,0 +1,328 @@
+@import "tailwindcss";
+/* The Krizaka preset: @krizaka/tokens (every --kz-* colour, radius, shadow, font of both themes — dark on :root, light on
+   html.light) mapped to the Tailwind theme. */
+@import "@krizaka/tailwind";
+@import "@krizaka/ui/tailwind.css";
+
+/* The Cahier faces of @krizaka/fonts, loaded by next/font/local (app/fonts.ts), in the token roles. */
+:root {
+  --kz-font-sans:
+    var(--font-kz-text), "Atkinson Hyperlegible Next", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --kz-font-display: var(--font-kz-display), "Young Serif", Georgia, serif;
+  --kz-font-mono: var(--font-kz-mono), "Courier Prime", "Courier New", ui-monospace, Menlo, monospace;
+  --kz-reading: 44rem;
+  --kz-gutter: clamp(16px, 4vw, 32px);
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+  -webkit-font-smoothing: antialiased;
+}
+body {
+  background: var(--kz-surface-0);
+  color: var(--kz-text-primary);
+  font-family: var(--kz-font-sans);
+  letter-spacing: -0.011em;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+main {
+  flex: 1;
+}
+:focus-visible {
+  outline: 2px solid var(--kz-accent);
+  outline-offset: 2px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── The bar: the mark, the way to krizaka.com and the chapters, the language, the theme; the six pages under it ─── */
+.kz-bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--kz-surface-0);
+  border-bottom: 1px solid var(--kz-border-default);
+}
+.kz-bar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding: 10px var(--kz-gutter);
+}
+.kz-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--kz-font-display);
+  font-size: 1.125rem;
+  color: var(--kz-text-primary);
+  text-decoration: none;
+}
+.kz-bar-links {
+  display: flex;
+  align-items: center;
+  gap: 4px 14px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  font-size: 0.875rem;
+}
+.kz-bar-links a,
+.kz-pages a {
+  color: var(--kz-text-secondary);
+  text-decoration: none;
+  padding: 6px 2px;
+}
+.kz-bar-links a:hover,
+.kz-pages a:hover {
+  color: var(--kz-text-primary);
+  text-decoration: underline;
+}
+.kz-pages {
+  display: flex;
+  gap: 18px;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding: 0 var(--kz-gutter) 6px;
+  overflow-x: auto;
+  white-space: nowrap;
+  font-size: 0.875rem;
+}
+.kz-icon-button {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--kz-border-default);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--kz-text-primary);
+  cursor: pointer;
+}
+.kz-skip {
+  position: fixed;
+  left: 12px;
+  top: -64px;
+  z-index: 100;
+  padding: 8px 14px;
+  background: var(--kz-accent);
+  color: var(--kz-on-accent);
+  font-weight: 600;
+}
+.kz-skip:focus {
+  top: 12px;
+}
+
+/* ─── The page: a sheet of Seyès paper, the red margin on the left, the § numbers in it ─── */
+.kz-article {
+  --line: 1.75rem;
+  max-width: var(--kz-reading);
+  margin: 0 auto;
+  padding: 2.5rem var(--kz-gutter) 4rem calc(var(--kz-gutter) + 0.5rem);
+  background-image: linear-gradient(to bottom, transparent calc(var(--line) - 1px), var(--kz-paper-rule-minor, var(--kz-border-subtle)) 0);
+  background-size: 100% var(--line);
+  border-inline-start: 2px solid var(--kz-paper-rule-margin, var(--kz-accent));
+  min-height: 60dvh;
+}
+.kz-article h1 {
+  font-family: var(--kz-font-display);
+  font-weight: 400;
+  font-size: clamp(1.75rem, 5.5vw, 2.75rem);
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+  text-wrap: balance;
+}
+.kz-prose {
+  line-height: var(--line);
+  font-size: 1.0625rem;
+  overflow-wrap: anywhere;
+}
+.kz-prose > * + * {
+  margin-top: var(--line);
+}
+.kz-prose h3 {
+  font-family: var(--kz-font-display);
+  font-weight: 400;
+  font-size: 1.375rem;
+  line-height: var(--line);
+  margin-top: calc(var(--line) * 2);
+}
+.kz-prose h3 + * {
+  margin-top: 0.5rem;
+}
+.kz-prose p,
+.kz-prose li {
+  color: var(--kz-text-primary);
+}
+.kz-prose ul,
+.kz-prose ol {
+  padding-inline-start: 1.5rem;
+}
+.kz-prose li + li {
+  margin-top: 0.4rem;
+}
+.kz-prose a {
+  color: var(--kz-accent-text);
+  text-underline-offset: 3px;
+}
+.kz-prose blockquote {
+  border-inline-start: 3px solid var(--kz-accent);
+  padding: 0.5rem 1rem;
+  background: var(--kz-surface-1);
+  font-family: var(--kz-font-display);
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+.kz-prose code {
+  font-family: var(--kz-font-mono);
+  font-size: 0.9em;
+  padding: 0 0.3rem;
+  background: var(--kz-surface-2);
+}
+.kz-prose em {
+  color: var(--kz-text-secondary);
+}
+
+/* ─── Tables never break the page at phone width ─── */
+.kz-table-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--kz-border-subtle);
+  background: var(--kz-surface-0);
+}
+.kz-table {
+  width: 100%;
+  min-width: 34rem;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.kz-table th,
+.kz-table td {
+  text-align: start;
+  vertical-align: top;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--kz-border-subtle);
+}
+.kz-table thead th {
+  background: var(--kz-surface-1);
+  font-weight: 600;
+  color: var(--kz-text-secondary);
+}
+
+/* ─── Fig. 1 of the flow: seven stations, a column on a phone, a line from tablet width ─── */
+.kz-figure {
+  margin: var(--line) 0;
+  padding: 1rem;
+  border: 1px solid var(--kz-border-default);
+  background: var(--kz-surface-1);
+  box-shadow: 4px 4px 0 var(--kz-border-default);
+}
+.kz-flow {
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+  padding: 0;
+}
+.kz-flow li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+}
+.kz-fig-n {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid var(--kz-paper-rule-margin, var(--kz-accent));
+  color: var(--kz-text-primary);
+  font-family: var(--kz-font-mono);
+  font-weight: 700;
+}
+.kz-flow a {
+  color: var(--kz-accent-text);
+}
+.kz-figure figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--kz-text-secondary);
+}
+@media (min-width: 900px) {
+  .kz-flow {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+  .kz-flow li {
+    flex-direction: column;
+    text-align: center;
+    font-size: 0.8125rem;
+  }
+}
+
+/* ─── The footer ─── */
+.kz-footer {
+  max-width: 72rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem var(--kz-gutter) 2.5rem;
+  border-top: 1px solid var(--kz-border-default);
+  color: var(--kz-text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.kz-footer a {
+  color: var(--kz-accent-text);
+}
+
+/* ─── 404 ─── */
+.kz-404 {
+  min-height: 100dvh;
+  display: grid;
+  place-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  text-align: center;
+}
+.kz-404 h1 {
+  font-family: var(--kz-font-display);
+  font-size: clamp(2rem, 6vw, 3rem);
+}
+.kz-404 a {
+  color: var(--kz-accent-text);
+  font-weight: 600;
+}
+
+.kz-prose ul {
+  list-style: disc;
+}
+.kz-prose ol {
+  list-style: decimal;
+}

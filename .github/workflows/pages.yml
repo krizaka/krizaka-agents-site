@@ -1,0 +1,61 @@
+# The information site of Krizaka Agents (site/): lint, tests (the publication checks included), the static build and its browser
+# check on every pull request and in the merge queue; on main the same build is published to GitHub Pages by the shared workflow
+# (krizaka-internal#3122, #4149). Default URL first; the CNAME comes after the DNS (agents.krizaka.com), never before.
+name: Pages site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  merge_group:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  site:
+    name: Static site
+    uses: krizaka/.github/.github/workflows/pages-site.yml@0063109d0e75d25b660851e6703a2f967f3fc5e9 # main
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    with:
+      working-directory: site
+      output-dir: site/out
+      timeout-minutes: 20
+      test-command: |
+        npm run lint
+        npm test
+      # The build, then what needs the built site: the publication checks on every built file, and no horizontal overflow
+      # (360 to 1440 px, both languages, both themes).
+      build-command: |
+        npm run build
+        node --test tests/publication.test.mjs
+        python3 -m http.server 3100 --directory out >/dev/null 2>&1 &
+        server=$!
+        trap 'kill "$server" 2>/dev/null || true' EXIT
+        sleep 2
+        npm install --ignore-scripts --no-save --no-audit --no-fund playwright@1.64.1
+        node_modules/.bin/playwright install --with-deps chromium
+        node scripts/check-overflow.mjs --base http://localhost:3100
+      expect-files: |
+        index.html
+        fr/index.html
+        404.html
+        sitemap.xml
+        flow/index.html
+        fr/flow/index.html
+        rules/index.html
+        fr/rules/index.html
+        alerts/index.html
+        fr/alerts/index.html
+        cockpit/index.html
+        fr/cockpit/index.html
+        proofs/index.html
+        fr/proofs/index.html
