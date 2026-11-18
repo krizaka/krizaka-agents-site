@@ -226,5 +226,11 @@ Pages by the shared workflow of `krizaka/.github` (`.github/workflows/pages.yml`
 cd site && npm ci && npm run lint && npm test && npm run build
 ```
 
-The tests include the publication checks (`site/tests/publication.test.mjs`): a page that holds a secret-shaped string, a
-person's name, an internal path, a link to the private repository or an offer fails the build.
+The tests include the publication checks (`site/tests/publication.test.mjs`): a page that holds a secret-shaped string, an
+internal path or address, a private repository's name or link, a person's data (an e-mail other than the public ones, a phone,
+a postal code, a SIN or card shape), an attribution to the founder, a code block over 8 lines or an offer fails the build;
+every org link of the built site must answer 200 without a token (`site/scripts/check-links.mjs`), and template words are
+reported as warnings. The founder's name is checked by `site/tests/public-no-founder-name.test.mjs` against the Actions secret
+`FOUNDER_NAME_GUARD` (keyed HMAC-SHA-256 digests and their key, made by `site/scripts/founder-name-guard.mjs make-secret`):
+nothing derived from the name is in this repository. Without the secret the check skips locally and on a fork's pull request,
+and fails everywhere else in CI (the « Founder name guard » job, which the publication waits for).

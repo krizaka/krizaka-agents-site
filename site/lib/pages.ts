@@ -1,4 +1,4 @@
-/* The six pages: content/pages/<file>.<locale>.md (extracted from krizaka-internal by scripts/extract-pages.mjs), rendered at
+/* The six pages: content/pages/<file>.<locale>.md (extracted from the private drafts by scripts/extract-pages.mjs), rendered at
    build. The words are ours and committed, never fetched; the output is checked by tests/publication.test.mjs. */
 import { readFileSync } from "node:fs";
 import { join } from "node:path";

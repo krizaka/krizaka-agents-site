@@ -1,6 +1,9 @@
 # The information site of Krizaka Agents (site/): lint, tests (the publication checks included), the static build and its browser
 # check on every pull request and in the merge queue; on main the same build is published to GitHub Pages by the shared workflow
 # (krizaka-internal#3122, #4149). Default URL first; the CNAME comes after the DNS (agents.krizaka.com), never before.
+# The founder's name is checked apart, in « Founder name guard »: the only job that receives the keyed secret FOUNDER_NAME_GUARD
+# (krizaka-restricted#375). It fails closed without the secret except on a fork's pull request, and the site is published only
+# after it passed.
 name: Pages site
 
 on:
@@ -18,8 +21,38 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  founder-name:
+    name: Founder name guard
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+        env:
+          SITE_BASE_PATH: /krizaka-agents-site
+      # The secret reaches this step only. Required (fails closed without it) everywhere but on a fork's pull request.
+      - name: No page names the founder (keyed HMAC)
+        env:
+          FOUNDER_NAME_GUARD: ${{ secrets.FOUNDER_NAME_GUARD }}
+          FOUNDER_NAME_GUARD_REQUIRED: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork) }}
+        run: node --test tests/public-no-founder-name.test.mjs
+
   site:
     name: Static site
+    needs: founder-name
     uses: krizaka/.github/.github/workflows/pages-site.yml@0063109d0e75d25b660851e6703a2f967f3fc5e9 # main
     permissions:
       contents: read
@@ -34,11 +67,13 @@ jobs:
       test-command: |
         npm run lint
         npm test
-      # The build, then what needs the built site: the publication checks on every built file, and no horizontal overflow
+      # The build, then what needs the built site: the publication checks on every built file, every org link answering 200
+      # without a token, and no horizontal overflow
       # (360 to 1440 px, both languages, both themes).
       build-command: |
         npm run build
         node --test tests/publication.test.mjs
+        node scripts/check-links.mjs out
         mkdir -p "$RUNNER_TEMP/srv"
         ln -sfn "$PWD/out" "$RUNNER_TEMP/srv/${SITE_BASE_PATH#/}"
         python3 -m http.server 3100 --directory "$RUNNER_TEMP/srv" >/dev/null 2>&1 &
