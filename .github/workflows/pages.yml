@@ -39,7 +39,7 @@ jobs:
           node-version: "22"
           cache: npm
           cache-dependency-path: site/package-lock.json
-      - run: npm ci --no-audit --no-fund
+      - run: npm ci --ignore-scripts --no-audit --no-fund
       - run: npm run build
         env:
           SITE_BASE_PATH: /krizaka-agents-site
@@ -73,7 +73,7 @@ jobs:
       build-command: |
         npm run build
         node --test tests/publication.test.mjs
-        node scripts/check-links.mjs out
+        node scripts/check-links.mjs
         mkdir -p "$RUNNER_TEMP/srv"
         ln -sfn "$PWD/out" "$RUNNER_TEMP/srv/${SITE_BASE_PATH#/}"
         python3 -m http.server 3100 --directory "$RUNNER_TEMP/srv" >/dev/null 2>&1 &
