@@ -68,6 +68,9 @@ export function namesFounder(text, guard) {
   return words.some((w, i) => seen(w) || (i > 0 && (seen(`${words[i - 1]} ${w}`) || seen(`${words[i - 1]}${w}`))));
 }
 
+/** The paths of the [path, text] entries that name the founder (the paths only: never the word). */
+export const filesNamingFounder = (entries, guard) => entries.filter(([, text]) => namesFounder(text, guard)).map(([path]) => path);
+
 /** The secret's value for these words (lower-cased, one per entry), under a fresh random key unless one is given. */
 export function makeSecret(words, key = randomBytes(32)) {
   const entries = words.map(tokens).filter((t) => t.length > 0);

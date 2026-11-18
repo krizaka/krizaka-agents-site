@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { randomBytes } from "node:crypto";
 import {
+  filesNamingFounder,
   FounderNameGuardError,
   GuardErrorCode,
   guardFrom,
@@ -47,6 +48,11 @@ test("a malformed secret always fails, and never echoes its value", () => {
     );
 });
 
+test("the scan names the files, never the word", () => {
+  const entries = [["content/pages/a.en.md", "Made in Montréal"], ["messages/fr.json", '{"by": "Zorblax"}']];
+  assert.deepEqual(filesNamingFounder(entries, sample), ["messages/fr.json"]);
+});
+
 const outcome = guardFrom(process.env);
 const skip = outcome.skipped ?? false;
 if (skip) console.warn(`::warning::${skip}`);
@@ -54,11 +60,11 @@ if (skip) console.warn(`::warning::${skip}`);
 test("no source of the pages names the founder", { skip }, () => {
   const files = sourceTexts();
   assert.ok(files.length > 20);
-  assert.deepEqual(files.filter(([, text]) => namesFounder(text, outcome.guard)).map(([f]) => f), []);
+  assert.deepEqual(filesNamingFounder(files, outcome.guard), []);
 });
 
 test("no built file names the founder (when built)", { skip: skip || !built() }, () => {
   const files = builtTexts();
   assert.ok(files.length > 10);
-  assert.deepEqual(files.filter(([, text]) => namesFounder(text, outcome.guard)).map(([f]) => f), []);
+  assert.deepEqual(filesNamingFounder(files, outcome.guard), []);
 });
