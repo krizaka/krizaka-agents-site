@@ -36,7 +36,8 @@ const INTERNAL_PATTERNS = [
 const PRIVATE_REPOSITORY_PATTERNS = [/github\.com\/krizaka\/krizaka-agents(?![\w-])/i, /\bkrizaka-(?:internal|restricted)\b/i];
 /** The only addresses a page may show. */
 const PUBLIC_EMAILS = new Set(["contact@krizaka.com", "support@krizaka.com"]);
-const EMAIL = /[\w.+-]+@[\w-]+(?:\.[\w-]+)+/g;
+/** An e-mail address: a word with « @ » followed by a domain (split on separators first, so the pattern stays linear). */
+const EMAIL = /^[\w.+-]+@[\w-]+\.[\w.-]+$/;
 /** A phone number, a Canadian postal code, a SIN / NAS, a card number. */
 const PERSONAL_PATTERNS = [
   /\b\d{3}[\s.-]\d{3}[\s.-]\d{4}\b/,
@@ -67,7 +68,12 @@ const AI_LOOK_WORDS = new RegExp(
 
 const anyOf = (patterns, text) => patterns.some((re) => re.test(text));
 const flat = (text) => text.replaceAll(/\s+/g, " ");
-const privateEmail = (text) => (text.match(EMAIL) ?? []).some((e) => !PUBLIC_EMAILS.has(e.toLowerCase()));
+const emails = (text) =>
+  text
+    .split(/[\s<>"'`(),;:[\]{}|]+/)
+    .map((w) => (w.endsWith(".") ? w.slice(0, -1) : w).toLowerCase())
+    .filter((w) => w.includes("@") && EMAIL.test(w));
+const privateEmail = (text) => emails(text).some((e) => !PUBLIC_EMAILS.has(e));
 
 export const RULES = [
   { id: "secret", test: (text) => anyOf(SECRET_PATTERNS, text) },
