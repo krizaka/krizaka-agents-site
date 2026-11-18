@@ -39,7 +39,8 @@ const PUBLIC_EMAILS = new Set(["contact@krizaka.com", "support@krizaka.com"]);
 const EMAIL = /[\w.+-]+@[\w-]+(?:\.[\w-]+)+/g;
 /** A phone number, a Canadian postal code, a SIN / NAS, a card number. */
 const PERSONAL_PATTERNS = [
-  /(?:\+\d{1,2}[\s.-]?)?\(?\b\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\b/,
+  /\b\d{3}[\s.-]\d{3}[\s.-]\d{4}\b/,
+  /\(\d{3}\) ?\d{3}[\s.-]\d{4}\b/,
   /\b[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d\b/,
   /\b\d{3}[ -]\d{3}[ -]\d{3}\b/,
   /\b\d{4}[ -]\d{4}[ -]\d{4}[ -]\d{1,7}\b/,

@@ -10,7 +10,7 @@ const ORG_LINK = /https:\/\/github\.com\/krizaka\/[\w.-]+/g;
 
 /** The distinct repository pages the texts link to (a deeper link is checked at its repository). */
 export const repositoryLinks = (texts) =>
-  [...new Set(texts.flatMap((t) => t.match(ORG_LINK) ?? []).map((l) => l.replace(/\.git$/, "")))].sort();
+  [...new Set(texts.flatMap((t) => t.match(ORG_LINK) ?? []).map((l) => l.replace(/\.git$/, "")))].sort((a, b) => a.localeCompare(b));
 
 /** The links that do not answer 200 to an anonymous visitor, with their status (0: no answer). `fetchFn` is the port. */
 export async function refusedLinks(links, fetchFn) {
