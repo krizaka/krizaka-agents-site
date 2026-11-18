@@ -1,6 +1,6 @@
 # The information site of Krizaka Agents (site/): lint, tests (the publication checks included), the static build and its browser
 # check on every pull request and in the merge queue; on main the same build is published to GitHub Pages by the shared workflow
-# (krizaka-internal#3122, #4149). Default URL first; the CNAME comes after the DNS (agents.krizaka.com), never before.
+# (krizaka-internal#3122, #4149). The custom domain agents.krizaka.com is set: the site is served at the root, so the build has no base path (SITE_BASE_PATH unset).
 # The founder's name is checked apart, in « Founder name guard »: the only job that receives the keyed secret FOUNDER_NAME_GUARD
 # (krizaka-restricted#375). It fails closed without the secret except on a fork's pull request, and the site is published only
 # after it passed.
@@ -41,8 +41,6 @@ jobs:
           cache-dependency-path: site/package-lock.json
       - run: npm ci --ignore-scripts --no-audit --no-fund
       - run: npm run build
-        env:
-          SITE_BASE_PATH: /krizaka-agents-site
       # The secret reaches this step only. Required (fails closed without it) everywhere but on a fork's pull request.
       - name: No page names the founder (keyed HMAC)
         env:
@@ -62,8 +60,6 @@ jobs:
       working-directory: site
       output-dir: site/out
       timeout-minutes: 20
-      # The default URL serves the site under /krizaka-agents-site. Remove this line in the pull request that adds `cname` (after the DNS).
-      build-env: SITE_BASE_PATH=/krizaka-agents-site
       test-command: |
         npm run lint
         npm test
@@ -72,17 +68,17 @@ jobs:
       # (360 to 1440 px, both languages, both themes).
       build-command: |
         npm run build
-        node --test tests/publication.test.mjs tests/words-and-contact.test.mjs
+        node --test tests/publication.test.mjs tests/words-and-contact.test.mjs tests/no-base-path.test.mjs
         node scripts/check-links.mjs
         mkdir -p "$RUNNER_TEMP/srv"
-        ln -sfn "$PWD/out" "$RUNNER_TEMP/srv/${SITE_BASE_PATH#/}"
+        if [ -n "${SITE_BASE_PATH:-}" ]; then ln -sfn "$PWD/out" "$RUNNER_TEMP/srv/${SITE_BASE_PATH#/}"; else cp -R "$PWD/out/." "$RUNNER_TEMP/srv/"; fi
         python3 -m http.server 3100 --directory "$RUNNER_TEMP/srv" >/dev/null 2>&1 &
         server=$!
         trap 'kill "$server" 2>/dev/null || true' EXIT
         sleep 2
         npm install --ignore-scripts --no-save --no-audit --no-fund playwright@1.64.1
         node_modules/.bin/playwright install --with-deps chromium
-        node scripts/check-overflow.mjs --base "http://localhost:3100$SITE_BASE_PATH"
+        node scripts/check-overflow.mjs --base "http://localhost:3100${SITE_BASE_PATH:-}"
       expect-files: |
         index.html
         fr/index.html
