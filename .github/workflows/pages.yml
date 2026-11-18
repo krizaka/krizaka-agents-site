@@ -29,6 +29,8 @@ jobs:
       working-directory: site
       output-dir: site/out
       timeout-minutes: 20
+      # The default URL serves the site under /krizaka-agents-site. Remove this line in the pull request that adds `cname` (after the DNS).
+      build-env: SITE_BASE_PATH=/krizaka-agents-site
       test-command: |
         npm run lint
         npm test
@@ -37,13 +39,15 @@ jobs:
       build-command: |
         npm run build
         node --test tests/publication.test.mjs
-        python3 -m http.server 3100 --directory out >/dev/null 2>&1 &
+        mkdir -p "$RUNNER_TEMP/srv"
+        ln -sfn "$PWD/out" "$RUNNER_TEMP/srv/${SITE_BASE_PATH#/}"
+        python3 -m http.server 3100 --directory "$RUNNER_TEMP/srv" >/dev/null 2>&1 &
         server=$!
         trap 'kill "$server" 2>/dev/null || true' EXIT
         sleep 2
         npm install --ignore-scripts --no-save --no-audit --no-fund playwright@1.64.1
         node_modules/.bin/playwright install --with-deps chromium
-        node scripts/check-overflow.mjs --base http://localhost:3100
+        node scripts/check-overflow.mjs --base "http://localhost:3100$SITE_BASE_PATH"
       expect-files: |
         index.html
         fr/index.html
