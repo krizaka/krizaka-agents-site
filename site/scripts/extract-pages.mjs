@@ -16,11 +16,18 @@ const out = new URL("../content/pages/", import.meta.url).pathname;
 mkdirSync(out, { recursive: true });
 
 const SLUGS = { "01": "what-it-is", "02": "the-flow", "03": "rules-that-say-no", "04": "alerts-and-the-watchdog", "05": "the-cockpit", "06": "proofs" };
+/** The text without the quotes around it (and the spaces inside them). */
+const strip = (text, open, close) => {
+  let t = text.trim();
+  if (t.startsWith(open)) t = t.slice(open.length);
+  if (t.endsWith(close)) t = t.slice(0, -close.length);
+  return t.trim();
+};
 const pair = (line) => {
   const [, rest = ""] = line.split("— FR ");
   const [fr, en] = rest.split(" · EN ");
   if (!fr || !en) throw new Error(`no FR/EN pair in: ${line}`);
-  return { fr: fr.trim().replace(/^«\s*|\s*»$/g, ""), en: en.trim().replace(/^"|"?\.?$/g, "") };
+  return { fr: strip(fr, "«", "»"), en: strip(en.replace(/\.$/, ""), '"', '"') };
 };
 const section = (text, name) => {
   const m = new RegExp(`^## ${name}\\n([\\s\\S]*?)\\n---\\n`, "m").exec(text);
