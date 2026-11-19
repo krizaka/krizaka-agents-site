@@ -84,7 +84,7 @@ jobs:
   site:
     name: Static site
     needs: founder-name
-    uses: krizaka/.github/.github/workflows/pages-site.yml@0063109d0e75d25b660851e6703a2f967f3fc5e9 # main
+    uses: krizaka/.github/.github/workflows/pages-site.yml@93402d11fa137c4344a6f15dce921f02b48e238e # main
     permissions:
       contents: read
       pages: write
