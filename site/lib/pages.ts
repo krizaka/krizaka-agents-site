@@ -83,3 +83,9 @@ export const NAV_LABELS: Record<Locale, Record<PageSlug, string>> = {
   en: { "": "What it is", flow: "The flow", rules: "Rules that say no", alerts: "Alerts", cockpit: "The cockpit", proofs: "Proofs" },
   fr: { "": "Ce que c'est", flow: "Le flux", rules: "Règles qui disent non", alerts: "Alertes", cockpit: "Le cockpit", proofs: "Preuves" },
 };
+
+/** The page before and the page after one, in the order of PAGES (the order of the left nav); null at either end. */
+export function neighbours(slug: PageSlug): { previous: PageSlug | null; next: PageSlug | null } {
+  const i = PAGES.findIndex((p) => p.slug === slug);
+  return { previous: PAGES[i - 1]?.slug ?? null, next: PAGES[i + 1]?.slug ?? null };
+}

@@ -11,6 +11,7 @@
     "themeToLight": "Passer au thème clair",
     "themeToDark": "Passer au thème sombre"
   },
+  "chapterFoot": { "label": "Pages du site", "previous": "précédent", "next": "suivant" },
   "footer": {
     "aria": "Pied de page",
     "status": "En développement · utilisé chaque jour en interne.",
