@@ -222,6 +222,12 @@ Notre site : **https://www.krizaka.com** · nos bibliothèques libres : https://
 Pages by the shared workflow of `krizaka/.github` (`.github/workflows/pages.yml`). The words come from `content/pages/`
 (extracted from the page drafts of the company's planning repository by `site/scripts/extract-pages.mjs`).
 
+Four pages draw an architecture view where their source says `<!--view:<id>-->` (What it is, The flow twice, Alerts). The views
+come from the one model the blog draws too, krizaka/.github `docs/architecture/krizaka-agents.c4` and its French words, laid out
+by `@krizaka/architecture` into `site/lib/architecture.json` (`node site/scripts/architecture.mjs layout <krizaka/.github
+checkout>`) and drawn by `@krizaka/ui`'s `ArchitectureDiagram` with the text version under each. The « Architecture views » job
+checks the committed layout against the model on krizaka/.github's main (`… check <checkout>`): when it is red, lay it out again.
+
 ```bash
 cd site && npm ci && npm run lint && npm test && npm run build
 ```
