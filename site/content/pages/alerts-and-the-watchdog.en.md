@@ -5,14 +5,14 @@ description: "A watchdog with no model reads the machine and GitHub; every alert
 
 ### § 1 — An alert that goes away never existed
 
-On 9 November a scheduled job stopped working for about six and a half hours. The watchdog saw it ten minutes later and
-raised a critical alert, but as a pop-up nobody read. A notification shows up and goes away: what was missing was a place where the alert stays until
+An alert is only worth something if it stays until a person deals with it. On 9 November a scheduled job stopped for
+about six and a half hours; the watchdog saw it ten minutes later, but as a pop-up nobody read. A notification shows up and goes away: what was missing was a place where the alert stays until
 someone deals with it.
 
 ### § 2 — One table, an owner, a proof
 
 Since 10 November every alert is a row in one table of our operations database, and no notification is sent any more.
-*Fig. 1.* An alert is open; a person (or a session) takes it with a note, who looked and what was understood; it is
+An alert is open; a person (or a session) takes it with a note, who looked and what was understood; it is
 resolved with a proof. Taking an alert does not close it: the watchdog resolves it itself when its next complete read no
 longer sees the problem, and keeps that read as the proof. The database refuses a resolution without a proof. An open
 alert is never purged; the others are, seven days after they were acknowledged.
@@ -21,7 +21,7 @@ alert is never purged; the others are, seven days after they were acknowledged.
 
 The watchdog is code with no model, so it costs no token. Every 15 minutes it runs its local checks (scheduled jobs that
 fail or go silent, sessions that are stuck or loop). At most once an hour it reads GitHub: a red main, a red pull request
-without an owner for an hour, a frozen repository. It never writes to GitHub. *Fig. 2.*
+without an owner for an hour, a frozen repository. It never writes to GitHub.
 
 ### § 4 — The database never decides
 

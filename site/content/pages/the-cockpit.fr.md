@@ -12,14 +12,14 @@ dans la journée : qu'est-ce qui m'attend ? la machine va-t-elle bien ? qu'est-c
 
 Le soir du 15 novembre, la phrase du haut disait « 38 choses vous attendent. Tout le reste avance sans vous. » Elle compte
 ce qui attend une personne, pas ce que font les agents : ce qui limite l'entreprise, c'est la file des décisions que les
-agents ne peuvent pas prendre. *Fig. 1.* Quand rien n'attend, elle le dit.
+agents ne peuvent pas prendre. Quand rien n'attend, elle le dit.
 
 ### § 3 — Puis-je me fier à ce chiffre ?
 
 Chaque chiffre porte sa date. Chaque source a sa cadence de collecte (15 minutes pour le tableau, 5 pour les équipes, une
 heure pour les versions) ; un bloc devient « ancien » au-delà du double de sa cadence ; si la dernière collecte a échoué,
 le badge dit « Échec » avec la date des données encore affichées. Le mot « ancien » se lit aussi en noir et blanc : la
-couleur seule ne porte pas l'information. *Fig. 2.*
+couleur seule ne porte pas l'information.
 
 ### § 4 — La machine va-t-elle bien ?
 

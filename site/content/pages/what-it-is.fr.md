@@ -11,7 +11,7 @@ description: "Nous construisons nos produits avec des agents IA. Voici comment :
 
 *Statut : en développement · utilisé chaque jour en interne.*
 
-Mesuré sur 48 heures en novembre : 92 pull requests fusionnées, 37 écartées, chacune avec sa raison. Deux exemples fusionnés que vous pouvez ouvrir : [PR 379 du blogue](https://github.com/krizaka/krizaka-blog/pull/379), [PR 378](https://github.com/krizaka/krizaka-blog/pull/378).
+Mesuré sur 48 heures en novembre : 92 pull requests fusionnées, 37 écartées, chacune avec sa raison. Deux exemples fusionnés que vous pouvez ouvrir : [PR 379 du blog](https://github.com/krizaka/krizaka-blog/pull/379), [PR 378](https://github.com/krizaka/krizaka-blog/pull/378).
 
 <!--write-->
 
@@ -27,7 +27,7 @@ Tout sert un seul travail : livrer. Cela commence au ticket et finit à la fusio
 ### § 2 — Trois règles, dont tout le reste découle
 
 1. **GitHub est la source.** Tout ce que nous gardons en local est une copie, pour montrer et avertir.
-2. **Pas de modèle là où la réponse doit être certaine.** Le lanceur, les garde-fous, les trains et le veilleur sont du code ordinaire.
+2. **Pas de modèle là où la réponse doit être certaine.** Ce qui démarre une session, les contrôles qui refusent, la file qui fusionne et le moniteur qui lève les alertes sont du code ordinaire, sans modèle.
 3. **Les agents ne se parlent pas.** Une session écrit ce qu'elle a à dire dans un endroit qui reste : un commit, une pull request, une ligne en base.
 
 ### § 3 — Qui décide
