@@ -59,7 +59,7 @@ main {
   }
 }
 
-/* ─── The bar: the mark, the way to krizaka.com and the chapters, the language, the theme; the six pages under it ─── */
+/* ─── The bar: the mark, the way to krizaka.com and the chapters, the language, the theme ─── */
 .kz-bar {
   position: sticky;
   top: 0;
@@ -93,26 +93,14 @@ main {
   justify-content: flex-end;
   font-size: 0.875rem;
 }
-.kz-bar-links a,
-.kz-pages a {
+.kz-bar-links a {
   color: var(--kz-text-secondary);
   text-decoration: none;
   padding: 6px 2px;
 }
-.kz-bar-links a:hover,
-.kz-pages a:hover {
+.kz-bar-links a:hover {
   color: var(--kz-text-primary);
   text-decoration: underline;
-}
-.kz-pages {
-  display: flex;
-  gap: 18px;
-  max-width: 72rem;
-  margin-inline: auto;
-  padding: 0 var(--kz-gutter) 6px;
-  overflow-x: auto;
-  white-space: nowrap;
-  font-size: 0.875rem;
 }
 .kz-icon-button {
   display: inline-grid;
@@ -371,4 +359,123 @@ main {
   margin-bottom: 2rem;
   padding-top: 0;
   border-top: 0;
+}
+
+/* ─── The docs layout: the pages and their § sections in the left column, the red margin, the § numbers left of it ─── */
+.kz-doc {
+  max-width: 72rem;
+  margin-inline: auto;
+  display: block;
+}
+.kz-margin-nav {
+  padding: 0.75rem var(--kz-gutter) 0;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.kz-margin-toggle {
+  width: 100%;
+  text-align: start;
+  padding: 10px 14px;
+  border: 1px solid var(--kz-border-default);
+  background: var(--kz-surface-1);
+  color: var(--kz-text-primary);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.kz-margin-list {
+  display: none;
+  list-style: none;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--kz-border-subtle);
+  background: var(--kz-surface-1);
+}
+.kz-margin-nav[data-open="true"] .kz-margin-list {
+  display: block;
+}
+.kz-margin-list a {
+  display: block;
+  padding: 6px 4px;
+  color: var(--kz-text-secondary);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.kz-margin-list a:hover {
+  color: var(--kz-text-primary);
+  text-decoration: underline;
+}
+.kz-margin-list a[aria-current="page"] {
+  color: var(--kz-text-primary);
+  font-weight: 600;
+}
+.kz-margin-sections {
+  list-style: none;
+  margin: 0 0 0.5rem 0.25rem;
+  padding-inline-start: 0.75rem;
+  border-inline-start: 1px solid var(--kz-border-default);
+}
+.kz-margin-sections a[aria-current="location"] {
+  color: var(--kz-accent-text);
+  font-weight: 600;
+  box-shadow: inset 2px 0 0 var(--kz-paper-rule-margin, var(--kz-accent));
+  padding-inline-start: 8px;
+}
+.kz-margin-n {
+  font-family: var(--kz-font-mono);
+  margin-inline-end: 0.5em;
+  white-space: nowrap;
+}
+.kz-prose h3[data-n]::before {
+  content: attr(data-n);
+  position: absolute;
+  inset-inline-end: calc(100% + var(--kz-gutter) + 1rem);
+  width: 3rem;
+  text-align: end;
+  font-family: var(--kz-font-mono);
+  font-size: 0.9rem;
+  color: var(--kz-paper-rule-margin, var(--kz-accent));
+}
+.kz-prose h3 {
+  position: relative;
+}
+@media (max-width: 1023px) {
+  .kz-prose h3[data-n]::before {
+    position: static;
+    display: block;
+    width: auto;
+    text-align: start;
+    font-size: 0.8rem;
+    line-height: 1.2;
+  }
+}
+@media (min-width: 1024px) {
+  .kz-doc {
+    display: grid;
+    grid-template-columns: 17rem minmax(0, var(--kz-reading));
+    column-gap: 6rem;
+    justify-content: start;
+    padding-inline: var(--kz-gutter);
+  }
+  .kz-margin-nav {
+    position: sticky;
+    top: 70px;
+    align-self: start;
+    max-height: calc(100dvh - 86px);
+    overflow-y: auto;
+    padding: 2.5rem 0 0;
+  }
+  .kz-margin-toggle {
+    display: none;
+  }
+  .kz-margin-list {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+  .kz-article {
+    margin: 0;
+  }
 }
