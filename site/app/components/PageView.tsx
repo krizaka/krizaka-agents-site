@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import { getMessages, localizedPath, type Locale } from "@/lib/i18n";
-import { PAGES, readPage, type PageSlug } from "@/lib/pages";
+import Link from "next/link";
+import { ChapterFoot } from "@krizaka/ui/chapter";
+import { PAGES, neighbours, readPage, type PageSlug } from "@/lib/pages";
 import { SITE_URL, SHARE_SIZE, shareImagePath } from "@/lib/site";
 import { stations } from "@/lib/flow";
 import { NAV_LABELS } from "@/lib/pages";
@@ -84,6 +86,22 @@ function Stretch({ locale, html }: Readonly<{ locale: Locale; html: string }>) {
   });
 }
 
+function PageFoot({ locale, slug }: Readonly<{ locale: Locale; slug: PageSlug }>) {
+  const t = getMessages(locale);
+  const link = (target: PageSlug | null) =>
+    target === null ? undefined : { title: NAV_LABELS[locale][target], href: localizedPath(locale, `/${target}`) };
+  const { previous, next } = neighbours(slug);
+  return (
+    <ChapterFoot
+      label={t.chapterFoot.label}
+      labels={{ previous: t.chapterFoot.previous, next: t.chapterFoot.next }}
+      previous={link(previous)}
+      next={link(next)}
+      linkAs={Link}
+    />
+  );
+}
+
 export default function PageView({ locale, slug }: Readonly<{ locale: Locale; slug: string | undefined }>) {
   const t = getMessages(locale);
   const page = readPage(locale, entry(slug));
@@ -102,6 +120,7 @@ export default function PageView({ locale, slug }: Readonly<{ locale: Locale; sl
       {page.figure && <Flow locale={locale} caption={page.figure} />}
       {page.figure && <Stretch locale={locale} html={after} />}
       <WriteToUs locale={locale} invite />
+      <PageFoot locale={locale} slug={page.slug} />
     </article>
     </div>
   );

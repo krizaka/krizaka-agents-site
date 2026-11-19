@@ -11,6 +11,7 @@
     "themeToLight": "Switch to the light theme",
     "themeToDark": "Switch to the dark theme"
   },
+  "chapterFoot": { "label": "Site pages", "previous": "previous", "next": "next" },
   "footer": {
     "aria": "Site footer",
     "status": "In development · used internally every day.",

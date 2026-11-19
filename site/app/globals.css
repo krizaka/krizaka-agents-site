@@ -140,6 +140,10 @@ main {
   border-inline-start: 2px solid var(--kz-paper-rule-margin, var(--kz-accent));
   min-height: 60dvh;
 }
+.kz-article .kz-chapter-foot {
+  margin-top: calc(var(--line) * 2);
+}
+
 .kz-article h1 {
   font-family: var(--kz-font-display);
   font-weight: 400;
