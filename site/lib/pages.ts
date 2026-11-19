@@ -31,7 +31,7 @@ function parse(source: string) {
 const ENTITIES: ReadonlyArray<readonly [string, string]> = [["&lt;", "<"], ["&gt;", ">"], ["&quot;", '"'], ["&#39;", "'"], ["&amp;", "&"]];
 
 /** The plain text of a rendered heading: inline tags dropped, entities decoded. */
-const plainText = (html: string) => ENTITIES.reduce((t, [from, to]) => t.replaceAll(from, to), html.replace(/<[^>]+>/g, ""));
+const plainText = (html: string) => ENTITIES.reduce((t, [from, to]) => t.replaceAll(from, to), html.replace(/<[^<>]*>/g, ""));
 
 const HEADING = /<h3>(?:§ (\d+) — )?([\s\S]*?)<\/h3>/g;
 
