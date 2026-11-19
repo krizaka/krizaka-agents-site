@@ -4,7 +4,9 @@ import { PAGES, readPage, type PageSlug } from "@/lib/pages";
 import { SITE_URL, SHARE_SIZE, shareImagePath } from "@/lib/site";
 import { stations } from "@/lib/flow";
 import { NAV_LABELS } from "@/lib/pages";
+import { piecesOf } from "@/lib/views";
 import WriteToUs from "./WriteToUs";
+import ViewFigure from "./ViewFigure";
 import MarginNav from "./MarginNav";
 
 const WRITE_MARK = "<!--write-->";
@@ -70,6 +72,18 @@ function Prose({ locale, html }: Readonly<{ locale: Locale; html: string }>) {
   );
 }
 
+/** A stretch of the page with the architecture views its source places (`<!--view:<id>-->`), each between its paragraphs. */
+function Stretch({ locale, html }: Readonly<{ locale: Locale; html: string }>) {
+  let after = "start"; // a stretch of prose is keyed by the view it follows: stable, and never an array index
+  return piecesOf(html).map((piece) => {
+    if ("view" in piece) {
+      after = piece.view;
+      return <ViewFigure key={piece.view} locale={locale} id={piece.view} />;
+    }
+    return <Prose key={`prose-after-${after}`} locale={locale} html={piece.html} />;
+  });
+}
+
 export default function PageView({ locale, slug }: Readonly<{ locale: Locale; slug: string | undefined }>) {
   const t = getMessages(locale);
   const page = readPage(locale, entry(slug));
@@ -84,9 +98,9 @@ export default function PageView({ locale, slug }: Readonly<{ locale: Locale; sl
     />
     <article className="kz-article">
       <h1>{page.title}</h1>
-      <Prose locale={locale} html={before} />
+      <Stretch locale={locale} html={before} />
       {page.figure && <Flow locale={locale} caption={page.figure} />}
-      {page.figure && <Prose locale={locale} html={after} />}
+      {page.figure && <Stretch locale={locale} html={after} />}
       <WriteToUs locale={locale} invite />
     </article>
     </div>

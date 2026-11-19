@@ -29,5 +29,15 @@
     "alt": "Du ticket à l'alerte en sept stations, avec 92 pull requests fusionnées en 48 heures."
   },
   "notFound": { "title": "Cette page n'existe pas", "back": "Retour à l'accueil" },
-  "figure": { "label": "Fig. 1", "flow": "Du ticket à l'alerte, sept stations" }
+  "figure": { "label": "Fig. 1", "flow": "Du ticket à l'alerte, sept stations" },
+  "views": {
+    "scrollCue": "Faites défiler sur le côté pour voir tout le schéma, ou lisez-le en mots ci-dessous.",
+    "words": { "summary": "Le schéma en mots", "elements": "Éléments", "relations": "Relations", "steps": "Étapes, dans l'ordre" },
+    "captions": {
+      "agents_context": "Krizaka Agents se place entre un ticket et une pull request fusionnée : les agents proposent, les contrôles refusent, une personne décide.",
+      "agents_containers": "Les pièces qui portent un ticket jusqu'à la fusion ; aucune n'est un modèle, sauf les sessions elles-mêmes.",
+      "pr_life": "La vie d'une pull request en douze étapes ; à trois d'entre elles, quelque chose peut la refuser.",
+      "alert_life": "Une alerte reste dans une table jusqu'à ce qu'une personne la prenne et qu'une preuve la ferme."
+    }
+  }
 }

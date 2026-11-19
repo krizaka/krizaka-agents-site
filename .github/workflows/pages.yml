@@ -48,6 +48,39 @@ jobs:
           FOUNDER_NAME_GUARD_REQUIRED: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork) }}
         run: node --test tests/public-no-founder-name.test.mjs
 
+  # The architecture views (site/lib/architecture.json) were laid out from krizaka/.github's model as it is on its main: the model,
+  # the org base and the French words, compared by sha256 (krizaka-internal#4184). Red when the model moved: lay it out again with
+  # `node scripts/architecture.mjs layout <krizaka/.github checkout>`.
+  architecture:
+    name: Architecture views
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: krizaka/.github
+          ref: main
+          path: org-model
+          persist-credentials: false
+          sparse-checkout: docs/architecture
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      # The CLI is a tool of this check only, pinned here like playwright below (bundle-require: a module LikeC4's config loads)
+      - run: npm install --ignore-scripts --no-save --no-audit --no-fund @krizaka/architecture@0.4.0 bundle-require@5.1.0
+      - run: node scripts/architecture.mjs check ../org-model
+
   site:
     name: Static site
     needs: founder-name

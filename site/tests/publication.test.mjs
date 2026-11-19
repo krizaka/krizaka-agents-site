@@ -71,6 +71,7 @@ test("the rules leave the honest sentences alone", () => {
     "Le 9 novembre à 18 h 20, puis à 18 h 30.",
     "Write to contact@krizaka.com or support@krizaka.com.",
     "The founder decides; the agents propose.",
+    '<polygon points="568,622 552.8352719385211,616.8979393553784"></polygon>',
   ])
     assert.deepEqual(problems(ok), [], ok);
 });

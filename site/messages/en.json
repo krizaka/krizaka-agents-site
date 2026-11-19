@@ -29,5 +29,15 @@
     "alt": "From ticket to alert in seven stations, with 92 pull requests merged in 48 hours."
   },
   "notFound": { "title": "This page does not exist", "back": "Back to the home" },
-  "figure": { "label": "Fig. 1", "flow": "From ticket to alert, seven stations" }
+  "figure": { "label": "Fig. 1", "flow": "From ticket to alert, seven stations" },
+  "views": {
+    "scrollCue": "Scroll sideways to see the whole drawing, or read it in words below.",
+    "words": { "summary": "The diagram in words", "elements": "Elements", "relations": "Relations", "steps": "Steps, in order" },
+    "captions": {
+      "agents_context": "Krizaka Agents sits between a ticket and a merged pull request: agents propose, checks refuse, a person decides.",
+      "agents_containers": "The parts that carry a ticket to a merge; none of them is a model except the sessions themselves.",
+      "pr_life": "The life of a pull request in twelve steps; at three of them something can refuse it.",
+      "alert_life": "An alert stays in one table until a person takes it and a proof closes it."
+    }
+  }
 }

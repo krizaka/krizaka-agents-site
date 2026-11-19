@@ -13,6 +13,8 @@ refused with one instruction, split it.
 
 ### § 2 — A session built and checked
 
+<!--view:agents_containers-->
+
 A session has no screen and nobody to answer its questions: it has a ticket, a brief and its caps. The launcher starts it
 the same way every time: isolated (it only sees the code index and the declared tools), pinned (the Claude Code version
 moves only by pull request), checked twice (the machine before the start, then what the session really loaded at its
@@ -32,6 +34,8 @@ A session never merges. It opens its pull request with one command, then puts it
 script that empties it, with no token. The train takes the head, rebases it on main, waits for the required checks and
 sends it into GitHub's merge queue, which runs the checks again on the real mix with main. A red head is skipped with its
 reason. A red main freezes the repository's merges until a `fix` lands.
+
+<!--view:pr_life-->
 
 ### § 5 — After the merge
 

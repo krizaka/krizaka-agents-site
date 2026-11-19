@@ -45,7 +45,7 @@ const PERSONAL_PATTERNS = [
   /\b[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d\b/,
   /\b\d{3}[ -]\d{3}[ -]\d{3}\b/,
   /\b\d{4}[ -]\d{4}[ -]\d{4}[ -]\d{1,7}\b/,
-  /\b\d{13,19}\b/,
+  /(?<![\d.])\b\d{13,19}\b/, // not the tail of a decimal: a drawn diagram holds coordinates like 552.8352719385211
 ];
 /** « founder, 2026-… » / « fondateur, 2026-… »: the attribution the internal documents are full of. */
 const FOUNDER_ATTRIBUTION = /\b(?:founder|fondateur)\s{0,3}[,(—–-]\s{0,3}20\d\d-\d\d/i;
