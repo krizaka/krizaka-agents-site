@@ -6,7 +6,6 @@ import { SkipLink } from "@krizaka/ui/skip-link";
 import { cn } from "@krizaka/ui/cn";
 import { getMessages, localizedPath, type Locale } from "@/lib/i18n";
 import { KRIZAKA_URL, BLOG_URL, contactUrl } from "@/lib/site";
-import { NAV_LABELS, PAGES } from "@/lib/pages";
 import { displayFace, monoFace, textFace } from "../fonts";
 import ThemeToggle from "./ThemeToggle";
 import FamilyFooterBlock from "./FamilyFooterBlock";
@@ -18,7 +17,6 @@ import "../globals.css";
 export default function SiteRoot({ locale, children }: Readonly<{ locale: Locale; children: ReactNode }>) {
   const t = getMessages(locale);
   const other: Locale = locale === "en" ? "fr" : "en";
-  const labels = NAV_LABELS[locale];
   const company = `${KRIZAKA_URL}/${locale}`;
   return (
     <html
@@ -51,13 +49,6 @@ export default function SiteRoot({ locale, children }: Readonly<{ locale: Locale
                 <ThemeToggle toLight={t.bar.themeToLight} toDark={t.bar.themeToDark} />
               </div>
             </div>
-            <nav aria-label={t.bar.aria} className="kz-pages">
-              {PAGES.map((p) => (
-                <Link key={p.file} href={localizedPath(locale, `/${p.slug}`)}>
-                  {labels[p.slug]}
-                </Link>
-              ))}
-            </nav>
           </header>
           <main id="content">{children}</main>
           <FamilyFooterBlock locale={locale} />

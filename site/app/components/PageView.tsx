@@ -3,7 +3,9 @@ import { getMessages, localizedPath, type Locale } from "@/lib/i18n";
 import { PAGES, readPage, type PageSlug } from "@/lib/pages";
 import { SITE_URL, SHARE_SIZE, shareImagePath } from "@/lib/site";
 import { stations } from "@/lib/flow";
+import { NAV_LABELS } from "@/lib/pages";
 import WriteToUs from "./WriteToUs";
+import MarginNav from "./MarginNav";
 
 const WRITE_MARK = "<!--write-->";
 
@@ -69,9 +71,17 @@ function Prose({ locale, html }: Readonly<{ locale: Locale; html: string }>) {
 }
 
 export default function PageView({ locale, slug }: Readonly<{ locale: Locale; slug: string | undefined }>) {
+  const t = getMessages(locale);
   const page = readPage(locale, entry(slug));
   const [before, after] = page.figure ? page.html.split("<!--figure-->") : [page.html, ""];
   return (
+    <div className="kz-doc">
+    <MarginNav
+      label={t.bar.pages}
+      contents={t.bar.contents}
+      pages={PAGES.map((p) => ({ href: localizedPath(locale, `/${p.slug}`), label: NAV_LABELS[locale][p.slug], current: p.slug === page.slug }))}
+      sections={page.sections}
+    />
     <article className="kz-article">
       <h1>{page.title}</h1>
       <Prose locale={locale} html={before} />
@@ -79,5 +89,6 @@ export default function PageView({ locale, slug }: Readonly<{ locale: Locale; sl
       {page.figure && <Prose locale={locale} html={after} />}
       <WriteToUs locale={locale} invite />
     </article>
+    </div>
   );
 }

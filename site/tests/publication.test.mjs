@@ -6,6 +6,9 @@ import { aiLook, allowedSourceFile, longCodeBlocks, problems } from "../scripts/
 import { repositoryLinks, refusedLinks } from "../scripts/check-links.mjs";
 import { built, builtTexts, root, sourcePaths, sourceTexts, withoutScripts } from "./published-texts.mjs";
 
+// The margin nav checks on the built pages ride with the post-build run of this file (CI runs it after `next build`).
+import "./margin-nav.test.mjs";
+
 // The publication checks (§ 6 of the site's plan): what is written in the pages, the messages and the built site is public.
 // The rules themselves are proven on bad samples; then they run on the sources and, when `out/` exists, on every built file.
 // The secret and personal samples are assembled at run time so that no secret- or card-shaped string sits in this file.

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* No horizontal overflow, measured in a real browser (Playwright) on the built site, from a 360 px phone to a 1440 px
    desktop, in both languages and both themes: the document must not be wider than the window, and nothing visible may stick
-   out of it unless it sits in a scroller made for that (the table, the page bar).
+   out of it unless it sits in a scroller made for that (the table).
    Usage: node scripts/check-overflow.mjs --base http://localhost:3100 [--shots <dir>] */
 import { mkdirSync } from "node:fs";
 import { createRequire } from "node:module";
@@ -47,8 +47,20 @@ for (const theme of ["dark", "light"]) {
     for (const path of PATHS) {
       await page.goto(`${base}${path}`, { waitUntil: "networkidle" });
       await page.evaluate(() => document.fonts.ready);
+      const nav = await page.evaluate(() => {
+        const n = document.querySelector(".kz-margin-nav");
+        const list = n?.querySelector(".kz-margin-list");
+        return { present: !!n, listShown: !!list && getComputedStyle(list).display !== "none" };
+      });
+      if (!nav.present) problems.push(`${path} @${width} ${theme}: the margin nav is missing`);
+      if (width >= 1024 && !nav.listShown) problems.push(`${path} @${width} ${theme}: the page list is not in the left margin`);
+      if (width < 1024 && nav.listShown) problems.push(`${path} @${width} ${theme}: the list should sit behind « Contents »`);
+      if (width < 1024) {
+        await page.click(".kz-margin-toggle");
+        for (const issue of await page.evaluate(measure)) problems.push(`${path} @${width} ${theme} (contents open): ${issue}`);
+      }
       for (const issue of await page.evaluate(measure)) problems.push(`${path} @${width} ${theme}: ${issue}`);
-      if (shots && (path === "/" || path === "/flow/") && (width === 390 || width === 1440))
+      if (shots && (path === "/flow/" || path === "/proofs/" || path === "/fr/flow/" || path === "/fr/proofs/") && (width === 390 || width === 1440))
         await page.screenshot({ path: `${shots}/${path.replaceAll("/", "") || "home"}-${width}-${theme}.png`, fullPage: true });
     }
     await context.close();

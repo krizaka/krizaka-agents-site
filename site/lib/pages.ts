@@ -15,7 +15,9 @@ export const PAGES = [
 ] as const;
 export type PageSlug = (typeof PAGES)[number]["slug"];
 
-export type Page = { slug: PageSlug; title: string; description: string; html: string; figure: string | null };
+/** A § section of a page: its anchor, its number in the margin (null for an unnumbered heading) and its text. */
+export type Section = { id: string; n: number | null; title: string };
+export type Page = { slug: PageSlug; title: string; description: string; html: string; figure: string | null; sections: Section[] };
 
 const FIGURE = /<p><em>(Fig\. 1[\s\S]*?)<\/em><\/p>/;
 
@@ -25,18 +27,36 @@ function parse(source: string) {
   return { title: JSON.parse(m[1]) as string, description: JSON.parse(m[2]) as string, body: m[3] };
 }
 
+const HEADING = /<h3>(?:§ (\d+) — )?([\s\S]*?)<\/h3>/g;
+
+/** The « § N — » of a heading moves into the margin: the heading keeps its text, gets an anchor and a `data-n` the styles draw. */
+function numberHeadings(html: string): { html: string; sections: Section[] } {
+  const sections: Section[] = [];
+  const out = html.replace(HEADING, (_all, n: string | undefined, title: string) => {
+    const id = n ? `s${n}` : `s-${slugOf(title)}`;
+    sections.push({ id, n: n ? Number(n) : null, title });
+    const marker = n ? ` data-n="§ ${n}"` : "";
+    return `<h3 id="${id}"${marker}>${title}</h3>`;
+  });
+  return { html: out, sections };
+}
+
+const slugOf = (text: string) =>
+  text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
 export function readPage(locale: Locale, slug: PageSlug): Page {
   const entry = PAGES.find((p) => p.slug === slug);
   if (!entry) throw new Error(`no page ${slug}`);
   const { title, description, body } = parse(
     readFileSync(join(process.cwd(), "content", "pages", `${entry.file}.${locale}.md`), "utf8"),
   );
-  const html = (marked.parse(body, { async: false }) as string).replaceAll(
-    "<table>",
-    '<div class="kz-table-scroll"><table class="kz-table">',
-  ).replaceAll("</table>", "</table></div>");
+  const withTables = (marked.parse(body, { async: false }) as string)
+    .replaceAll("<table>", '<div class="kz-table-scroll"><table class="kz-table">')
+    .replaceAll("</table>", "</table></div>");
+  const numbered = numberHeadings(withTables);
+  const html = numbered.html;
   const caption = FIGURE.exec(html);
-  return { slug, title, description, html: caption ? html.replace(FIGURE, "<!--figure-->") : html, figure: caption ? caption[1] : null };
+  return { slug, title, description, html: caption ? html.replace(FIGURE, "<!--figure-->") : html, figure: caption ? caption[1] : null, sections: numbered.sections };
 }
 
 /** The title of a page in the bar: its first words, short. */
