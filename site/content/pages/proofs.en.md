@@ -16,13 +16,13 @@ in 48 h · 18 of 18 sessions finished.
 
 | Subject | Chapter | What you find |
 | :--- | :--- | :--- |
-| Architecture | [The architecture of krizaka-agents](https://blog.krizaka.com/story/the-architecture-of-krizaka-agents/) | five checked views, the caps per session, two read-only audits (332 launches, 0 environment drift) |
+| Architecture | [The architecture of our AI agents tooling](https://blog.krizaka.com/story/the-architecture-of-krizaka-agents/) | five checked views, the caps per session, two read-only audits (332 launches, 0 environment drift) |
 | Rules that say no | [Working with agents](https://blog.krizaka.com/story/working-with-agents-rules-that-refuse/) | real refusals, with their exit code |
 | Coordinator | [Agents under a coordinator](https://blog.krizaka.com/story/agents-under-a-coordinator/) | three failed tests, then a wave that lands; what is not proven |
 | Start | [Every agent starts in the same world](https://blog.krizaka.com/story/every-agent-starts-in-the-same-world/) | 190,000 → 40,000 tokens on the first turn; 18 of 18 sessions finished |
 | Teams | [How our agent teams talk](https://blog.krizaka.com/story/how-our-agent-teams-talk/) | four audits in one day: 14, 8, 10 then 7 bugs |
 | Founder and CTO | [How the CTO agent and I work](https://blog.krizaka.com/story/how-the-founder-and-the-cto-agent-work/) | who decides what |
-| Trains | [All aboard](https://blog.krizaka.com/story/tchou-tchou-how-our-pull-requests-catch-the-train/) | the pull request queue |
+| Trains | [All aboard: our pull requests catch the train](https://blog.krizaka.com/story/tchou-tchou-how-our-pull-requests-catch-the-train/) | the pull request queue |
 | Cockpit | [One local cockpit](https://blog.krizaka.com/story/one-local-cockpit-to-run-the-whole-company/) | the screen, figures of 15 November |
 
 ### § 3 — Merged pull requests, in public

@@ -12,14 +12,14 @@ what is waiting for me? is the machine healthy? what is broken, and since when?
 
 On the evening of 15 November the top sentence said « 38 things are waiting for you. Everything else moves without you. »
 It counts what waits for a person, not what the agents are doing: what limits the company is the queue of decisions the
-agents cannot take. *Fig. 1.* When nothing waits, it says so.
+agents cannot take. When nothing waits, it says so.
 
 ### § 3 — Can I trust this figure?
 
 Every figure carries its date. Each source has its gathering cadence (15 minutes for the board, 5 for the teams, one hour
 for the releases); a block turns « old » once it has gone past twice its cadence; if the last gathering failed, the
 badge says « Failed » with the date of the data still shown. The word « old » reads in black and white too: colour alone
-does not carry the information. *Fig. 2.*
+does not carry the information.
 
 ### § 4 — Is the machine healthy?
 

@@ -12,8 +12,6 @@ n'a pas à retenir la règle, la commande s'en charge.
 
 ### § 2 — Quatre endroits où l'on refuse
 
-*Fig. 1 — Avant et après chaque appel d'outil ; au commit et au push ; la pré-vérification avant le push ; la CI.*
-
 - **À chaque appel d'outil** : un hook refuse (un fichier de secrets affiché, une écriture GitHub sans l'identité d'une application, du code lu avant l'index) ; le fichier édité est formaté et vérifié seul, en quelques secondes.
 - **Au commit et au push** : secrets et identité de l'auteur ; au push, le format et les vérificateurs de workflows.
 - **La pré-vérification, avant le push** : la boucle rapide du dépôt sur ce qui a changé (lint, types, tests des paquets touchés).
@@ -25,7 +23,7 @@ Un garde-fou refuse et dit pourquoi ; il ne répare pas en silence, car une rép
 
 Ce qu'on peut voir sur la machine n'attend pas la CI : sur 4 pull requests rouges en CI, 3 avaient échoué sur un contrôle
 qui existait en local et n'avait pas tourné. Un **cliquet** compte une dette (avertissements de lint, code dupliqué,
-exceptions aux règles d'architecture) dans un fichier que la CI laisse descendre, jamais monter. *Fig. 2.*
+exceptions aux règles d'architecture) dans un fichier que la CI laisse descendre, jamais monter.
 
 ### § 4 — Chaque dérive laisse un garde-fou
 
