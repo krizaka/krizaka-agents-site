@@ -74,13 +74,14 @@ function Prose({ locale, html }: Readonly<{ locale: Locale; html: string }>) {
 
 /** A stretch of the page with the architecture views its source places (`<!--view:<id>-->`), each between its paragraphs. */
 function Stretch({ locale, html }: Readonly<{ locale: Locale; html: string }>) {
-  return piecesOf(html).map((piece, i) =>
-    "view" in piece ? (
-      <ViewFigure key={piece.view} locale={locale} id={piece.view} />
-    ) : (
-      <Prose key={`prose-${i}`} locale={locale} html={piece.html} />
-    ),
-  );
+  let after = "start"; // a stretch of prose is keyed by the view it follows: stable, and never an array index
+  return piecesOf(html).map((piece) => {
+    if ("view" in piece) {
+      after = piece.view;
+      return <ViewFigure key={piece.view} locale={locale} id={piece.view} />;
+    }
+    return <Prose key={`prose-after-${after}`} locale={locale} html={piece.html} />;
+  });
 }
 
 export default function PageView({ locale, slug }: Readonly<{ locale: Locale; slug: string | undefined }>) {
