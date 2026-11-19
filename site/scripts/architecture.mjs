@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /* The architecture views of the site, from the one model the blog draws too: krizaka/.github docs/architecture/krizaka-agents.c4
    and its French words, written against the org's base (specification.c4, org.c4) next to it (krizaka-internal#4184). The logic
-   is @krizaka/architecture's CLI; this file only names the files.
+   is @krizaka/architecture's CLI (a tool, not a dependency of the site: `npm install --no-save @krizaka/architecture@0.4.0
+   bundle-require@5.1.0` first, as the « Architecture views » job does); this file only names the files.
 
      node scripts/architecture.mjs layout <krizaka/.github checkout>   check the model, lay it out, write lib/architecture.json
      node scripts/architecture.mjs check <krizaka/.github checkout>    lib/architecture.json was made from these files as they are */
