@@ -10,6 +10,10 @@ measures and their limits, and merged pull requests of public repositories. A pr
 
 ### § 2 — The chapters
 
+The measures already quoted on this site: 190,000 → 40,000 tokens on a session's first turn · 92 PRs merged and 37 skipped
+in 48 h · 18 of 18 sessions finished.
+
+
 | Subject | Chapter | What you find |
 | :--- | :--- | :--- |
 | Architecture | [The architecture of krizaka-agents](https://blog.krizaka.com/story/the-architecture-of-krizaka-agents/) | five checked views, the caps per session, two read-only audits (332 launches, 0 environment drift) |

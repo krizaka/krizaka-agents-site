@@ -12,11 +12,21 @@
   },
   "footer": {
     "aria": "Pied de page",
-    "status": "En développement · usage interne. Fonctionne avec Claude Code.",
+    "status": "En développement · utilisé chaque jour en interne.",
     "source": "Code source",
     "code": "Le code de Krizaka Agents est privé ; ce site montre la méthode."
   },
-  "contact": { "label": "Nous écrire", "promise": "Rien n'est à vendre aujourd'hui ; nous répondons." },
+  "contact": {
+    "label": "Nous écrire",
+    "promise": "Rien n'est à vendre aujourd'hui ; nous répondons.",
+    "invite": "Vous utilisez des agents de code dans votre entreprise, ou la méthode vous intrigue ? Dites-nous en quelques lignes ce sur quoi vous travaillez."
+  },
+  "share": {
+    "title": "Krizaka Agents : comment nous livrons avec des agents",
+    "strip": ["ticket", "session", "refus", "pull request", "fusion", "recette", "alertes"],
+    "line": "92 pull requests fusionnées en 48 h · 37 écartées, chacune avec sa raison",
+    "alt": "Du ticket à l'alerte en sept stations, avec 92 pull requests fusionnées en 48 heures."
+  },
   "notFound": { "title": "Cette page n'existe pas", "back": "Retour à l'accueil" },
   "figure": { "label": "Fig. 1", "flow": "Du ticket à l'alerte, sept stations" }
 }

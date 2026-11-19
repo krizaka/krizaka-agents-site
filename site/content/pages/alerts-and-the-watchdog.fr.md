@@ -5,9 +5,8 @@ description: "Un veilleur sans modèle lit la machine et GitHub ; chaque alerte 
 
 ### § 1 — Une alerte qui s'efface n'a jamais existé
 
-Le 9 novembre à 18 h 20, une ligne de tâche planifiée est remise en place sans le droit d'exécution ; chaque exécution
-échoue, pendant environ six heures et demie. Le veilleur l'a vue à 18 h 30 et a levé une alerte critique, sous forme de
-notification sur le bureau du Mac. Personne ne l'a lue. Une notification apparaît et disparaît : il manquait un endroit
+Le 9 novembre, une tâche planifiée est tombée en panne pendant environ six heures et demie. Le veilleur l'a vue dix
+minutes plus tard et a levé une alerte critique, mais sous forme d'une notification que personne n'a lue. Une notification apparaît et disparaît : il manquait un endroit
 où l'alerte reste tant que personne ne s'en est occupé.
 
 ### § 2 — Une table, un propriétaire, une preuve

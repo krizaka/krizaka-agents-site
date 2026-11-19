@@ -24,9 +24,8 @@ couleur seule ne porte pas l'information. *Fig. 2.*
 ### § 4 — La machine va-t-elle bien ?
 
 La page répond d'abord par une phrase, oui ou non, puis six lignes dont le détail reste replié. Ce soir-là : 13 sessions
-d'équipe au travail, 4 pull requests rouges dans les trains, 14 tâches planifiées actives et 16 alertes ouvertes, dont 2
-graves. La machine se limite elle-même : un lancement d'équipe a attendu parce que la charge moyenne du Mac sur cinq
-minutes était de 86, au-dessus du frein de 60.
+d'agents au travail, 16 alertes ouvertes, dont 2 graves. Le système se freine aussi quand la machine est surchargée : un
+lancement a attendu pour cette raison.
 
 ### § 5 — Ce qu'il ne fait pas
 

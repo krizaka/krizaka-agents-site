@@ -3,19 +3,23 @@ title: "Krizaka Agents : comment nous livrons avec des agents"
 description: "Nous construisons nos produits avec des agents IA. Voici comment : une session par ticket, des contrôles qui refusent, une personne qui décide. Pas à vendre."
 ---
 
-**Pour les pairs** — Ce qui entoure Claude Code pour livrer : une session par ticket, des contrôles qui refusent, une pull request, une personne qui décide.
+**En bref** — La façon dont nous construisons nos produits : des agents IA écrivent les changements, des contrôles les vérifient, une personne les accepte ou les refuse.
 
-**Pour tout le monde** — La façon dont nous construisons nos produits : des agents IA écrivent les changements, des contrôles les vérifient, une personne les accepte ou les refuse.
+**Pour les ingénieurs** — Ce qui entoure Claude Code pour livrer : une session par ticket, des contrôles qui refusent, une pull request, une personne qui décide.
 
 > **Nous construisons nos produits avec, chaque jour. Il n'est pas à vendre pour l'instant.**
 
-*Statut : en développement · usage interne. Fonctionne avec Claude Code.*
+*Statut : en développement · utilisé chaque jour en interne.*
+
+Mesuré sur 48 heures en novembre : 92 pull requests fusionnées, 37 écartées, chacune avec sa raison. Deux exemples fusionnés que vous pouvez ouvrir : [PR 379 du blogue](https://github.com/krizaka/krizaka-blog/pull/379), [PR 378](https://github.com/krizaka/krizaka-blog/pull/378).
+
+<!--write-->
 
 ### § 1 — Ce que c'est
 
-Krizaka Agents est l'outillage qui entoure les modèles : un lanceur qui démarre chaque session de la même façon, des
-garde-fous qui refusent, des trains qui fusionnent, un veilleur qui lit, un cockpit qui montre. Les sessions
-tournent dans Claude Code ; c'est Claude Code qui fournit la boucle d'agent, pas nous. Ce que nous construisons, c'est ce
+Krizaka Agents, c'est ce que nous mettons autour des modèles d'IA pour que leur travail soit fiable. Chaque changement
+part d'un ticket, passe par des contrôles qui peuvent le refuser, arrive en pull request (une proposition de changement
+du code, relue avant d'être fusionnée) et est accepté ou refusé par une personne. Les sessions tournent dans Claude Code ; c'est Claude Code qui fournit la boucle d'agent, pas nous. Ce que nous construisons, c'est ce
 qu'il y a autour : de quoi livrer chaque changement en pull request et le faire refuser s'il ne passe pas.
 
 Tout sert un seul travail : livrer. Cela commence au ticket et finit à la fusion et à sa vérification.
@@ -28,13 +32,14 @@ Tout sert un seul travail : livrer. Cela commence au ticket et finit à la fusio
 
 ### § 3 — Qui décide
 
-Une personne fixe la direction et décide de ce qui est à elle : l'argent, les comptes, le juridique, ce qui ne peut pas
-se défaire. Un agent CTO décide du reste tant que c'est réversible, avec un plafond écrit dès qu'une dépense est possible.
+Une personne a toujours le dernier mot sur l'argent, les comptes, le juridique et tout ce qui ne peut pas se défaire.
+Dans ces limites, un agent IA qui joue le rôle de responsable technique décide de ce qui est réversible, avec un plafond
+de dépense écrit.
 Les agents proposent chaque changement par pull request ; ils ne fusionnent pas.
 
 ### § 4 — Où nous en sommes
 
-C'est notre propre technologie, celle avec laquelle nous construisons nos produits, Sovkora en tête. Elle évolue chaque
+C'est notre propre technologie, celle avec laquelle nous construisons nos produits, à commencer par Sovkora, le service d'IA sur lequel tournent nos produits. Elle évolue chaque
 semaine. Elle n'est ni en vente ni en libre-service, et son code reste privé. Ce site montre la méthode ; il n'y a rien à
 acheter ni à demander ici.
 

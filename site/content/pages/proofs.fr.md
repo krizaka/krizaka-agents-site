@@ -11,6 +11,10 @@ pouvons pas montrer n'est pas citée ici.
 
 ### § 2 — Les chapitres
 
+Les mesures déjà citées sur ce site : 190 000 → 40 000 jetons au premier tour d'une session · 92 PR fusionnées et 37
+écartées en 48 h · 18 sessions sur 18 terminées.
+
+
 | Sujet | Chapitre | Ce qu'on y trouve |
 | :--- | :--- | :--- |
 | Architecture | [L'architecture de Krizaka Agents](https://blog.krizaka.com/fr/story/the-architecture-of-krizaka-agents/) | cinq vues vérifiées, les plafonds par session, deux audits en lecture seule (332 lancements, 0 dérive d'environnement) |

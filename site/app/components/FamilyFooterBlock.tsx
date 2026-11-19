@@ -16,7 +16,7 @@ export default function FamilyFooterBlock({ locale }: Readonly<{ locale: Locale 
       <FamilyFooter
         footer={{ ...footerFor("krizaka"), social: [] }}
         current="krizaka"
-        labels={familyLabels[locale]}
+        labels={{ ...familyLabels[locale], company: { ...familyLabels[locale].company, contact: t.contact.label } }}
         sourceLabel={t.footer.source}
         contact={contact}
         variant="site"
