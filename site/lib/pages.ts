@@ -27,14 +27,21 @@ function parse(source: string) {
   return { title: JSON.parse(m[1]) as string, description: JSON.parse(m[2]) as string, body: m[3] };
 }
 
+/* marked escapes exactly these five characters, so these five are all a heading can hold; `&amp;` is decoded last. */
+const ENTITIES: ReadonlyArray<readonly [string, string]> = [["&lt;", "<"], ["&gt;", ">"], ["&quot;", '"'], ["&#39;", "'"], ["&amp;", "&"]];
+
+/** The plain text of a rendered heading: inline tags dropped, entities decoded. */
+const plainText = (html: string) => ENTITIES.reduce((t, [from, to]) => t.replaceAll(from, to), html.replace(/<[^>]+>/g, ""));
+
 const HEADING = /<h3>(?:§ (\d+) — )?([\s\S]*?)<\/h3>/g;
 
 /** The « § N — » of a heading moves into the margin: the heading keeps its text, gets an anchor and a `data-n` the styles draw. */
-function numberHeadings(html: string): { html: string; sections: Section[] } {
+export function numberHeadings(html: string): { html: string; sections: Section[] } {
   const sections: Section[] = [];
   const out = html.replace(HEADING, (_all, n: string | undefined, title: string) => {
-    const id = n ? `s${n}` : `s-${slugOf(title)}`;
-    sections.push({ id, n: n ? Number(n) : null, title });
+    const text = plainText(title);
+    const id = n ? `s${n}` : `s-${slugOf(text)}`;
+    sections.push({ id, n: n ? Number(n) : null, title: text });
     const marker = n ? ` data-n="§ ${n}"` : "";
     return `<h3 id="${id}"${marker}>${title}</h3>`;
   });
