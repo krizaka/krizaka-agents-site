@@ -3020,7 +3020,7 @@
   "translations": {
     "fr": {
       "path": "krizaka-agents.fr.json",
-      "sha256": "3dce9a46253f4812fcae9e2f99fcf5836154efe15386967556dd231d7230e7fb",
+      "sha256": "938dd121f8d668f623fc46dc72f02fe6d28fd770be142b6bc8d51ace2eb4a607",
       "views": [
         {
           "id": "agents_context",
@@ -3433,7 +3433,7 @@
               "parent": "agents",
               "kind": "container",
               "shape": "rectangle",
-              "title": "Chien de garde",
+              "title": "Veilleur",
               "technology": "Python, cron",
               "description": "Sans modèle. Contrôles locaux toutes les 15 minutes, GitHub lu au plus une fois par heure. Lève des alertes ; n'écrit jamais sur GitHub.",
               "compound": false,
@@ -5111,7 +5111,7 @@
         },
         {
           "id": "alert_life",
-          "title": "La vie d'une alerte, du chien de garde à sa résolution",
+          "title": "La vie d'une alerte, du veilleur à sa résolution",
           "dynamic": true,
           "bounds": {
             "x": 0,
@@ -5125,7 +5125,7 @@
               "parent": null,
               "kind": "container",
               "shape": "rectangle",
-              "title": "Chien de garde",
+              "title": "Veilleur",
               "technology": "Python, cron",
               "description": "Sans modèle. Contrôles locaux toutes les 15 minutes, GitHub lu au plus une fois par heure. Lève des alertes ; n'écrit jamais sur GitHub.",
               "compound": false,
