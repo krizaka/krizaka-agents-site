@@ -28,7 +28,7 @@ All of it serves one job: delivery. It starts at the ticket and ends at the merg
 ### § 2 — Three rules, and the rest follows
 
 1. **GitHub is the source.** What we keep locally is a copy, to show and to warn.
-2. **No model where the answer must be certain.** The launcher, the guards, the trains and the watchdog are plain code.
+2. **No model where the answer must be certain.** The part that starts a session, the checks that refuse, the queue that merges and the monitor that raises alerts are plain code, with no model.
 3. **Agents do not talk to each other.** A session writes what it has to say somewhere that stays: a commit, a pull request, a row in a database.
 
 ### § 3 — Who decides

@@ -12,8 +12,6 @@ have to remember the rule, the command does.
 
 ### § 2 — Four places that refuse
 
-*Fig. 1 — Before and after every tool call; at commit and push; the pre-check before the push; CI.*
-
 - **At every tool call**: a hook refuses (a secrets file printed, a GitHub write without an app's identity, code read before the index); the edited file is formatted and checked on its own, in a few seconds.
 - **At commit and push**: secrets and the author's identity; at push, the format and the workflow checkers.
 - **The pre-check, before the push**: the repository's fast loop on what changed (lint, types, tests of the touched packages).
@@ -25,7 +23,7 @@ A guard refuses and says why; it does not fix things silently, because a silent 
 
 What can be seen on the machine does not wait for CI: of 4 pull requests red in CI, 3 failed on a check that existed
 locally and had not run. A **ratchet** counts a debt (lint warnings, duplicated code, exceptions to the architecture
-rules) in a file that CI lets go down, never up. *Fig. 2.*
+rules) in a file that CI lets go down, never up.
 
 ### § 4 — Every drift leaves a guard
 
