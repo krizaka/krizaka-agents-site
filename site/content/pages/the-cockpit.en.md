@@ -23,9 +23,9 @@ does not carry the information. *Fig. 2.*
 
 ### § 4 — Is the machine healthy?
 
-The page answers first with one sentence, yes or no, then six rows whose detail stays folded. That evening: 13 team
-sessions at work, 4 red pull requests in the trains, 14 active scheduled tasks and 16 open alerts, 2 of them serious. The
-machine also limits itself: a team launch waited because the Mac's five-minute load average was 86, above the brake of 60.
+The page answers first with one sentence, yes or no, then six rows whose detail stays folded. That evening: 13 agent
+sessions at work, 16 open alerts, 2 of them serious. The system also slows itself down when the machine is overloaded: one
+launch waited for that reason.
 
 ### § 5 — What it does not do
 

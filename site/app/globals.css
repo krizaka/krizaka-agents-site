@@ -229,6 +229,14 @@ main {
   padding: 0.6rem 0.75rem;
   border-bottom: 1px solid var(--kz-border-subtle);
 }
+/* The subject column wraps on spaces only, never inside a word (« Architectur/e » at 1440 px): it keeps the width of its longest word. */
+.kz-table th:first-child,
+.kz-table td:first-child {
+  min-width: 8.5rem;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: manual;
+}
 .kz-table thead th {
   background: var(--kz-surface-1);
   font-weight: 600;
@@ -351,4 +359,16 @@ main {
 .kz-contact p {
   margin-top: 0.75rem;
   color: var(--kz-text-secondary);
+}
+
+.kz-contact-invite {
+  margin-bottom: 0.9rem;
+  color: var(--kz-text-primary);
+}
+/* The home's button, above the § 1 heading: no rule, the quote and the status line are already above it. */
+.kz-contact[data-write-to-us="top"] {
+  margin-top: 1.25rem;
+  margin-bottom: 2rem;
+  padding-top: 0;
+  border-top: 0;
 }

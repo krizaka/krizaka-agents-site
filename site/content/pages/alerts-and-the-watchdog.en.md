@@ -5,9 +5,8 @@ description: "A watchdog with no model reads the machine and GitHub; every alert
 
 ### § 1 — An alert that goes away never existed
 
-On 9 November at 6:20 pm, a scheduled job's line was put back without its execute permission; every run failed, for about
-six and a half hours. The watchdog saw it at 6:30 pm and raised a CRITICAL alert, as a notification on the Mac's
-desktop. Nobody read it. A notification shows up and goes away: what was missing was a place where the alert stays until
+On 9 November a scheduled job stopped working for about six and a half hours. The watchdog saw it ten minutes later and
+raised a critical alert, but as a pop-up nobody read. A notification shows up and goes away: what was missing was a place where the alert stays until
 someone deals with it.
 
 ### § 2 — One table, an owner, a proof

@@ -1,9 +1,11 @@
 import { notFound } from "next/navigation";
 import { getMessages, localizedPath, type Locale } from "@/lib/i18n";
 import { PAGES, readPage, type PageSlug } from "@/lib/pages";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, SHARE_SIZE, shareImagePath } from "@/lib/site";
 import { stations } from "@/lib/flow";
 import WriteToUs from "./WriteToUs";
+
+const WRITE_MARK = "<!--write-->";
 
 export const staticSlugs = () => PAGES.filter((p) => p.slug !== "").map((p) => ({ slug: p.slug }));
 
@@ -22,7 +24,15 @@ export function metadataOf(locale: Locale, slug: string | undefined) {
     description: page.description,
     metadataBase: new URL(SITE_URL),
     alternates: { canonical: path, languages: { en: alt("en"), fr: alt("fr") } },
-    openGraph: { title: page.title, description: page.description, url: path, type: "website" as const, siteName: "Krizaka Agents" },
+    openGraph: {
+      title: page.title,
+      description: page.description,
+      url: path,
+      type: "website" as const,
+      siteName: "Krizaka Agents",
+      images: [{ url: shareImagePath(locale), width: SHARE_SIZE.width, height: SHARE_SIZE.height, alt: getMessages(locale).share.alt }],
+    },
+    twitter: { card: "summary_large_image" as const, title: page.title, description: page.description, images: [shareImagePath(locale)] },
   };
 }
 
@@ -45,16 +55,29 @@ function Flow({ locale, caption }: Readonly<{ locale: Locale; caption: string }>
   );
 }
 
+/** A stretch of the page; the home marks with `<!--write-->` where its button goes, above the § 1 heading. */
+function Prose({ locale, html }: Readonly<{ locale: Locale; html: string }>) {
+  const [head, ...rest] = html.split(WRITE_MARK);
+  if (rest.length === 0) return <div className="kz-prose" dangerouslySetInnerHTML={{ __html: html }} />;
+  return (
+    <>
+      <div className="kz-prose" dangerouslySetInnerHTML={{ __html: head }} />
+      <WriteToUs locale={locale} />
+      <div className="kz-prose" dangerouslySetInnerHTML={{ __html: rest.join(WRITE_MARK) }} />
+    </>
+  );
+}
+
 export default function PageView({ locale, slug }: Readonly<{ locale: Locale; slug: string | undefined }>) {
   const page = readPage(locale, entry(slug));
   const [before, after] = page.figure ? page.html.split("<!--figure-->") : [page.html, ""];
   return (
     <article className="kz-article">
       <h1>{page.title}</h1>
-      <div className="kz-prose" dangerouslySetInnerHTML={{ __html: before }} />
+      <Prose locale={locale} html={before} />
       {page.figure && <Flow locale={locale} caption={page.figure} />}
-      {page.figure && <div className="kz-prose" dangerouslySetInnerHTML={{ __html: after }} />}
-      <WriteToUs locale={locale} />
+      {page.figure && <Prose locale={locale} html={after} />}
+      <WriteToUs locale={locale} invite />
     </article>
   );
 }
