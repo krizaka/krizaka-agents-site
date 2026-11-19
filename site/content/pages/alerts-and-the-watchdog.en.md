@@ -17,6 +17,8 @@ resolved with a proof. Taking an alert does not close it: the watchdog resolves 
 longer sees the problem, and keeps that read as the proof. The database refuses a resolution without a proof. An open
 alert is never purged; the others are, seven days after they were acknowledged.
 
+<!--view:alert_life-->
+
 ### § 3 — The watchdog reads, it does not repair
 
 The watchdog is code with no model, so it costs no token. Every 15 minutes it runs its local checks (scheduled jobs that

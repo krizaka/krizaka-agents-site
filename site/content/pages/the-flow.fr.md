@@ -13,6 +13,8 @@ une tâche L est refusée avec une seule consigne, la découper.
 
 ### § 2 — Une session construite et vérifiée
 
+<!--view:agents_containers-->
+
 Une session n'a pas d'écran et personne à qui poser une question : elle a un ticket, une consigne et des plafonds. Le
 lanceur la démarre toujours pareil : isolée (elle ne voit que l'index du code et les outils déclarés), épinglée (la
 version de Claude Code ne bouge que par pull request), vérifiée deux fois (la machine avant le départ, puis ce que la
@@ -32,6 +34,8 @@ Une session ne fusionne jamais. Elle ouvre sa pull request avec une commande, pu
 file et un script qui la vide, sans jeton. Le train prend la tête, la rebase sur main, attend les contrôles requis et
 l'envoie dans la merge queue de GitHub, qui rejoue les contrôles sur le vrai mélange avec main. Une tête rouge est sautée,
 avec sa raison. Un main rouge gèle les fusions du dépôt jusqu'à ce qu'un `fix` passe.
+
+<!--view:pr_life-->
 
 ### § 5 — Après la fusion
 

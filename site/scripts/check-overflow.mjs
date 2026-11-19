@@ -7,6 +7,8 @@ import { mkdirSync } from "node:fs";
 import { createRequire } from "node:module";
 
 const WIDTHS = [360, 390, 768, 1024, 1440];
+/** The pages captured with --shots: the three that draw an architecture view and the proofs, in both languages. */
+const SHOTS = new Set(["", "flow", "alerts", "proofs"].flatMap((s) => [`/${s ? s + "/" : ""}`, `/fr/${s ? s + "/" : ""}`]));
 const PATHS = ["", "flow", "rules", "alerts", "cockpit", "proofs"].flatMap((s) => [`/${s ? s + "/" : ""}`, `/fr/${s ? s + "/" : ""}`]);
 
 function measure() {
@@ -60,7 +62,7 @@ for (const theme of ["dark", "light"]) {
         for (const issue of await page.evaluate(measure)) problems.push(`${path} @${width} ${theme} (contents open): ${issue}`);
       }
       for (const issue of await page.evaluate(measure)) problems.push(`${path} @${width} ${theme}: ${issue}`);
-      if (shots && (path === "/flow/" || path === "/proofs/" || path === "/fr/flow/" || path === "/fr/proofs/") && (width === 390 || width === 1440))
+      if (shots && SHOTS.has(path) && (width === 390 || width === 1440))
         await page.screenshot({ path: `${shots}/${path.replaceAll("/", "") || "home"}-${width}-${theme}.png`, fullPage: true });
     }
     await context.close();

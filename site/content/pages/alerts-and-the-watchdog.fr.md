@@ -18,6 +18,8 @@ résout lui-même quand sa lecture complète suivante ne voit plus le problème,
 refuse une résolution sans preuve. Une alerte ouverte n'est jamais purgée ; les autres le sont sept jours après leur
 prise en compte.
 
+<!--view:alert_life-->
+
 ### § 3 — Le veilleur lit, il ne répare pas
 
 Le veilleur est du code, sans modèle, donc sans jeton. Toutes les 15 minutes, il lance ses contrôles locaux (tâches

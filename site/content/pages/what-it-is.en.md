@@ -23,6 +23,8 @@ and is accepted or refused by a person. The sessions run in Claude Code; Claude 
 agent loop, not us. What we build is what surrounds it: what delivers each change as a pull request and has it refused if
 it does not pass.
 
+<!--view:agents_context-->
+
 All of it serves one job: delivery. It starts at the ticket and ends at the merge and its verification.
 
 ### § 2 — Three rules, and the rest follows

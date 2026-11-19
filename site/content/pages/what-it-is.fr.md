@@ -22,6 +22,8 @@ part d'un ticket, passe par des contrôles qui peuvent le refuser, arrive en pul
 du code, relue avant d'être fusionnée) et est accepté ou refusé par une personne. Les sessions tournent dans Claude Code ; c'est Claude Code qui fournit la boucle d'agent, pas nous. Ce que nous construisons, c'est ce
 qu'il y a autour : de quoi livrer chaque changement en pull request et le faire refuser s'il ne passe pas.
 
+<!--view:agents_context-->
+
 Tout sert un seul travail : livrer. Cela commence au ticket et finit à la fusion et à sa vérification.
 
 ### § 2 — Trois règles, dont tout le reste découle

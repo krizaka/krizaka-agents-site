@@ -283,6 +283,16 @@ main {
   }
 }
 
+/* ─── An architecture view (ViewFigure): @krizaka/ui's ArchitectureDiagram on the sheet. The drawing never shrinks below 70 % of
+   its laid-out size (--kz-view-min, set per view): narrower than that, it scrolls sideways in its own frame and the page does not.
+   The text version under it carries the same words. ─── */
+.kz-view {
+  margin: var(--line) 0;
+}
+.kz-view .kz-arch-svg {
+  min-width: var(--kz-view-min);
+}
+
 /* ─── The footer ─── */
 .kz-footer {
   max-width: 72rem;
