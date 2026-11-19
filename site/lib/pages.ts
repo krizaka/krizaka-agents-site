@@ -30,8 +30,20 @@ function parse(source: string) {
 /* marked escapes exactly these five characters, so these five are all a heading can hold; `&amp;` is decoded last. */
 const ENTITIES: ReadonlyArray<readonly [string, string]> = [["&lt;", "<"], ["&gt;", ">"], ["&quot;", '"'], ["&#39;", "'"], ["&amp;", "&"]];
 
+/** The text outside the tags: marked writes a literal `<` as `&lt;`, so every raw `<` opens a tag that the next `>` closes. */
+function outsideTags(html: string): string {
+  let text = "";
+  let inTag = false;
+  for (const ch of html) {
+    if (ch === "<") inTag = true;
+    else if (ch === ">" && inTag) inTag = false;
+    else if (!inTag) text += ch;
+  }
+  return text;
+}
+
 /** The plain text of a rendered heading: inline tags dropped, entities decoded. */
-const plainText = (html: string) => ENTITIES.reduce((t, [from, to]) => t.replaceAll(from, to), html.replace(/<[^<>]*>/g, ""));
+const plainText = (html: string) => ENTITIES.reduce((t, [from, to]) => t.replaceAll(from, to), outsideTags(html));
 
 const HEADING = /<h3>(?:§ (\d+) — )?([\s\S]*?)<\/h3>/g;
 
