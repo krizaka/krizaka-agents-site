@@ -33,6 +33,27 @@ function measure() {
   return out;
 }
 
+/** An architecture view is whole: its drawn content (the SVG's bounding box) lies inside its viewBox, and its frame shows all of
+    it (the kit's minimum scale keeps it legible, so on a narrow screen it may scroll, but only with the cue, and never on a desktop). */
+function figureBounds(desktop) {
+  const out = [];
+  for (const view of document.querySelectorAll(".kz-view")) {
+    const svg = view.querySelector(".kz-arch-svg");
+    const frame = view.querySelector(".kz-arch-frame");
+    const vb = svg.viewBox.baseVal;
+    const b = svg.getBBox();
+    const name = svg.getAttribute("aria-label");
+    const eps = 1;
+    if (b.x < vb.x - eps || b.y < vb.y - eps || b.x + b.width > vb.x + vb.width + eps || b.y + b.height > vb.y + vb.height + eps)
+      out.push(`figure « ${name} » draws ${Math.round(b.x)}→${Math.round(b.x + b.width)} outside its frame ${Math.round(vb.x)}→${Math.round(vb.x + vb.width)}`);
+    if (frame.scrollWidth <= frame.clientWidth + 1) continue;
+    const cue = view.querySelector(".kz-view-cue");
+    if (desktop) out.push(`figure « ${name} » is cut off: ${frame.scrollWidth}px of drawing in a ${frame.clientWidth}px frame`);
+    else if (!cue || getComputedStyle(cue).display === "none") out.push(`figure « ${name} » scrolls (${frame.scrollWidth}px in ${frame.clientWidth}px) without a visible cue`);
+  }
+  return out;
+}
+
 const args = process.argv.slice(2);
 const flag = (name, fallback) => (args.includes(name) ? args[args.indexOf(name) + 1] : fallback);
 const base = flag("--base", "http://localhost:3100").replace(/\/$/, "");
@@ -62,6 +83,7 @@ for (const theme of ["dark", "light"]) {
         for (const issue of await page.evaluate(measure)) problems.push(`${path} @${width} ${theme} (contents open): ${issue}`);
       }
       for (const issue of await page.evaluate(measure)) problems.push(`${path} @${width} ${theme}: ${issue}`);
+      for (const issue of await page.evaluate(figureBounds, width >= 1440)) problems.push(`${path} @${width} ${theme}: ${issue}`);
       if (shots && SHOTS.has(path) && (width === 390 || width === 1440))
         await page.screenshot({ path: `${shots}/${path.replaceAll("/", "") || "home"}-${width}-${theme}.png`, fullPage: true });
     }

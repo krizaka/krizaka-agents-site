@@ -12,6 +12,8 @@
   --kz-font-mono: var(--font-kz-mono), "Courier Prime", "Courier New", ui-monospace, Menlo, monospace;
   --kz-reading: 44rem;
   --kz-gutter: clamp(16px, 4vw, 32px);
+  /* The widest the bar, the page and the footer go: room enough for an architecture view at its kit minimum scale beside the margin. */
+  --kz-wide: 80rem;
 }
 
 @layer base {
@@ -72,7 +74,7 @@ main {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  max-width: 72rem;
+  max-width: var(--kz-wide);
   margin-inline: auto;
   padding: 10px var(--kz-gutter);
 }
@@ -287,10 +289,31 @@ main {
 .kz-view {
   margin: var(--line) 0;
 }
+/* The cue under a drawing that scrolls in its frame (shown by ViewScrollCue only while it does). */
+.kz-view-cue {
+  margin: 0.25rem 0 0;
+  font-family: var(--kz-font-mono);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--kz-text-secondary);
+}
+.kz-view-cue[hidden] {
+  display: none;
+}
+/* On a desktop the drawings take the room right of the margin: the article is as wide as the page allows, its text stays at the
+   reading measure, a view takes the whole width (the kit scales it to its column down to its own minimum). */
+@media (min-width: 1024px) {
+  .kz-article > :not(.kz-view) {
+    max-width: calc(var(--kz-reading) - 2 * var(--kz-gutter) - 0.5rem - 2px);
+  }
+  .kz-view {
+    margin-right: calc(-1 * var(--kz-gutter));
+  }
+}
 
 /* ─── The footer ─── */
 .kz-footer {
-  max-width: 72rem;
+  max-width: var(--kz-wide);
   width: 100%;
   margin: 0 auto;
   padding: 1.5rem var(--kz-gutter) 2.5rem;
@@ -368,7 +391,7 @@ main {
 
 /* ─── The docs layout: the pages and their § sections in the left column, the red margin, the § numbers left of it ─── */
 .kz-doc {
-  max-width: 72rem;
+  max-width: var(--kz-wide);
   margin-inline: auto;
   display: block;
 }
@@ -457,8 +480,8 @@ main {
 @media (min-width: 1024px) {
   .kz-doc {
     display: grid;
-    grid-template-columns: 17rem minmax(0, var(--kz-reading));
-    column-gap: 6rem;
+    grid-template-columns: 12rem minmax(0, 1fr);
+    column-gap: 2rem;
     justify-content: start;
     padding-inline: var(--kz-gutter);
   }
@@ -482,5 +505,6 @@ main {
   }
   .kz-article {
     margin: 0;
+    max-width: none;
   }
 }

@@ -31,6 +31,7 @@
   "notFound": { "title": "Cette page n'existe pas", "back": "Retour à l'accueil" },
   "figure": { "label": "Fig. 1", "flow": "Du ticket à l'alerte, sept stations" },
   "views": {
+    "scrollCue": "Faites défiler sur le côté pour voir tout le schéma, ou lisez-le en mots ci-dessous.",
     "words": { "summary": "Le schéma en mots", "elements": "Éléments", "relations": "Relations", "steps": "Étapes, dans l'ordre" },
     "captions": {
       "agents_context": "Krizaka Agents se place entre un ticket et une pull request fusionnée : les agents proposent, les contrôles refusent, une personne décide.",

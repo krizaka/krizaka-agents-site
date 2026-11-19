@@ -1,6 +1,7 @@
 import { ArchitectureDiagram } from "@krizaka/ui/architecture-diagram";
 import "@krizaka/ui/blocks.css";
 import { getMessages, type Locale } from "@/lib/i18n";
+import ViewScrollCue from "./ViewScrollCue";
 import { viewOf, type ViewId } from "@/lib/views";
 
 /* One architecture view where a page places it: @krizaka/ui's ArchitectureDiagram (its styles are the blocks', both themes from
@@ -13,6 +14,7 @@ export default function ViewFigure({ locale, id }: Readonly<{ locale: Locale; id
   return (
     <div className="kz-view" data-view={id}>
       <ArchitectureDiagram view={view} subtitle={t.captions[id]} words={t.words} textOpen={view.dynamic} />
+      <ViewScrollCue text={t.scrollCue} />
     </div>
   );
 }
