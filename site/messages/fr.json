@@ -42,6 +42,25 @@
     }
   },
   "runProof": {
+    "hero": {
+      "aria": "Une preuve courte : l’exécution réelle de deux équipes d’agents sur les mêmes fichiers",
+      "stamp": "exécution réelle, {date}",
+      "case": "un cas, pas un taux",
+      "pullRequests": "pull requests",
+      "teams": "équipes, mêmes fichiers",
+      "conflicts": "conflits rencontrés",
+      "replayed": "rejouée seule par le train",
+      "command": "le journal, trois lignes",
+      "console": "Console : trois lignes du journal de l’exécution réelle",
+      "title": "verikora — extrait du journal (heure UTC)",
+      "play": "Lire l’extrait",
+      "pause": "Mettre en pause",
+      "replay": "Rejouer l’extrait",
+      "see": "voir la preuve",
+      "proofHref": "/fr/proofs/#s3",
+      "story": "le chapitre du blog",
+      "storyHref": "https://blog.krizaka.com/fr/story/two-agent-teams-on-the-same-files/"
+    },
     "stamp": "exécution réelle, {date}",
     "title": "verikora — le journal de l’exécution (heure UTC)",
     "label": "Console : le journal de l’exécution réelle du {date}, rejoué ligne par ligne",

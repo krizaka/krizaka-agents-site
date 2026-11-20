@@ -307,7 +307,7 @@ main {
 /* On a desktop the drawings take the room right of the margin: the article is as wide as the page allows, its text stays at the
    reading measure, a view takes the whole width (the kit scales it to its column down to its own minimum). */
 @media (min-width: 1024px) {
-  .kz-article > :not(.kz-view):not(.kz-run):not(.kz-run-cases) {
+  .kz-article > :not(.kz-view):not(.kz-run):not(.kz-run-cases):not(.kz-hero-proof) {
     max-width: calc(var(--kz-reading) - 2 * var(--kz-gutter) - 0.5rem - 2px);
   }
   .kz-view {
@@ -592,4 +592,43 @@ main {
   .kz-run {
     margin-right: calc(-1 * var(--kz-gutter));
   }
+}
+
+/* The home's short proof (RunHero): a few figures in the margin's ink, then the log's three lines; no box around words. */
+.kz-hero-proof {
+  margin-block: var(--line);
+  min-width: 0;
+}
+.kz-hero-case {
+  font-style: italic;
+  color: var(--kz-text-secondary);
+}
+.kz-hero-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  margin: 0 0 0.75rem;
+}
+.kz-hero-facts div {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.kz-hero-facts dt {
+  font-family: var(--kz-font-mono);
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--kz-text-primary);
+}
+.kz-hero-facts dd {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--kz-text-secondary);
+}
+.kz-hero-proof .kz-replay-screen .whitespace-pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.kz-hero-links {
+  margin: 0.75rem 0 0;
 }

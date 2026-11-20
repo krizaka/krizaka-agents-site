@@ -13,7 +13,7 @@ description: "We build our products with AI agents. Here is how: one session per
 
 Measured over 48 hours in November: 92 pull requests merged, 37 skipped, each with its reason. Two merged examples you can open: [blog PR 379](https://github.com/krizaka/krizaka-blog/pull/379), [PR 378](https://github.com/krizaka/krizaka-blog/pull/378).
 
-A real run you can replay, line by line: [two agent teams on the same files](/proofs/#s3), with its public pull requests.
+<!--run:hero_proof-->
 
 <!--write-->
 

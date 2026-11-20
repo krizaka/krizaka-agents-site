@@ -42,6 +42,25 @@
     }
   },
   "runProof": {
+    "hero": {
+      "aria": "A short proof: the real run of two agent teams on the same files",
+      "stamp": "real run, {date}",
+      "case": "one case, not a rate",
+      "pullRequests": "pull requests",
+      "teams": "teams, same files",
+      "conflicts": "conflicts met",
+      "replayed": "replayed alone by the train",
+      "command": "the log, three lines",
+      "console": "Console: three lines of the real run’s log",
+      "title": "verikora — log extract (UTC)",
+      "play": "Play the extract",
+      "pause": "Pause",
+      "replay": "Replay the extract",
+      "see": "see the proof",
+      "proofHref": "/proofs/#s3",
+      "story": "the blog chapter",
+      "storyHref": "https://blog.krizaka.com/story/two-agent-teams-on-the-same-files/"
+    },
     "stamp": "real run, {date}",
     "title": "verikora — the run’s log (UTC)",
     "label": "Console: the log of the real run of {date}, replayed line by line",

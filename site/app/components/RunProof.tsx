@@ -19,6 +19,7 @@ import { TerminalReplay } from "@krizaka/ui/terminal-replay";
 import type { RunId } from "@/lib/views";
 import {
   consoleSteps,
+  heroProof,
   kindCounts,
   parseRunCases,
   parseRunLog,
@@ -43,6 +44,25 @@ export type RunProofLabels = {
   replay: string;
   note: string;
   legend: string;
+  hero: {
+    aria: string;
+    stamp: string;
+    case: string;
+    pullRequests: string;
+    teams: string;
+    conflicts: string;
+    replayed: string;
+    command: string;
+    console: string;
+    title: string;
+    play: string;
+    pause: string;
+    replay: string;
+    see: string;
+    proofHref: string;
+    story: string;
+    storyHref: string;
+  };
   segments: Record<SegmentKey, string>;
   kinds: Record<RunKind, string>;
   cases: {
@@ -88,6 +108,7 @@ export const PROOF_OF: Record<RunId, string> = {
   overlap_log: "overlap-live-2026-11-19-log",
   overlap_cases: "overlap-live-2026-11-19-cases",
   overlap_s2_cases: "overlap-live-s2-rerun-cases",
+  hero_proof: "overlap-live-2026-11-19-log",
 };
 
 type Source = { id: string; file: string; repo: string; commit: string | null };
@@ -207,8 +228,60 @@ export function RunCases({ proof, labels }: Readonly<{ proof: string; labels: Ru
 }
 
 /** What a `<!--run:<id>-->` mark draws: the console of a log, or the figures of a run's cases. */
+/** The home's short proof: the run's figures, three of its real log lines and the way to the full proof. */
+export function RunHero({ labels, href }: Readonly<{ labels: RunProofLabels["hero"]; href: string }>) {
+  const log = proofText("overlap-live-2026-11-19-log");
+  const first = proofText("overlap-live-2026-11-19-cases");
+  const rerun = proofText("overlap-live-s2-rerun-cases");
+  if (!log || !first || !rerun) throw new Error("RunHero: the run's proofs are not synced");
+  const h = heroProof(parseRunLog(log), [...parseRunCases(first), ...parseRunCases(rerun)]);
+  const facts = [
+    [h.pullRequests, labels.pullRequests],
+    [h.teams, labels.teams],
+    [h.conflicts, labels.conflicts],
+    [h.replayed, labels.replayed],
+  ] as const;
+  return (
+    <aside className="kz-hero-proof" aria-label={labels.aria}>
+      <p className="kz-run-stamp">
+        <Badge tone="success" size="md">
+          {labels.stamp.replace("{date}", h.date)}
+        </Badge>{" "}
+        <span className="kz-hero-case">{labels.case}</span>
+      </p>
+      <dl className="kz-hero-facts">
+        {facts.map(([n, label]) => (
+          <div key={label}>
+            <dt>{n}</dt>
+            <dd>{label}</dd>
+          </div>
+        ))}
+      </dl>
+      <TerminalReplay
+        steps={[{ command: labels.command, output: h.lines }]}
+        label={labels.console}
+        title={labels.title}
+        prompt="§"
+        playLabel={labels.play}
+        pauseLabel={labels.pause}
+        replayLabel={labels.replay}
+        typingSpeed={22}
+        lineDelay={260}
+        stepDelay={1100}
+        rows={13}
+      />
+      <p className="kz-hero-links">
+        <a href={href}>{labels.see}</a>
+        {" · "}
+        <a href={labels.storyHref}>{labels.story}</a>
+      </p>
+    </aside>
+  );
+}
+
 export default function RunProof({ run, labels }: Readonly<{ run: RunId; labels: RunProofLabels }>) {
   const proof = PROOF_OF[run];
+  if (run === "hero_proof") return <RunHero labels={labels.hero} href={labels.hero.proofHref} />;
   return run === "overlap_log" ? (
     <RunConsole proof={proof} labels={labels} />
   ) : (

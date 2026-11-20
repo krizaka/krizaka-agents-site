@@ -13,7 +13,7 @@ description: "Nous construisons nos produits avec des agents IA. Voici comment :
 
 Mesuré sur 48 heures en novembre : 92 pull requests fusionnées, 37 écartées, chacune avec sa raison. Deux exemples fusionnés que vous pouvez ouvrir : [PR 379 du blog](https://github.com/krizaka/krizaka-blog/pull/379), [PR 378](https://github.com/krizaka/krizaka-blog/pull/378).
 
-Une exécution réelle que vous pouvez rejouer, ligne par ligne : [deux équipes d’agents sur les mêmes fichiers](/fr/proofs/#s3), avec ses pull requests publiques.
+<!--run:hero_proof-->
 
 <!--write-->
 

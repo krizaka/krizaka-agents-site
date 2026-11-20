@@ -4,7 +4,7 @@ import { mkdtempSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { PROOFS_DIR, isSynced, proofProblems, readSources, sha256, sourceBytes } from "../scripts/proofs.mjs";
-import { consoleSteps, kindCounts, parseRunCases, parseRunLog, publicText, RUN_KINDS, RunLogError } from "../lib/run-log.ts";
+import { consoleSteps, heroProof, kindCounts, parseRunCases, parseRunLog, publicText, RUN_KINDS, RunLogError } from "../lib/run-log.ts";
 import { piecesOf } from "../lib/views.ts";
 import { problems } from "../scripts/publication-rules.mjs";
 import { built, root } from "./published-texts.mjs";
@@ -107,5 +107,41 @@ test("built: the stamp says real run with the log's date, S2 reads passed, every
     for (const n of [889, 890, 891])
       assert.match(html, new RegExp(`<a href="https://github.com/krizaka/verikora/pull/${n}">#${n}</a>`), `${locale} table row #${n}`);
     assert.equal((html.match(/<a href="https:\/\/github\.com\/krizaka\/verikora\/pull\/\d+"/g) ?? []).length >= 3, true);
+  }
+});
+
+/* The home's short proof (krizaka-internal#4501): its figures and its three lines come from the proof files, never typed. */
+const RERUN = "overlap-live-s2-rerun-cases";
+const hero = () => heroProof(parseRunLog(copy(LOG)), [...parseRunCases(copy(CASES)), ...parseRunCases(copy(RERUN))]);
+
+test("the hero's figures are counted from the cases: 5 PRs, 2 teams, 5 shared files, 3 conflicts, 1 replayed", () => {
+  const h = hero();
+  assert.deepEqual(
+    [h.date, h.pullRequests, h.teams, h.sharedFiles, h.conflicts, h.replayed],
+    ["2026-11-19", 5, 2, 5, 3, 1],
+  );
+});
+
+test("the hero's three lines are lines of the log, in public words", () => {
+  const h = hero();
+  assert.equal(h.lines.length, 3);
+  const log = parseRunLog(copy(LOG)).map((e) => `${e.at.slice(11, 16)}  ${e.actor.padEnd(6)}  ${publicText(e.text)}`);
+  for (const l of h.lines) assert.ok(log.includes(l.text), l.text);
+  assert.deepEqual(problems(h.lines.map((l) => l.text).join("\n")), []);
+  assert.throws(() => heroProof(parseRunLog(copy(LOG)).filter((e) => e.kind !== "overlap"), []), RunLogError);
+});
+
+test("the home places the hero in both languages", () => {
+  for (const l of ["en", "fr"]) assert.ok(readFileSync(join(root, "content", "pages", `what-it-is.${l}.md`), "utf8").includes("<!--run:hero_proof-->"), l);
+});
+
+test("built: the home shows the stamp, the log's figures and its lines, and links to the full proof", { skip: !built() }, () => {
+  const h = hero();
+  const want = { en: ["real run, 2026-11-19", "one case, not a rate", 'href="/proofs/#s3"'], fr: ["exécution réelle, 2026-11-19", "un cas, pas un taux", 'href="/fr/proofs/#s3"'] };
+  for (const locale of ["en", "fr"]) {
+    const html = readFileSync(join(root, "out", ...(locale === "fr" ? ["fr"] : []), "index.html"), "utf8");
+    for (const w of want[locale]) assert.ok(html.includes(w), `${locale}: ${w}`);
+    for (const n of [h.pullRequests, h.teams, h.conflicts, h.replayed]) assert.match(html, new RegExp(`<dt>${n}</dt>`), `${locale}: ${n}`);
+    for (const l of h.lines) assert.ok(html.includes(l.text.replace(/&/g, "&amp;").slice(0, 40)) || html.includes(l.text.slice(0, 40)), `${locale}: ${l.text.slice(0, 40)}`);
   }
 });
