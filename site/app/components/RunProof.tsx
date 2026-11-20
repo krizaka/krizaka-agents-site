@@ -49,10 +49,9 @@ export type RunProofLabels = {
     aria: string;
     stamp: string;
     case: string;
-    pullRequests: string;
-    teams: string;
-    conflicts: string;
+    sharedFiles: string;
     replayed: string;
+    manualPushes: string;
     command: string;
     console: string;
     title: string;
@@ -99,6 +98,7 @@ const ICON: Record<RunKind, ComponentType<IconProps>> = {
   merged: CheckIcon,
   conflict: WarningIcon,
   alert: FlagIcon,
+  "stack-replayed": AutomationIcon,
 };
 
 /** The public repository the run changed: every PR line links to its pull request there. */
@@ -246,22 +246,20 @@ export function RunCases({ proof, labels }: Readonly<{ proof: string; labels: Ru
 /** What a `<!--run:<id>-->` mark draws: the console of a log, or the figures of a run's cases. */
 /** The home's short proof: the run's figures, three of its real log lines and the way to the full proof. */
 export function RunHero({ labels, href }: Readonly<{ labels: RunProofLabels["hero"]; href: string }>) {
-  const log = proofText("overlap-live-2026-11-19-log");
-  const first = proofText("overlap-live-2026-11-19-cases");
-  const rerun = proofText("overlap-live-s2-rerun-cases");
-  if (!log || !first || !rerun) throw new Error("RunHero: the run's proofs are not synced");
-  const h = heroProof(parseRunLog(log), [...parseRunCases(first), ...parseRunCases(rerun)]);
+  const texts = ["overlap-live-2026-11-19-log", "overlap-live-s2-rerun-log", "overlap-live-2026-11-19-cases", "overlap-live-s2-rerun-cases"].map(proofText);
+  const [log, rerunLog, first, rerun] = texts;
+  if (!log || !rerunLog || !first || !rerun) throw new Error("RunHero: the run's proofs are not synced");
+  const h = heroProof({ first: parseRunLog(log), rerun: parseRunLog(rerunLog) }, [...parseRunCases(first), ...parseRunCases(rerun)]);
   const facts = [
-    [h.pullRequests, labels.pullRequests],
-    [h.teams, labels.teams],
-    [h.conflicts, labels.conflicts],
+    [h.sharedFiles, labels.sharedFiles],
     [h.replayed, labels.replayed],
+    [h.manualPushes, labels.manualPushes],
   ] as const;
   return (
     <aside className="kz-hero-proof" aria-label={labels.aria}>
       <p className="kz-run-stamp">
         <Badge tone="success" size="md">
-          {labels.stamp.replace("{date}", h.date)}
+          {labels.stamp.replace("{date}", h.dates)}
         </Badge>{" "}
         <span className="kz-hero-case">{labels.case}</span>
       </p>

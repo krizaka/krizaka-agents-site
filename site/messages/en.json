@@ -46,11 +46,10 @@
       "aria": "A short proof: the real run of two agent teams on the same files",
       "stamp": "real run, {date}",
       "case": "one case, not a rate",
-      "pullRequests": "pull requests",
-      "teams": "teams, same files",
-      "conflicts": "conflicts met",
-      "replayed": "replayed alone by the train",
-      "command": "the log, three lines",
+      "sharedFiles": "shared files, seen before the second PR",
+      "replayed": "stacked PR replayed alone by the train",
+      "manualPushes": "manual pushes",
+      "command": "the log, three lines of the run that passed",
       "console": "Console: three lines of the real run’s log",
       "title": "verikora — log extract (UTC)",
       "play": "Play the extract",
@@ -86,7 +85,8 @@
       "alert": "alert",
       "push": "push",
       "merged": "merge",
-      "conflict": "conflict"
+      "conflict": "conflict",
+      "stack-replayed": "stack replayed"
     },
     "cases": {
       "caption": "Each pull request, from the run’s proof file",
