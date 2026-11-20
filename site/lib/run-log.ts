@@ -15,6 +15,7 @@ export const RUN_KINDS = [
   "push",
   "merged",
   "conflict",
+  "stack-replayed",
 ] as const;
 export type RunKind = (typeof RUN_KINDS)[number];
 export const RUN_TONES = ["muted", "accent", "success", "warning", "danger"] as const;
@@ -36,6 +37,7 @@ export type RunCase = {
   stacked_on: number | null;
   replayed: boolean;
   shared: number;
+  manual_pushes: number;
   verdict: RunVerdict;
 };
 
@@ -85,6 +87,7 @@ export function parseRunCases(json: string): RunCase[] {
       stacked_on: typeof r.stacked_on === "number" ? r.stacked_on : null,
       replayed: r.replayed === true,
       shared: Array.isArray(r.shared) ? r.shared.length : 0,
+      manual_pushes: Number(r.manual_force_pushes ?? 0),
       verdict,
     };
   });
@@ -132,37 +135,34 @@ export const kindCounts = (events: readonly RunEvent[]): Record<RunKind, number>
   Object.fromEntries(RUN_KINDS.map((k) => [k, events.filter((e) => e.kind === k).length])) as Record<RunKind, number>;
 
 export type HeroProof = {
-  date: string;
-  pullRequests: number;
-  teams: number;
+  dates: string;
   sharedFiles: number;
-  conflicts: number;
   replayed: number;
+  manualPushes: number;
   lines: ConsoleLine[];
 };
 
-/** The extract of the log the home shows, by kind: the first overlap seen, the first conflict, the last merge. */
-const HERO_LINES: readonly { kind: RunKind; last: boolean }[] = [
-  { kind: "overlap", last: false },
-  { kind: "conflict", last: false },
-  { kind: "merged", last: true },
+/** The extract the home shows, by kind and by log: the overlap the guard saw before the second PR, the stack the train replayed, its merge. */
+const HERO_LINES: readonly { log: "first" | "rerun"; kind: RunKind; last: boolean }[] = [
+  { log: "first", kind: "overlap", last: false },
+  { log: "rerun", kind: "stack-replayed", last: false },
+  { log: "rerun", kind: "merged", last: true },
 ];
 
-/** The short proof of the home: figures counted from the run's cases and three of the log's own lines; nothing typed. */
-export function heroProof(events: readonly RunEvent[], cases: readonly RunCase[]): HeroProof {
-  const lines = HERO_LINES.map(({ kind, last }) => {
-    const of = events.filter((e) => e.kind === kind);
+/** The short proof of the home: figures counted from the runs' cases and three of the logs' own lines (the run that passed); nothing typed. */
+export function heroProof(logs: { first: readonly RunEvent[]; rerun: readonly RunEvent[] }, cases: readonly RunCase[]): HeroProof {
+  const lines = HERO_LINES.map(({ log, kind, last }) => {
+    const of = logs[log].filter((e) => e.kind === kind);
     const e = last ? of.at(-1) : of[0];
-    if (!e) throw new RunLogError(`the log has no ${kind} line for the home`);
+    if (!e) throw new RunLogError(`the ${log} log has no ${kind} line for the home`);
     return { text: `${hhmm(e.at)}  ${e.actor.padEnd(6)}  ${publicText(e.text)}`, tone: e.tone };
   });
+  const days = [...new Set([...logs.first, ...logs.rerun].map((e) => e.at.slice(0, 10)))].sort();
   return {
-    date: events[0]!.at.slice(0, 10),
-    pullRequests: cases.length,
-    teams: new Set(cases.map((c) => c.team)).size,
+    dates: days.join(", "),
     sharedFiles: Math.max(0, ...cases.map((c) => c.shared)),
-    conflicts: cases.reduce((n, c) => n + c.conflicts, 0),
     replayed: cases.filter((c) => c.replayed).length,
+    manualPushes: cases.reduce((n, c) => n + c.manual_pushes, 0),
     lines,
   };
 }

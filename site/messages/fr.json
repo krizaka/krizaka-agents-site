@@ -46,11 +46,10 @@
       "aria": "Une preuve courte : l’exécution réelle de deux équipes d’agents sur les mêmes fichiers",
       "stamp": "exécution réelle, {date}",
       "case": "un cas, pas un taux",
-      "pullRequests": "pull requests",
-      "teams": "équipes, mêmes fichiers",
-      "conflicts": "conflits rencontrés",
-      "replayed": "rejouée seule par le train",
-      "command": "le journal, trois lignes",
+      "sharedFiles": "fichiers partagés, vus avant la seconde PR",
+      "replayed": "stacked PR rejouée seule par le train",
+      "manualPushes": "poussée manuelle",
+      "command": "le journal, trois lignes de l’exécution réussie",
       "console": "Console : trois lignes du journal de l’exécution réelle",
       "title": "verikora — extrait du journal (heure UTC)",
       "play": "Lire l’extrait",
@@ -86,7 +85,8 @@
       "alert": "alerte",
       "push": "poussée",
       "merged": "fusion",
-      "conflict": "conflit"
+      "conflict": "conflit",
+      "stack-replayed": "empilée rejouée"
     },
     "cases": {
       "caption": "Chaque pull request, depuis le fichier de preuve de l’exécution",
