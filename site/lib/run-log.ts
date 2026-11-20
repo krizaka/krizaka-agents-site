@@ -157,7 +157,7 @@ export function heroProof(logs: { first: readonly RunEvent[]; rerun: readonly Ru
     if (!e) throw new RunLogError(`the ${log} log has no ${kind} line for the home`);
     return { text: `${hhmm(e.at)}  ${e.actor.padEnd(6)}  ${publicText(e.text)}`, tone: e.tone };
   });
-  const days = [...new Set([...logs.first, ...logs.rerun].map((e) => e.at.slice(0, 10)))].sort();
+  const days = [...new Set([...logs.first, ...logs.rerun].map((e) => e.at.slice(0, 10)))].sort((x, y) => x.localeCompare(y));
   return {
     dates: days.join(", "),
     sharedFiles: Math.max(0, ...cases.map((c) => c.shared)),
