@@ -35,6 +35,7 @@ export type RunCase = {
   pushes_after_open: number;
   stacked_on: number | null;
   replayed: boolean;
+  shared: number;
   verdict: RunVerdict;
 };
 
@@ -83,6 +84,7 @@ export function parseRunCases(json: string): RunCase[] {
       pushes_after_open: Number(r.pushes_after_open),
       stacked_on: typeof r.stacked_on === "number" ? r.stacked_on : null,
       replayed: r.replayed === true,
+      shared: Array.isArray(r.shared) ? r.shared.length : 0,
       verdict,
     };
   });
@@ -128,3 +130,39 @@ export function consoleSteps(events: readonly RunEvent[], segments: readonly Seg
 /** How many events of each kind (the legend's figures). */
 export const kindCounts = (events: readonly RunEvent[]): Record<RunKind, number> =>
   Object.fromEntries(RUN_KINDS.map((k) => [k, events.filter((e) => e.kind === k).length])) as Record<RunKind, number>;
+
+export type HeroProof = {
+  date: string;
+  pullRequests: number;
+  teams: number;
+  sharedFiles: number;
+  conflicts: number;
+  replayed: number;
+  lines: ConsoleLine[];
+};
+
+/** The extract of the log the home shows, by kind: the first overlap seen, the first conflict, the last merge. */
+const HERO_LINES: readonly { kind: RunKind; last: boolean }[] = [
+  { kind: "overlap", last: false },
+  { kind: "conflict", last: false },
+  { kind: "merged", last: true },
+];
+
+/** The short proof of the home: figures counted from the run's cases and three of the log's own lines; nothing typed. */
+export function heroProof(events: readonly RunEvent[], cases: readonly RunCase[]): HeroProof {
+  const lines = HERO_LINES.map(({ kind, last }) => {
+    const of = events.filter((e) => e.kind === kind);
+    const e = last ? of.at(-1) : of[0];
+    if (!e) throw new RunLogError(`the log has no ${kind} line for the home`);
+    return { text: `${hhmm(e.at)}  ${e.actor.padEnd(6)}  ${publicText(e.text)}`, tone: e.tone };
+  });
+  return {
+    date: events[0]!.at.slice(0, 10),
+    pullRequests: cases.length,
+    teams: new Set(cases.map((c) => c.team)).size,
+    sharedFiles: Math.max(0, ...cases.map((c) => c.shared)),
+    conflicts: cases.reduce((n, c) => n + c.conflicts, 0),
+    replayed: cases.filter((c) => c.replayed).length,
+    lines,
+  };
+}

@@ -27,7 +27,7 @@ const isViewId = (id: string): id is ViewId => (VIEW_IDS as readonly string[]).i
 const MARK = /<!--(view|run):([a-z0-9_-]+)-->/g;
 
 /** The real runs a page replays (`<!--run:<id>-->`): each is a proof of content/proofs, shown by RunProof. */
-export const RUN_IDS = ["overlap_log", "overlap_cases", "overlap_s2_cases"] as const;
+export const RUN_IDS = ["overlap_log", "overlap_cases", "overlap_s2_cases", "hero_proof"] as const;
 export type RunId = (typeof RUN_IDS)[number];
 const isRunId = (id: string): id is RunId => (RUN_IDS as readonly string[]).includes(id);
 
