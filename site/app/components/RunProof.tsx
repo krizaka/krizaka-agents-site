@@ -24,6 +24,7 @@ import {
   parseRunCases,
   parseRunLog,
   RUN_KINDS,
+  type ConsoleStep,
   type RunCase,
   type RunKind,
 } from "@/lib/run-log";
@@ -124,6 +125,27 @@ function proofText(id: string): string | undefined {
   return s.commit && existsSync(file) ? readFileSync(file, "utf8") : undefined;
 }
 
+type ReplayWords = Pick<RunProofLabels, "play" | "pause" | "replay">;
+
+/** The family's TerminalReplay with the pace and the prompt every console of the site shares. */
+function RunReplay({ steps, label, title, words, rows }: Readonly<{ steps: ConsoleStep[]; label: string; title: string; words: ReplayWords; rows: number }>) {
+  return (
+    <TerminalReplay
+      steps={steps}
+      label={label}
+      title={title}
+      prompt="§"
+      playLabel={words.play}
+      pauseLabel={words.pause}
+      replayLabel={words.replay}
+      typingSpeed={22}
+      lineDelay={260}
+      stepDelay={1100}
+      rows={rows}
+    />
+  );
+}
+
 export function RunConsole({ proof, labels }: Readonly<{ proof: string; labels: RunProofLabels }>) {
   const text = proofText(proof);
   const parts = PARTS[proof];
@@ -142,17 +164,11 @@ export function RunConsole({ proof, labels }: Readonly<{ proof: string; labels: 
           {labels.stamp.replace("{date}", date)}
         </Badge>
       </p>
-      <TerminalReplay
+      <RunReplay
         steps={steps}
         label={labels.label.replace("{date}", date)}
         title={labels.title}
-        prompt="§"
-        playLabel={labels.play}
-        pauseLabel={labels.pause}
-        replayLabel={labels.replay}
-        typingSpeed={22}
-        lineDelay={260}
-        stepDelay={1100}
+        words={labels}
         rows={16}
       />
       <div className="kz-run-legend">
@@ -257,17 +273,11 @@ export function RunHero({ labels, href }: Readonly<{ labels: RunProofLabels["her
           </div>
         ))}
       </dl>
-      <TerminalReplay
+      <RunReplay
         steps={[{ command: labels.command, output: h.lines }]}
         label={labels.console}
         title={labels.title}
-        prompt="§"
-        playLabel={labels.play}
-        pauseLabel={labels.pause}
-        replayLabel={labels.replay}
-        typingSpeed={22}
-        lineDelay={260}
-        stepDelay={1100}
+        words={labels}
         rows={13}
       />
       <p className="kz-hero-links">
