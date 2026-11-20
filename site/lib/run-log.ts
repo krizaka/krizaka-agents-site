@@ -84,7 +84,7 @@ export function parseRunCases(json: string): RunCase[] {
 }
 
 /** « (<private tracker>#123) »: the tracker is private, so its name is assembled here, never written out in a source of the site. */
-const ISSUE_REFERENCE = new RegExp(` \\(${["krizaka", "internal"].join("-")}#\\d+\\)`, "g");
+const ISSUE_REFERENCE = new RegExp(String.raw` \(${["krizaka", "internal"].join("-")}#\d+\)`, "g");
 
 /** Our internal words said in public ones; the order matters (the longer phrase first). */
 export const PUBLIC_WORDS: readonly (readonly [RegExp, string])[] = [
