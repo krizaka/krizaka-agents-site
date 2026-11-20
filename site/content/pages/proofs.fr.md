@@ -26,14 +26,37 @@ Les mesures déjà citées sur ce site : 190 000 → 40 000 jetons au premier to
 | Trains | [Tchou-tchou : nos pull requests prennent le train](https://blog.krizaka.com/fr/story/tchou-tchou-how-our-pull-requests-catch-the-train/) | la file de pull requests |
 | Cockpit | [Un cockpit local](https://blog.krizaka.com/fr/story/one-local-cockpit-to-run-the-whole-company/) | l'écran, chiffres du 15 novembre |
 
-### § 3 — Des pull requests fusionnées, publiques
+### § 3 — Une exécution réelle : deux équipes, les mêmes fichiers
+
+Le 19 novembre 2026, deux équipes d’agents ont travaillé en même temps sur les mêmes cinq fichiers de Verikora. La console
+ci-dessous rejoue le journal de cette exécution réelle, ligne par ligne, tel que l’outil l’a écrit. Chaque pull request
+nommée est publique.
+
+<!--run:overlap_log-->
+
+**S1, réussi.** À 16:44, la porte a vu les cinq fichiers partagés, avant que la seconde pull request existe. Le train a
+fait atterrir [#890](https://github.com/krizaka/verikora/pull/890) à 17:31 puis [#889](https://github.com/krizaka/verikora/pull/889) à 17:52 : aucun conflit, aucune poussée de reprise sur l’une comme sur l’autre.
+
+**S2, échoué, gardé dans l’historique.** [#891](https://github.com/krizaka/verikora/pull/891) était empilée sur [#889](https://github.com/krizaka/verikora/pull/889) ; sa base a bougé après l’empilement, le
+train a refusé de la rejouer à 17:54 et une personne a dû fusionner à la main à 18:04. Nous nous sommes arrêtés là et avons
+corrigé la cause. Les chiffres :
+
+<!--run:overlap_cases-->
+
+**S2, reprise : réussie.** La reprise a refait le même cas sur deux nouveaux tickets ([#893](https://github.com/krizaka/verikora/pull/893), puis [#894](https://github.com/krizaka/verikora/pull/894) empilée dessus). Le train a rejoué lui-même la PR empilée et l’a fusionnée, sans aucune poussée manuelle. Notre outil de preuve a d’abord dit « échec » jusqu’à ce que sa règle apprenne à distinguer le rejeu du train d’une poussée manuelle ; les chiffres bruts sont gardés tels quels.
+
+<!--run:overlap_s2_cases-->
+
+Une exécution prouve un mécanisme sur un cas, pas un taux.
+
+### § 4 — Des pull requests fusionnées, publiques
 
 Des agents de Krizaka ouvrent des pull requests sur les dépôts publics de l'organisation, et les trains les fusionnent.
 Deux exemples du 16 novembre, ouverts par l'application d'agents : [la PR n° 379 du blog](https://github.com/krizaka/krizaka-blog/pull/379)
 (un chapitre) et [la PR n° 378](https://github.com/krizaka/krizaka-blog/pull/378) (la mise à jour des épingles de workflows).
 Chaque dépôt public montre l'historique de ses pull requests fusionnées ; c'est la preuve qu'on peut parcourir soi-même.
 
-### § 4 — Ce que cette page ne prouve pas
+### § 5 — Ce que cette page ne prouve pas
 
 Les deux audits de 48 heures et les comptes de pull requests de toute l'organisation s'appuient sur des journaux et des
 tickets privés : nous les citons dans les chapitres, mais vous ne pouvez pas les rejouer. Nous les rendrons vérifiables ou

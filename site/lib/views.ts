@@ -24,17 +24,30 @@ export function viewOf(id: ViewId, locale: Locale): ArchView {
 }
 
 const isViewId = (id: string): id is ViewId => (VIEW_IDS as readonly string[]).includes(id);
-const MARK = /<!--view:([a-z_]+)-->/g;
+const MARK = /<!--(view|run):([a-z0-9_-]+)-->/g;
 
-/** A stretch of a page's HTML, or a view drawn there. */
-export type Piece = { html: string } | { view: ViewId };
+/** The real runs a page replays (`<!--run:<id>-->`): each is a proof of content/proofs, shown by RunProof. */
+export const RUN_IDS = ["overlap_log", "overlap_cases", "overlap_s2_cases"] as const;
+export type RunId = (typeof RUN_IDS)[number];
+const isRunId = (id: string): id is RunId => (RUN_IDS as readonly string[]).includes(id);
 
-/** The page's HTML cut at each `<!--view:<id>-->`; an id the site does not show stops the build. */
+/** A stretch of a page's HTML, a view drawn there, or a run replayed there. */
+export type Piece = { html: string } | { view: ViewId } | { run: RunId };
+
+/** The page's HTML cut at each `<!--view:<id>-->` and `<!--run:<id>-->`; an id the site does not show stops the build. */
 export function piecesOf(html: string): Piece[] {
   const parts = html.split(MARK);
-  return parts.flatMap((part, i): Piece[] => {
-    if (i % 2 === 0) return part.trim() ? [{ html: part }] : [];
-    if (!isViewId(part)) throw new Error(`no view ${part} on this site (${VIEW_IDS.join(", ")})`);
-    return [{ view: part }];
-  });
+  const pieces: Piece[] = [];
+  for (let i = 0; i < parts.length; i += 3) {
+    if (parts[i].trim()) pieces.push({ html: parts[i] });
+    const [kind, id] = [parts[i + 1], parts[i + 2]];
+    if (kind === "view") {
+      if (!isViewId(id)) throw new Error(`no view ${id} on this site (${VIEW_IDS.join(", ")})`);
+      pieces.push({ view: id });
+    } else if (kind === "run") {
+      if (!isRunId(id)) throw new Error(`no run ${id} on this site (${RUN_IDS.join(", ")})`);
+      pieces.push({ run: id });
+    }
+  }
+  return pieces;
 }

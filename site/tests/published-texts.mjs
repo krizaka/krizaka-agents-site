@@ -13,10 +13,14 @@ export const walk = (dir) =>
 /** Every file under the source folders, relative to site/. */
 export const sourcePaths = () => SOURCE_DIRS.flatMap((d) => walk(join(root, d))).map((f) => relative(root, f));
 
+/** The proofs copied from krizaka-agents, byte for byte (scripts/proofs.mjs): their raw lines are the tool's own, so what is
+    public is what the page renders from them in public words (lib/run-log.ts), which tests/real-run.test.mjs holds to the rules. */
+export const isProofCopy = (f) => f.startsWith("content/proofs/") && f !== "content/proofs/sources.json";
+
 /** [path, text] of each text source. */
 export const sourceTexts = () =>
   sourcePaths()
-    .filter((f) => TEXT_SOURCE.test(f))
+    .filter((f) => TEXT_SOURCE.test(f) && !isProofCopy(f))
     .map((f) => [f, readFileSync(join(root, f), "utf8")]);
 
 export const built = () => existsSync(join(root, "out"));
