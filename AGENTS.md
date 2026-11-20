@@ -23,7 +23,7 @@
 
 ## Architecture & conventions
 
-- Follow the [krizaka-engineering skill](https://github.com/krizaka/krizaka-skills/blob/main/skills/krizaka-engineering/SKILL.md); search its [packages reference](https://github.com/krizaka/krizaka-skills/blob/main/skills/krizaka-engineering/references/packages.md) before writing anything generic.
+- Follow the [krizaka-engineering skill](https://github.com/krizaka/krizaka-agents/blob/main/plugins/krizaka-engineering/skills/krizaka-engineering/SKILL.md); search its [packages reference](https://github.com/krizaka/krizaka-agents/blob/main/plugins/krizaka-engineering/skills/krizaka-engineering/references/packages.md) before writing anything generic.
 - Take libraries first: a size check, a date sum, a money format, a fetch, a retry, a rate limit, a validation regex come from `@krizaka/*`; a missing function goes into the package first, never a local copy.
 - Keep ports and adapters: domain code reads no env, no ambient clock, no database client; services talk to ports; route handlers are thin (authenticate, parse, one service call, map the result).
 - Write one job per function: cognitive complexity ≤ 15, nesting ≤ 2, a body under 60 lines; a form saves once; the same block twice is a function, in two repositories a package function.
@@ -57,4 +57,4 @@
 ## References
 
 - [Org standards](https://github.com/krizaka/.github/tree/main/docs/standards) of krizaka/.github; the [engineering charter](https://github.com/krizaka/.github/blob/main/AGENTS.template.md) (naming, tests, mobile, coding agents).
-- [krizaka-engineering skill](https://github.com/krizaka/krizaka-skills/blob/main/skills/krizaka-engineering/SKILL.md).
+- [krizaka-engineering skill](https://github.com/krizaka/krizaka-agents/blob/main/plugins/krizaka-engineering/skills/krizaka-engineering/SKILL.md).
