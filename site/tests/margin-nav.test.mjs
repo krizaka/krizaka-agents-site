@@ -19,7 +19,7 @@ test("the margin shows from 1024 px and the numbers sit left of the red line", (
 
 for (const [locale, prefix, current, sections] of [
   ["en", "flow/index.html", "The flow", 5],
-  ["fr", "fr/proofs/index.html", "Preuves", 4],
+  ["fr", "fr/proofs/index.html", "Preuves", 5],
 ]) {
   test(`${locale}: the nav lists the six pages, marks the current one and lists its sections, headings keep their text`, { skip: !built }, () => {
     const page = html(prefix);

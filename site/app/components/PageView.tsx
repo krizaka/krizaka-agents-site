@@ -10,6 +10,7 @@ import { piecesOf } from "@/lib/views";
 import WriteToUs from "./WriteToUs";
 import ViewFigure from "./ViewFigure";
 import MarginNav from "./MarginNav";
+import RunProof from "./RunProof";
 
 const WRITE_MARK = "<!--write-->";
 
@@ -81,6 +82,10 @@ function Stretch({ locale, html }: Readonly<{ locale: Locale; html: string }>) {
     if ("view" in piece) {
       after = piece.view;
       return <ViewFigure key={piece.view} locale={locale} id={piece.view} />;
+    }
+    if ("run" in piece) {
+      after = piece.run;
+      return <RunProof key={piece.run} run={piece.run} labels={getMessages(locale).runProof} />;
     }
     return <Prose key={`prose-after-${after}`} locale={locale} html={piece.html} />;
   });
