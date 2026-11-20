@@ -43,8 +43,7 @@ corrigé la cause. Les chiffres :
 
 <!--run:overlap_cases-->
 
-**S2, reprise : en cours.** La reprise refait le même cas sur deux nouveaux tickets ([#893](https://github.com/krizaka/verikora/pull/893), puis [#894](https://github.com/krizaka/verikora/pull/894) empilée dessus).
-Ses chiffres viendront de son propre fichier de preuve ; d’ici là, rien n’est affirmé.
+**S2, reprise : réussie.** La reprise a refait le même cas sur deux nouveaux tickets ([#893](https://github.com/krizaka/verikora/pull/893), puis [#894](https://github.com/krizaka/verikora/pull/894) empilée dessus). Le train a rejoué lui-même la PR empilée et l’a fusionnée, sans aucune poussée manuelle. Notre outil de preuve a d’abord dit « échec » jusqu’à ce que sa règle apprenne à distinguer le rejeu du train d’une poussée manuelle ; les chiffres bruts sont gardés tels quels.
 
 <!--run:overlap_s2_cases-->
 

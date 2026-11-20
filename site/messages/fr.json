@@ -87,7 +87,8 @@
       },
       "verdicts": {
         "pass": "réussi",
-        "fail": "échoué"
+        "fail": "échoué",
+        "replayed": "réussi, rejoué par le train"
       },
       "stackedOn": "empilée sur {pr}"
     }

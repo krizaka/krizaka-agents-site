@@ -21,7 +21,7 @@ const page = (locale, slug) => join(root, "out", locale === "fr" ? "fr" : "", sl
 test("every copy is its source, byte for byte, and a pending proof has no copy", () => {
   assert.deepEqual(proofProblems(root, sources), []);
   assert.ok(isSynced(proof(LOG)) && isSynced(proof(CASES)));
-  assert.ok(!isSynced(proof("overlap-live-s2-rerun-cases")));
+  assert.ok(isSynced(proof("overlap-live-s2-rerun-cases")) && isSynced(proof("overlap-live-s2-rerun-log")));
 });
 
 test("the copy equals the file of krizaka-agents at its commit (with APP_PROOFS_SOURCE, a checkout)", { skip: !process.env.APP_PROOFS_SOURCE }, () => {
@@ -75,6 +75,12 @@ test("the cases: S1 passed with no conflict, S2 failed once; counts of the legen
   assert.equal(kindCounts(parseRunLog(copy(LOG))).merged, 3);
 });
 
+test("the S2 rerun: #893 passed, #894 was replayed by the train alone, no manual push", () => {
+  const byPr = Object.fromEntries(parseRunCases(copy("overlap-live-s2-rerun-cases")).map((c) => [c.pr, c]));
+  assert.deepEqual([byPr[893].verdict, byPr[894].verdict], ["pass", "replayed"]);
+  assert.equal(byPr[894].replayed, true);
+});
+
 test("a page places a run with <!--run:id-->; an unknown run stops the build", () => {
   assert.deepEqual(piecesOf("a<!--run:overlap_log-->b"), [{ html: "a" }, { run: "overlap_log" }, { html: "b" }]);
   assert.deepEqual(piecesOf("<!--view:pr_life--><!--run:overlap_cases-->"), [{ view: "pr_life" }, { run: "overlap_cases" }]);
@@ -92,8 +98,8 @@ test("the Proofs page places the console, the first cases and the S2 rerun, in b
   for (const f of ["what-it-is", "proofs"]) for (const l of ["en", "fr"]) assert.doesNotMatch(readFileSync(join(root, "content", "pages", `${f}.${l}.md`), "utf8"), /simulat/i);
 });
 
-test("built: the stamp says real run with the log's date, S2 reads in progress, every PR line links to its public PR", { skip: !built() }, () => {
-  const expected = { en: ["real run, 2026-11-19", "in progress"], fr: ["exécution réelle, 2026-11-19", "en cours"] };
+test("built: the stamp says real run with the log's date, S2 reads passed, every PR line links to its public PR", { skip: !built() }, () => {
+  const expected = { en: ["real run, 2026-11-19", "passed, replayed by the train"], fr: ["exécution réelle, 2026-11-19", "réussi, rejoué par le train"] };
   for (const locale of ["en", "fr"]) {
     const html = readFileSync(page(locale, "proofs"), "utf8");
     for (const word of expected[locale]) assert.ok(html.includes(word), `${locale}: ${word}`);

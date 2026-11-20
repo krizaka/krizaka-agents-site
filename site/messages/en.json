@@ -87,7 +87,8 @@
       },
       "verdicts": {
         "pass": "passed",
-        "fail": "failed"
+        "fail": "failed",
+        "replayed": "passed, replayed by the train"
       },
       "stackedOn": "stacked on {pr}"
     }

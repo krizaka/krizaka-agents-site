@@ -40,8 +40,7 @@ to replay it at 17:54, and a person had to merge by hand at 18:04. We stopped th
 
 <!--run:overlap_cases-->
 
-**S2, rerun: in progress.** The rerun repeats the same case on two new tickets ([#893](https://github.com/krizaka/verikora/pull/893), then [#894](https://github.com/krizaka/verikora/pull/894) stacked on it).
-Its figures will come from its own proof file; until then nothing is claimed.
+**S2, rerun: passed.** The rerun repeated the same case on two new tickets ([#893](https://github.com/krizaka/verikora/pull/893), then [#894](https://github.com/krizaka/verikora/pull/894) stacked on it). The train replayed the stacked PR by itself and merged it, with no manual push. Our proof tool first said “fail” until its rule learned to tell the train’s replay from a manual push; the raw counts are kept as they are.
 
 <!--run:overlap_s2_cases-->
 
