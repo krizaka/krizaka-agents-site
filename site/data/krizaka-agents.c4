@@ -1,0 +1,597 @@
+// Krizaka Agents' containers, current and target (ADR-027 of krizaka/.github; krizaka-internal#4118). Krizaka Agents is the
+// delivery harness for coding agents that works with Claude Code: the commands, guards, sessions, trains, coordinator, services
+// and crons around Claude Code that take an issue to a merged, checked pull request.
+// Sources of the current state: AGENTS.md § 1 (the commands), README « Tools » and « Crons », tools/session_env.py (the session
+// builder), tools/ops/ and tools/svc/ (the operations service), tools/coord/ (the coordinator), tools/install.json (crons, hooks,
+// launch agents, MCP servers). The target is decided by krizaka-agents ADR-005 (krizaka-internal docs/adr/krizaka-agents/).
+// The system itself, its name and the standard views are generated; versions and package dependencies are facts read from main.
+// Written to be readable in public: no secret name, no machine path, no person's name.
+model {
+  extend agents {
+
+    // ---- Who drives it, and where they look
+    cto = container 'CTO session' {
+      description 'The interactive Claude Code session the founder talks to: plans, files issues, launches the team sessions and reads their reports.'
+      technology 'Claude Code (interactive)'
+    }
+    cockpit = app 'Cockpit' {
+      description 'The local dashboard of the founder: trains, alerts, sessions, costs, the board and the architecture of every product.'
+      technology 'Next.js, @krizaka/ui (on the Mac, not deployed)'
+    }
+    cockpitFeeds = container 'Cockpit feeds' {
+      description 'Token-free exports the cockpit reads: the live trains, the org inventory, the architecture rebuilt after each sync.'
+      technology 'Python'
+      metadata {
+        repo 'krizaka-agents'
+        path 'tools/cockpit'
+      }
+    }
+
+    // ---- The commands and their guards
+    commands = container 'Commands and gates' {
+      description 'What a session runs at each step (start, issue, pull request, push, queue, end), each command holding its rules and counting its refusals.'
+      technology 'Python 3, POSIX shell'
+      metadata {
+        repo 'krizaka-agents'
+        path '.'
+      }
+    }
+    hooks = container 'Hooks' {
+      description 'Claude Code hooks on every tool call (codegraph first, secret and identity guards, redaction, formatting, the inbox) and one git hook chain (secret scan, identities, workflow lint, formatter, fast checks) before every commit and push.'
+      technology 'Claude Code hooks, git hooks, gitleaks, zizmor, actionlint'
+      metadata {
+        repo 'krizaka-agents'
+        path 'tools/githooks'
+      }
+    }
+    skills = library 'Skills and subagents' {
+      description 'The plugin marketplace the sessions load: how to run a lane, file an issue, land a pull request, and one skill per language.'
+      technology 'Claude Code plugins, Agent Skills'
+      metadata {
+        repo 'krizaka-agents'
+        path 'plugins'
+      }
+    }
+    schemas = library 'Schemas' {
+      description 'The JSON schemas of the data files the tools read (teams, install, policy, queues, exports).'
+      technology 'JSON Schema'
+      metadata {
+        repo 'krizaka-agents'
+        path 'schemas'
+      }
+    }
+
+    // ---- Sessions
+    builder = container 'Session builder and team runner' {
+      description 'Builds every headless session the same way (pinned CLI, isolated settings, allowed MCP servers, caps on turns, budget and minutes, the preamble), gates its start on load, index and tool health, checks its init, runs it as a one-shot launch agent and records its end once.'
+      technology 'Python, launchd'
+      metadata {
+        repo 'krizaka-agents'
+        path 'tools/teams'
+      }
+    }
+    sessions = container 'Agent sessions' {
+      description 'Headless Claude Code sessions: named teams, the crack (a blocked repository), the recette (acceptance), the lanes, the log audit. Each works in its own worktree.'
+      technology 'Claude Code (pinned version), stream-json'
+    }
+    automatic = container 'Automatic launchers' {
+      description 'Scans that start a capped session by themselves: the crack on a red pull request at the cap, the recette after a merge, the lane dispatch on a ready item, the log audit every hour.'
+      technology 'Python'
+      metadata {
+        repo 'krizaka-agents'
+        path 'tools'
+        covers 'crack, recette, lane-dispatch, log-audit'
+      }
+    }
+    mcp = container 'MCP servers' {
+      description 'What a session may read beyond the repository: GitHub read-only (through a token-refreshing proxy), SonarCloud, web research, the operations read model, the docs, the code graph.'
+      technology 'MCP (stdio), official servers pinned by version or digest'
+      metadata {
+        repo 'krizaka-agents'
+        path 'tools/mcp'
+      }
+    }
+
+    // ---- Delivery
+    coordinator = container 'Coordinator' {
+      description 'Tasks, leases with a fencing token and granted file scopes, so parallel sessions never write the same files; lands one task at a time.'
+      technology 'Python, HTTP on loopback (LaunchAgent)'
+      metadata {
+        repo 'krizaka-agents'
+        path 'tools/coord'
+        covers 'coord'
+      }
+    }
+    coordStore = datastore 'Coordination registry' {
+      description 'Tasks, leases, scopes and their idempotent writes. Opened only by the coordinator (tools/coord/registry.py).'
+      technology 'SQLite (WAL)'
+      metadata {
+        repo 'krizaka-agents'
+        path 'tools/coord'
+        covers 'coordination.db'
+      }
+    }
+    trains = container 'Trains' {
+      description 'One ordered landing queue per repository and one runner that takes each green pull request through the merge queue; stops on red, counts reds, calls for help at the second.'
+      technology 'Python, bash, GitHub merge queue'
+    }
+    workspace = container 'Workspace' {
+      description 'One reference clone per repository, kept on main after every merge, and one worktree per issue.'
+      technology 'git'
+    }
+
+    // ---- Operations
+    crons = container 'Scheduled jobs' {
+      description 'The managed crontab and launch agents (tools/install.json): train control, watchdog, scans, workspace and worktree sync, board sync, operations sync and check, debt meter, plugin and code-graph refresh, the org C1 export; each run recorded.'
+      technology 'cron, launchd, kz-run'
+      metadata {
+        repo 'krizaka-agents'
+        path 'tools'
+        covers 'trains, board-sync, workspace-sync, worktrees-sweep, codegraph-index, plugin-cache, update-behind, org-c1, actions-cost, sync-db, debt-meter, ops-db-check'
+      }
+    }
+    watchdog = container 'Watchdog' {
+      description 'Reads the runs, the trains, the sessions, the checks of main, the service keys, the age of every credential and the GPU pods; raises and resolves alerts. Never writes code.'
+      technology 'Python'
+      metadata {
+        repo 'krizaka-agents'
+        path 'tools'
+        covers 'watchdog'
+      }
+    }
+    ops = container 'Operations service' {
+      description 'The one process that opens the operations database: events, alerts, sessions and work copies, synced tables, long-poll waits; one token per caller; a journal when it is down.'
+      technology 'Python, HTTP on loopback (LaunchAgent)'
+      metadata {
+        repo 'krizaka-agents'
+        path 'tools/ops'
+        covers 'ops'
+      }
+    }
+    svc = library 'Local service kit' {
+      description 'The shared server of the local JSON services: loopback only, bearer token, bounded body, restart on a code change.'
+      technology 'Python standard library'
+      metadata {
+        repo 'krizaka-agents'
+        path 'tools/svc'
+      }
+    }
+    opsStore = datastore 'Operations database' {
+      description 'The one database of the operations: events, alerts, sessions and work copies, the ledger (transactions), cloud costs, social, checkpoints, product health and the credential rotations journal. Opened only by the operations service; the cockpit reads it through the service.'
+      technology 'SQLite'
+      metadata {
+        repo 'krizaka-agents'
+        path 'tools/ops'
+        covers 'operations.db, self.db'
+      }
+    }
+    boardCache = datastore 'Board cache' {
+      description 'The project board, read incrementally, so no tool pages the GitHub board by hand (tools/board-cache.py).'
+      technology 'SQLite'
+      metadata {
+        repo 'krizaka-agents'
+        path 'tools'
+        covers 'board.db'
+      }
+    }
+    logFiles = datastore 'Log files' {
+      #retiring
+      description 'About two dozen files beside the event table, each with its own shape: CSV ledgers, JSONL journals, plain logs. Folded into one event format and one sink.'
+      technology 'CSV, JSONL, text'
+      metadata {
+        adr 'krizaka-agents ADR-005'
+        issue 'krizaka-internal#4118'
+      }
+    }
+    companyDb = datastore 'Company database' {
+      description 'The company settings and the bank account of the company, in the private folder of the Mac (never in a repository). Written only by the cockpit and the compliance tool; no other tool opens it (docs/design/operations-service.md).'
+      technology 'SQLite'
+      metadata {
+        repo 'krizaka-agents'
+        path 'tools'
+        covers 'company.db'
+      }
+    }
+    stateFiles = datastore 'State files' {
+      description 'JSON files beside the tools: the landing queues, the run records of the sessions, the lane handoffs, the caches of the guards. Each has its schema.'
+      technology 'JSON'
+      metadata {
+        repo 'krizaka-agents'
+        path 'schemas'
+      }
+    }
+    secrets = container 'Secret access' {
+      description 'Reads a secret by source and name into a command, never prints it (secret.sh through the secrets map); mints the GitHub app tokens from keys kept in the vault of the private folder. The macOS keychain holds only the Claude Code login.'
+      technology 'Shell, Python'
+      metadata {
+        repo 'krizaka-agents'
+        path 'tools/credential_rotation'
+      }
+    }
+    secretFiles = datastore 'Secret files' {
+      description 'The private folder of the Mac: one env file per source (named by the secrets map), the vault holding the GitHub app keys, the repository backups. Read only through the secret reader, never by a session.'
+      technology 'Env files, key files (mode 600)'
+    }
+    rotation = container 'Credential rotation' {
+      description 'Rotates a credential through a journaled flow (planned, created, staged, copies updated, verified, promoted, old revoked, recorded) and reports the age of each one against its inventory in the restricted repository; each run is a row of the operations database.'
+      technology 'Python'
+      metadata {
+        repo 'krizaka-agents'
+        path 'tools/credential_rotation'
+        covers 'credential-rotate, credential-age'
+      }
+    }
+    dbDrift = container 'Schema drift check' {
+      description 'Nightly, compares the schema of each product dev database with the snapshot built from zero on main; read-only, credentials through the secret reader. Also seeds the dev databases with the fictional cast.'
+      technology 'Python, psql'
+      metadata {
+        repo 'krizaka-agents'
+        path 'tools'
+        covers 'db-drift'
+      }
+    }
+    devDb = external 'Dev databases' {
+      description 'The managed PostgreSQL clusters of the products on the dev environment (one per product), not owned by this system.'
+      technology 'PostgreSQL (DigitalOcean managed)'
+      metadata {
+        repo 'krizaka-agents'
+        path 'tools'
+        covers 'VERIKORA_DATABASE_URL, FOLIOVIV_DATABASE_URL, DATABASE_URL'
+      }
+    }
+    designReview = container 'Design review' {
+      description 'Hourly, reviews one repository per pass in a fixed priority order and records the result.'
+      technology 'Python, launchd'
+      metadata {
+        repo 'krizaka-agents'
+        path 'tools'
+        covers 'design-review'
+      }
+    }
+    runner = container 'Self-hosted runner' {
+      description 'The GitHub Actions runner of the Mac for the private repositories; updated by itself, its version checked by a tool.'
+      technology 'GitHub Actions runner, launchd'
+      metadata {
+        repo 'krizaka-agents'
+        path 'tools'
+        covers 'actions.runner.krizaka.krizaka-mac-runner'
+      }
+    }
+    gpu = external 'GPU pods' {
+      description 'Pods by the hour for the paid media runs; the watchdog and every session end list the ones still billing.'
+      technology 'RunPod'
+    }
+    quality = external 'Code quality service' {
+      description 'Findings and coverage of every pull request, read before a merge.'
+      technology 'SonarCloud'
+    }
+    research = external 'Web research' {
+      description 'Generic public questions with their sources (a library version, an advisory).'
+      technology 'Perplexity'
+    }
+    observability = external 'Observability stack' {
+      description 'Synthetic probes of the public sites and the dev health routes.'
+      technology 'Grafana Cloud'
+    }
+    checkers = library 'Checkers and formatters' {
+      description 'The third-party tools the gates run: gitleaks, zizmor, actionlint, shellcheck, ruff, pyright, prettier, eslint with the Sonar rules, coverage.py.'
+      technology 'Open source, pinned'
+    }
+
+    // ---- Target (krizaka-agents ADR-005)
+    profile = container 'Installation profile' {
+      #planned
+      description 'One declared file per installation (organisation, repositories, apps, paths, policy, runtime, models), validated at start; nothing typed for one organisation.'
+      technology 'JSON + JSON Schema'
+      metadata {
+        adr 'krizaka-agents ADR-005'
+        issue 'krizaka-internal#4118'
+      }
+    }
+    envContract = library 'Environment contract' {
+      #planned
+      description 'One declared list of environment variables named by role, never by provider (AI_MODEL_*, AGENT_RUNTIME_*, VCS_*, SECRETS_*, STORAGE_*, NOTIFY_*, OPS_*); a missing or unknown name refuses the start.'
+      technology 'Python, JSON Schema'
+      metadata {
+        adr 'krizaka-agents ADR-005'
+      }
+    }
+    events = library 'Event client' {
+      #planned
+      description 'One structured event format for every session, train, refusal, cron run and alert (time, source, kind, subject, outcome, trace and session ids, bounded detail), one writer, one sink.'
+      technology 'Python; OpenTelemetry log data model'
+      metadata {
+        adr 'krizaka-agents ADR-005'
+      }
+    }
+    ports = library 'Service ports' {
+      #planned
+      description 'The interfaces between the harness and what it depends on: VCS host, agent runtime, model provider, secrets store, storage, notifications, operations store. The coordinator, the trains, the guards and the watchdog import only these.'
+      technology 'Python protocols, contract tests'
+      metadata {
+        adr 'krizaka-agents ADR-005'
+      }
+    }
+    vcsGithub = container 'GitHub adapter' {
+      #planned
+      description 'The VCS host port on GitHub: REST and GraphQL with the app tokens, the merge queue, checks, the board.'
+      technology 'Python, gh'
+      metadata {
+        adr 'krizaka-agents ADR-005'
+      }
+    }
+    runtimeClaudeCode = container 'Claude Code runtime adapter' {
+      #planned
+      description 'The agent runtime port on Claude Code: one session spec in (model, caps, tools, workdir, prompt), one stream of normalised events out, one end (outcome, turns, cost). Hooks and plugins stay its own.'
+      technology 'Python, Claude Code headless'
+      metadata {
+        adr 'krizaka-agents ADR-005'
+      }
+    }
+    modelClaude = container 'Claude model adapter' {
+      #planned
+      description 'The model provider port: a model chosen by role (planner, builder, reviewer, scan) and mapped to the id of a provider; today Claude, through the runtime.'
+      technology 'Python'
+      metadata {
+        adr 'krizaka-agents ADR-005'
+      }
+    }
+    secretsAdapter = container 'Secrets adapter' {
+      #planned
+      description 'The secrets store port: the macOS keychain today, a cloud secret manager at a client.'
+      technology 'Python'
+      metadata {
+        adr 'krizaka-agents ADR-005'
+      }
+    }
+    notifyAdapter = container 'Notification adapter' {
+      #planned
+      description 'The notification port: alerts to the operations store and the cockpit today; e-mail or chat at a client.'
+      technology 'Python'
+      metadata {
+        adr 'krizaka-agents ADR-005'
+      }
+    }
+    storageAdapter = container 'Storage adapter' {
+      #planned
+      description 'The storage port for captures, reports and backups: a local folder today, an object store at a client.'
+      technology 'Python'
+      metadata {
+        adr 'krizaka-agents ADR-005'
+      }
+    }
+  }
+
+  // ---- People
+  founder -> agents.cto 'asks, decides, approves'
+  founder -> agents.cockpit 'watches the work and the architecture'
+
+  // ---- Sessions
+  agents.cto -> agents.commands 'runs the commands'
+  agents.cto -> agents.builder 'launches and tells the team sessions'
+  agents.automatic -> agents.builder 'starts capped sessions'
+  agents.builder -> agents.sessions 'builds the command line of Claude Code and reads its stream' {
+    #retiring
+    metadata {
+      adr 'krizaka-agents ADR-005'
+    }
+  }
+  agents.sessions -> agents.commands 'runs the commands'
+  agents.sessions -> agents.hooks 'every tool call passes the hooks'
+  agents.sessions -> agents.skills 'loads'
+  agents.sessions -> agents.mcp 'reads through'
+  agents.sessions -> agents.workspace 'works in its worktree'
+  agents.sessions -> models 'runs on Claude models' {
+    #retiring
+    metadata {
+      adr 'krizaka-agents ADR-005'
+    }
+  }
+  agents.sessions -> agents.coordinator 'claims a task, heartbeats, lands'
+  agents.hooks -> agents.checkers 'runs'
+  agents.commands -> agents.checkers 'runs'
+  agents.cto -> models 'runs on Claude models'
+
+  // ---- Delivery
+  agents.commands -> github 'issues, pull requests, labels, the board (app token)' {
+    #retiring
+    metadata {
+      adr 'krizaka-agents ADR-005'
+    }
+  }
+  agents.commands -> agents.trains 'queues a green pull request'
+  agents.trains -> github 'lands through the merge queue' {
+    #retiring
+    metadata {
+      adr 'krizaka-agents ADR-005'
+    }
+  }
+  agents.workspace -> github 'fetches and pushes (app token)' {
+    #retiring
+    metadata {
+      adr 'krizaka-agents ADR-005'
+    }
+  }
+  agents.mcp -> github 'reads, never writes'
+  agents.mcp -> agents.quality 'reads findings'
+  agents.mcp -> agents.research 'asks generic public questions'
+  agents.mcp -> agents.ops 'reads the operations read model'
+  agents.commands -> agents.quality 'reads the findings of a pull request'
+  agents.coordinator -> agents.coordStore 'reads and writes'
+  agents.coordinator -> github 'reconciles from GitHub facts' {
+    #retiring
+    metadata {
+      adr 'krizaka-agents ADR-005'
+    }
+  }
+  agents.commands -> agents.boardCache 'reads the board'
+  agents.commands -> agents.secrets 'reads a secret by name'
+  agents.secrets -> agents.secretFiles 'reads the env files and the app keys'
+  agents.rotation -> agents.secrets 'writes the new value to each copy'
+  agents.rotation -> agents.ops 'journals each step and each run'
+  agents.watchdog -> agents.rotation 'reads the age of each credential'
+  agents.dbDrift -> agents.devDb 'reads the schema; seeds the fictional cast'
+  agents.dbDrift -> agents.secrets 'reads the connection by name'
+  agents.cockpit -> agents.companyDb 'reads and writes the company settings'
+  agents.commands -> agents.stateFiles 'reads and writes'
+  agents.designReview -> github 'reads the repositories it reviews'
+  agents.runner -> github 'runs the checks of the private repositories'
+  agents.crons -> agents.dbDrift 'nightly'
+  agents.crons -> agents.designReview 'every 30 minutes'
+  agents.crons -> agents.runner 'checks its version'
+
+  // ---- Operations
+  agents.crons -> agents.trains 'train control every 15 minutes'
+  agents.crons -> agents.watchdog 'every 15 minutes'
+  agents.crons -> agents.automatic 'scans'
+  agents.crons -> agents.workspace 'syncs the reference clones'
+  agents.watchdog -> agents.ops 'raises and resolves alerts' {
+    #retiring
+    metadata {
+      adr 'krizaka-agents ADR-005'
+    }
+  }
+  agents.watchdog -> github 'reads the checks of main, hourly' {
+    #retiring
+    metadata {
+      adr 'krizaka-agents ADR-005'
+    }
+  }
+  agents.watchdog -> agents.gpu 'lists the pods still billing'
+  agents.builder -> agents.ops 'records the start, the progress and the end' {
+    #retiring
+    metadata {
+      adr 'krizaka-agents ADR-005'
+    }
+  }
+  agents.commands -> agents.ops 'writes events and refusals' {
+    #retiring
+    metadata {
+      adr 'krizaka-agents ADR-005'
+    }
+  }
+  agents.trains -> agents.ops 'writes events' {
+    #retiring
+    metadata {
+      adr 'krizaka-agents ADR-005'
+    }
+  }
+  agents.ops -> agents.svc 'is served by'
+  agents.ops -> agents.opsStore 'the only opener'
+  agents.commands -> agents.logFiles 'appends ledgers and journals' {
+    #retiring
+    metadata {
+      adr 'krizaka-agents ADR-005'
+    }
+  }
+  agents.trains -> agents.logFiles 'appends its logs' {
+    #retiring
+  }
+  agents.cockpitFeeds -> agents.cockpit 'feeds'
+  agents.cockpit -> agents.ops 'reads events, alerts, sessions'
+  agents.cockpit -> agents.logFiles 'reads train and run logs' {
+    #retiring
+  }
+  agents.observability -> agents.cockpit 'probe results beside the alerts'
+
+  // ---- Target relationships (krizaka-agents ADR-005)
+  agents.builder -> agents.profile 'validates at start' {
+    #planned
+    metadata {
+      adr 'krizaka-agents ADR-005'
+    }
+  }
+  agents.builder -> agents.envContract 'refuses a missing or unknown variable' {
+    #planned
+  }
+  agents.commands -> agents.profile 'reads the organisation, repositories and policy' {
+    #planned
+  }
+  agents.builder -> agents.ports 'drives the agent runtime port' {
+    #planned
+  }
+  agents.commands -> agents.ports 'VCS host, secrets, storage, notifications' {
+    #planned
+  }
+  agents.trains -> agents.ports 'VCS host' {
+    #planned
+  }
+  agents.coordinator -> agents.ports 'VCS host' {
+    #planned
+  }
+  agents.watchdog -> agents.ports 'VCS host, notifications, operations store' {
+    #planned
+  }
+  agents.vcsGithub -> agents.ports 'implements the VCS host' {
+    #planned
+  }
+  agents.vcsGithub -> github 'REST, GraphQL, merge queue (app token)' {
+    #planned
+  }
+  agents.runtimeClaudeCode -> agents.ports 'implements the agent runtime' {
+    #planned
+  }
+  agents.runtimeClaudeCode -> agents.sessions 'starts Claude Code and normalises its stream' {
+    #planned
+  }
+  agents.runtimeClaudeCode -> agents.modelClaude 'asks which model id a role runs' {
+    #planned
+  }
+  agents.modelClaude -> agents.ports 'implements the model provider' {
+    #planned
+  }
+  agents.modelClaude -> models 'Claude models today' {
+    #planned
+  }
+  agents.secretsAdapter -> agents.ports 'implements the secrets store' {
+    #planned
+  }
+  agents.notifyAdapter -> agents.ports 'implements the notifications' {
+    #planned
+  }
+  agents.notifyAdapter -> agents.ops 'records alerts' {
+    #planned
+  }
+  agents.storageAdapter -> agents.ports 'implements the storage' {
+    #planned
+  }
+  agents.commands -> agents.events 'writes every event and refusal' {
+    #planned
+  }
+  agents.trains -> agents.events 'writes every step' {
+    #planned
+  }
+  agents.builder -> agents.events 'writes every session start, progress and end' {
+    #planned
+  }
+  agents.watchdog -> agents.events 'reads one format' {
+    #planned
+  }
+  agents.vcsGithub -> agents.workspace 'fetches and pushes (app token)' {
+    #planned
+  }
+  agents.notifyAdapter -> agents.cockpit 'shows alerts' {
+    #planned
+  }
+  agents.events -> agents.ops 'one sink' {
+    #planned
+  }
+  agents.ops -> agents.observability 'exports the events (OpenTelemetry logs)' {
+    #planned
+    metadata {
+      adr 'krizaka-agents ADR-005'
+    }
+  }
+}
+
+// ---- Public views: what the public site's diagrams are generated from (no path, no repository list, no secret name, no person).
+views {
+  view agents_public_current of agents {
+    title 'Krizaka Agents · how it works today (public)'
+    include founder, agents.cto, agents.automatic, agents.builder, agents.sessions, agents.hooks, agents.commands, agents.coordinator, agents.trains, agents.watchdog, agents.ops, agents.cockpit, github, models
+  }
+  view agents_public_target of agents {
+    title 'Krizaka Agents · the target: ports and adapters (public)'
+    include agents.builder, agents.commands, agents.trains, agents.coordinator, agents.watchdog, agents.ports, agents.vcsGithub, agents.runtimeClaudeCode, agents.modelClaude, agents.secretsAdapter, agents.notifyAdapter, agents.storageAdapter, agents.events, agents.ops, agents.sessions, agents.profile, agents.envContract, github, models
+  }
+}

@@ -21,10 +21,19 @@ export type Page = { slug: PageSlug; title: string; description: string; html: s
 
 const FIGURE = /<p><em>(Fig\. 1[\s\S]*?)<\/em><\/p>/;
 
-function parse(source: string) {
+/** Parses YAML frontmatter (`title` and `description`) from a page markdown file. */
+export function parseFrontmatter(source: string) {
   const m = /^---\ntitle: (".*")\ndescription: (".*")\n---\n\n([\s\S]*)$/.exec(source);
   if (!m) throw new Error("page without its title and description");
   return { title: JSON.parse(m[1]) as string, description: JSON.parse(m[2]) as string, body: m[3] };
+}
+
+/** Renders markdown body to HTML, wrapping tables in scrollable Cahier containers and numbering `§` headings. */
+export function renderMarkdownBody(body: string): { html: string; sections: Section[] } {
+  const withTables = (marked.parse(body, { async: false }) as string)
+    .replaceAll("<table>", '<div class="kz-table-scroll"><table class="kz-table">')
+    .replaceAll("</table>", "</table></div>");
+  return numberHeadings(withTables);
 }
 
 /* marked escapes exactly these five characters, so these five are all a heading can hold; `&amp;` is decoded last. */
@@ -66,13 +75,10 @@ const slugOf = (text: string) =>
 export function readPage(locale: Locale, slug: PageSlug): Page {
   const entry = PAGES.find((p) => p.slug === slug);
   if (!entry) throw new Error(`no page ${slug}`);
-  const { title, description, body } = parse(
+  const { title, description, body } = parseFrontmatter(
     readFileSync(join(process.cwd(), "content", "pages", `${entry.file}.${locale}.md`), "utf8"),
   );
-  const withTables = (marked.parse(body, { async: false }) as string)
-    .replaceAll("<table>", '<div class="kz-table-scroll"><table class="kz-table">')
-    .replaceAll("</table>", "</table></div>");
-  const numbered = numberHeadings(withTables);
+  const numbered = renderMarkdownBody(body);
   const html = numbered.html;
   const caption = FIGURE.exec(html);
   return { slug, title, description, html: caption ? html.replace(FIGURE, "<!--figure-->") : html, figure: caption ? caption[1] : null, sections: numbered.sections };

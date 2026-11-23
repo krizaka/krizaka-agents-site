@@ -111,5 +111,96 @@
       },
       "stackedOn": "stacked on {pr}"
     }
+  },
+  "release": {
+    "draftBadge": "Draft · 1.0 · not published",
+    "navLabels": {
+      "v1": "1.0 (draft)",
+      "migration": "Migration (draft)"
+    },
+    "switchLanguage": {
+      "v1": "Lire le brouillon en français",
+      "migration": "Lire la migration en français"
+    },
+    "modelSource": "generated from {repo} {path} · copied {date}",
+    "captions": {
+      "v1_c1": "System context (C1): Krizaka Agents sits between the founder, GitHub, model providers, code quality, observability and GPU pods.",
+      "v1_c2": "Target container view (C2): the core components import only the service ports; VCS, runtime, models, secrets, notifications and storage live in adapters.",
+      "v1_tower": "Supervision and the tower: scheduled jobs, the watchdog, the operations service and the local cockpit keep every alert and session visible.",
+      "v1_events": "One event flow in twelve ordered steps: producers emit one structured event shape into one operations sink and export OTel logs."
+    },
+    "measures": {
+      "lanesOffTitle": "Context: lanes turned off",
+      "lanesOffNote": "Lanes are off since {date}, which lowers system load from that day on. Most of the daily rows below reflect lane-on activity before or during the switch.",
+      "sourcePrefix": "Source",
+      "dailyHeading": "Alerts sent and CTO wake-ups per day",
+      "dailyCaption": "Target: fewer than {target} alerts sent per day (window: {hours} hours).",
+      "columns": {
+        "day": "Day",
+        "alertsSent": "Alerts sent",
+        "ctoWakeups": "CTO wake-ups",
+        "towerRuns": "Tower runs",
+        "lanes": "Lanes",
+        "target": "Target"
+      },
+      "laneStates": {
+        "on": "on",
+        "turned-off": "turned off",
+        "off": "off"
+      },
+      "partialTag": "partial day",
+      "totalsHeading": "Activity and supervision totals ({hours}-hour window)",
+      "totals": {
+        "merges": "merges",
+        "redsFixed": "reds fixed",
+        "timeToGreen": "median time to green (min)",
+        "alertsRaised": "alerts raised",
+        "towerWakes": "tower wakes",
+        "loopsCaught": "loops caught"
+      },
+      "beforeAfterHeading": "Before the tower ({window})",
+      "beforeAfterNote": "The tower has not run in automated mode yet (zero tower runs recorded so far); only the baseline window before it is populated.",
+      "beforeColumns": {
+        "metric": "Counter",
+        "before": "Before ({window})",
+        "after": "After"
+      },
+      "beforeMetrics": {
+        "alerts": "alerts",
+        "teamEnded": "team-ended",
+        "crack": "crack",
+        "needsOwner": "needs-owner",
+        "teamEndedAckedByHand": "team-ended acked by hand"
+      },
+      "notRunYet": "not run yet",
+      "topKindsHeading": "Top alert kinds (alert-table rows and occurrences)",
+      "topKindsColumns": {
+        "kind": "Kind",
+        "rows": "Rows",
+        "occurrences": "Occurrences",
+        "status": "Status"
+      },
+      "kindStatuses": {
+        "tuned": "tuned",
+        "observed": "observed"
+      },
+      "ciMinutesHeading": "CI minutes",
+      "ciMinutesUnavailable": "Unavailable in this snapshot: CI minutes are not recorded in the local watchdog export."
+    }
+  },
+  "migration": {
+    "sourceLabel": "Contract source: {repo} {file} · snapshot {date}",
+    "summary": {
+      "total": "total aliases",
+      "prefixRename": "organisation-prefix renames",
+      "providerToRole": "provider-to-role renames"
+    },
+    "providerHeading": "Provider names moved to neutral role names",
+    "prefixHeading": "Organisation prefixes moved to role prefixes",
+    "columns": {
+      "oldName": "Old variable name",
+      "newName": "New role name",
+      "rolePrefix": "Role prefix"
+    }
   }
 }

@@ -1,0 +1,197 @@
+{
+  "views": {
+    "v1_c1": "Krizaka Agents 1.0 · contexte système (C1)",
+    "v1_c2": "Krizaka Agents 1.0 · ports et adaptateurs (C2)",
+    "v1_tower": "Krizaka Agents 1.0 · la tour de supervision",
+    "v1_events": "Krizaka Agents 1.0 · le flux d’événements"
+  },
+  "elements": {
+    "founder": {
+      "title": "Fondateur",
+      "description": "Décide la direction et l’argent. Une seconde application approuve les pull requests et le train les fusionne."
+    },
+    "agents": {
+      "title": "Krizaka Agents",
+      "description": "Ce que nous mettons autour des modèles d’IA pour que leur travail soit fiable : commandes, garde-fous, sessions, trains, veilleur, tour de supervision et magasin d’opérations."
+    },
+    "github": {
+      "title": "GitHub",
+      "description": "Le code, les tickets, les pull requests, la CI, la file de fusion et les étiquettes."
+    },
+    "models": {
+      "title": "Fournisseurs de modèles",
+      "description": "Les modèles d’IA sur lesquels tournent les produits et les agents, locaux ou hébergés."
+    },
+    "agents.quality": {
+      "title": "Service de qualité de code",
+      "technology": "SonarCloud",
+      "description": "Constats et couverture de chaque pull request, lus avant la fusion."
+    },
+    "agents.observability": {
+      "title": "Pile d’observabilité",
+      "technology": "Grafana Cloud",
+      "description": "Sondes synthétiques des sites publics et des routes de santé de développement, et journaux d’événements exportés."
+    },
+    "agents.gpu": {
+      "title": "Pods GPU",
+      "technology": "RunPod",
+      "description": "Pods facturés à l’heure pour les exécutions média ; le veilleur et chaque fin de session listent ceux encore actifs."
+    },
+    "agents.cto": {
+      "title": "Session CTO",
+      "technology": "Claude Code (interactif)",
+      "description": "La session Claude Code interactive avec laquelle le fondateur échange : planifie, ouvre les tickets, lance les sessions d’équipe et lit leurs rapports."
+    },
+    "agents.cockpit": {
+      "title": "Cockpit",
+      "technology": "Next.js, @krizaka/ui (local)",
+      "description": "Le tableau de bord local du fondateur : trains, alertes, sessions, dépenses, tableau des tickets et architecture de chaque produit."
+    },
+    "agents.crons": {
+      "title": "Tâches planifiées",
+      "technology": "cron, launchd, kz-run",
+      "description": "La table cron et les agents de lancement gérés : contrôle des trains, veilleur, balayages, synchronisation des dépôts et worktrees, tableau, base d’opérations et compteur de dette ; chaque exécution est enregistrée."
+    },
+    "agents.automatic": {
+      "title": "Lanceurs automatiques",
+      "technology": "Python",
+      "description": "Balayages qui démarrent seuls une session plafonnée : reprise sur pull request rouge, recette après fusion, répartition sur voie prête, audit horaire des journaux."
+    },
+    "agents.builder": {
+      "title": "Constructeur de sessions",
+      "technology": "Python, launchd",
+      "description": "Construit chaque session sans interface à l’identique (CLI épinglée, réglages isolés, serveurs MCP autorisés, plafonds de tours, budget et minutes), vérifie charge, index et outils avant départ et enregistre la fin une fois."
+    },
+    "agents.sessions": {
+      "title": "Sessions d’agents",
+      "technology": "Claude Code (épinglé), stream-json",
+      "description": "Sessions Claude Code sans interface : équipes nommées, reprise de dépôt bloqué, recette, voies, audit des journaux. Chacune travaille dans son worktree."
+    },
+    "agents.commands": {
+      "title": "Commandes et portes",
+      "technology": "Python 3, shell POSIX",
+      "description": "Ce qu’une session exécute à chaque étape (démarrage, ticket, pull request, poussée, file, fin), chaque commande portant ses règles et comptant ses refus."
+    },
+    "agents.coordinator": {
+      "title": "Coordinateur",
+      "technology": "Python, HTTP en boucle locale",
+      "description": "Tâches, baux avec jeton d’escrime et périmètres de fichiers accordés pour que des sessions parallèles n’écrivent jamais les mêmes fichiers ; atterrit une tâche à la fois."
+    },
+    "agents.trains": {
+      "title": "Trains",
+      "technology": "Python, bash, merge queue GitHub",
+      "description": "Une file d’atterrissage ordonnée par dépôt et un exécuteur qui passe chaque pull request verte dans la file de fusion ; s’arrête au rouge, compte les rouges, appelle à l’aide au deuxième."
+    },
+    "agents.watchdog": {
+      "title": "Veilleur",
+      "technology": "Python",
+      "description": "Lit les exécutions, les trains, les sessions, les contrôles de main, les clés de service, l’âge de chaque secret et les pods GPU ; lève et résout les alertes. N’écrit jamais de code."
+    },
+    "agents.ops": {
+      "title": "Service d’opérations",
+      "technology": "Python, HTTP en boucle locale",
+      "description": "L’unique processus qui ouvre la base d’opérations : événements, alertes, sessions et copies de travail, tables synchronisées, attentes longues ; un jeton par appelant ; un journal quand il est arrêté."
+    },
+    "agents.opsStore": {
+      "title": "Base d’opérations",
+      "technology": "SQLite",
+      "description": "L’unique base de l’exploitation : événements, alertes, sessions, copies de travail, grand livre, dépenses nuage, social, points de contrôle, santé produit et journal de rotation des secrets. Ouverte uniquement par le service d’opérations."
+    },
+    "agents.profile": {
+      "title": "Profil de configuration",
+      "technology": "JSON + JSON Schema",
+      "description": "Un fichier déclaré par déploiement (organisation, dépôts, applications, chemins, politique, environnement d’exécution, modèles), validé au démarrage ; rien de saisi en dur pour une seule organisation."
+    },
+    "agents.envContract": {
+      "title": "Contrat d’environnement",
+      "technology": "Python, JSON Schema",
+      "description": "Une liste déclarée de variables d’environnement nommées par rôle, jamais par fournisseur (AI_MODEL_*, AGENT_RUNTIME_*, VCS_*, SECRETS_*, STORAGE_*, NOTIFY_*, OPS_*) ; un nom manquant ou inconnu refuse le démarrage."
+    },
+    "agents.events": {
+      "title": "Client d’événements",
+      "technology": "Python ; modèle de journaux OTel",
+      "description": "Un format structuré d’événement pour chaque session, train, refus, tâche planifiée et alerte (heure, source, type, sujet, issue, identifiants de trace et session, détail borné), un écrivain, un puits."
+    },
+    "agents.ports": {
+      "title": "Ports de service",
+      "technology": "Protocoles Python, tests de contrat",
+      "description": "Les interfaces entre le système et ses dépendances : hébergeur de code, environnement d’exécution, fournisseur de modèles, magasin de secrets, stockage, notifications, magasin d’opérations. Le coordinateur, les trains, les garde-fous et le veilleur n’importent qu’elles."
+    },
+    "agents.vcsGithub": {
+      "title": "Adaptateur GitHub",
+      "technology": "Python, gh",
+      "description": "Le port d’hébergeur de code sur GitHub : REST et GraphQL avec les jetons d’application, la file de fusion, les contrôles, le tableau."
+    },
+    "agents.runtimeClaudeCode": {
+      "title": "Adaptateur Claude Code",
+      "technology": "Python, Claude Code sans interface",
+      "description": "Le port d’exécution sur Claude Code : une spécification de session en entrée (modèle, plafonds, outils, dossier, consigne), un flux d’événements normalisés en sortie, une fin (issue, tours). Hooks et extensions restent les siens."
+    },
+    "agents.modelClaude": {
+      "title": "Adaptateur modèle Claude",
+      "technology": "Python",
+      "description": "Le port de fournisseur de modèles : un modèle choisi par rôle (planificateur, constructeur, relecteur, balayage) et associé à l’identifiant d’un fournisseur ; aujourd’hui Claude, via l’environnement d’exécution."
+    },
+    "agents.secretsAdapter": {
+      "title": "Adaptateur secrets",
+      "technology": "Python",
+      "description": "Le port de magasin de secrets : le trousseau macOS aujourd’hui, un gestionnaire de secrets infonuagique chez un client."
+    },
+    "agents.notifyAdapter": {
+      "title": "Adaptateur notifications",
+      "technology": "Python",
+      "description": "Le port de notifications : alertes vers le magasin d’opérations et le cockpit aujourd’hui ; courriel ou messagerie chez un client."
+    },
+    "agents.storageAdapter": {
+      "title": "Adaptateur stockage",
+      "technology": "Python",
+      "description": "Le port de stockage pour les captures, rapports et sauvegardes : un dossier local aujourd’hui, un magasin d’objets chez un client."
+    }
+  },
+  "labels": {
+    "asks, decides, approves": "demande, décide, approuve",
+    "watches the work and the architecture": "suit le travail et l’architecture",
+    "asks, decides, approves; watches the work and the architecture": "demande, décide, approuve ; suit le travail",
+    "runs the commands": "exécute les commandes",
+    "claims a task, heartbeats, lands": "prend une tâche, bat, atterrit",
+    "queues a green pull request": "met en file une PR verte",
+    "validates at start": "valide au démarrage",
+    "refuses a missing or unknown variable": "refuse une variable absente ou inconnue",
+    "reads the organisation, repositories and policy": "lit organisation, dépôts et politique",
+    "drives the agent runtime port": "pilote le port d’exécution",
+    "VCS host, secrets, storage, notifications": "code, secrets, stockage, notifications",
+    "VCS host": "hébergeur de code",
+    "VCS host, notifications, operations store": "code, notifications, opérations",
+    "implements the VCS host": "implémente l’hébergeur de code",
+    "REST, GraphQL, merge queue (app token)": "REST, GraphQL, file de fusion (jeton d’app)",
+    "implements the agent runtime": "implémente l’exécution d’agent",
+    "starts Claude Code and normalises its stream": "lance Claude Code et normalise son flux",
+    "asks which model id a role runs": "demande quel modèle sert un rôle",
+    "implements the model provider": "implémente le fournisseur de modèles",
+    "Claude models today": "modèles Claude aujourd’hui",
+    "implements the secrets store": "implémente le magasin de secrets",
+    "implements the notifications": "implémente les notifications",
+    "records alerts": "enregistre les alertes",
+    "implements the storage": "implémente le stockage",
+    "writes every event and refusal": "écrit chaque événement et refus",
+    "writes every step": "écrit chaque étape",
+    "writes every session start, progress and end": "écrit début, avancée et fin de session",
+    "reads one format": "lit un seul format",
+    "one sink": "un seul puits",
+    "launches and tells the team sessions": "lance et briefe les sessions d’équipe",
+    "starts capped sessions": "démarre des sessions plafonnées",
+    "every 15 minutes": "toutes les 15 minutes",
+    "scans": "balaie",
+    "the only opener": "l’unique ouvreur",
+    "reads events, alerts, sessions": "lit événements, alertes, sessions",
+    "probe results beside the alerts": "résultats des sondes près des alertes",
+    "shows alerts": "affiche les alertes",
+    "exports the events (OpenTelemetry logs)": "exporte les événements (journaux OTel)",
+    "reads findings": "lit les constats",
+    "reads the findings of a pull request": "lit les constats d’une PR",
+    "reads findings of pull requests": "lit les constats des PR",
+    "lists the pods still billing": "liste les pods encore facturés",
+    "runs on Claude models; Claude models today": "tourne sur les modèles Claude",
+    "REST, GraphQL, merge queue (app token); reads and checks": "REST, GraphQL, file de fusion ; lit et vérifie"
+  }
+}

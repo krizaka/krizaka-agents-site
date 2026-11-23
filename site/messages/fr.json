@@ -111,5 +111,96 @@
       },
       "stackedOn": "empilée sur {pr}"
     }
+  },
+  "release": {
+    "draftBadge": "Brouillon · 1.0 · non publié",
+    "navLabels": {
+      "v1": "1.0 (brouillon)",
+      "migration": "Migration (brouillon)"
+    },
+    "switchLanguage": {
+      "v1": "Read the draft in English",
+      "migration": "Read the migration in English"
+    },
+    "modelSource": "généré depuis {repo} {path} · copie du {date}",
+    "captions": {
+      "v1_c1": "Contexte système (C1) : Krizaka Agents se place entre le fondateur, GitHub, les fournisseurs de modèles, la qualité de code, l’observabilité et les pods GPU.",
+      "v1_c2": "Vue des conteneurs cibles (C2) : les composants cœur n’importent que les ports de service ; hébergeur, exécution, modèles, secrets, notifications et stockage vivent dans des adaptateurs.",
+      "v1_tower": "Supervision et tour : les tâches planifiées, le veilleur, le service d’opérations et le cockpit local gardent chaque alerte et chaque session visibles.",
+      "v1_events": "Un flux d’événements en douze étapes ordonnées : les producteurs émettent un seul format vers un puits d’opérations qui exporte des journaux OTel."
+    },
+    "measures": {
+      "lanesOffTitle": "Contexte : voies coupées",
+      "lanesOffNote": "Les voies sont coupées depuis le {date}, ce qui réduit la charge depuis cette date. La majorité des lignes ci-dessous reflètent des jours avec voies actives avant ou pendant la coupure.",
+      "sourcePrefix": "Source",
+      "dailyHeading": "Alertes envoyées et réveils CTO par jour",
+      "dailyCaption": "Cible : moins de {target} alertes envoyées par jour (fenêtre : {hours} heures).",
+      "columns": {
+        "day": "Jour",
+        "alertsSent": "Alertes envoyées",
+        "ctoWakeups": "Réveils CTO",
+        "towerRuns": "Passages tour",
+        "lanes": "Voies",
+        "target": "Cible"
+      },
+      "laneStates": {
+        "on": "actives",
+        "turned-off": "coupées en journée",
+        "off": "coupées"
+      },
+      "partialTag": "jour partiel",
+      "totalsHeading": "Totaux d’activité et de supervision (fenêtre de {hours} heures)",
+      "totals": {
+        "merges": "fusions",
+        "redsFixed": "rouges corrigés",
+        "timeToGreen": "délai médian au vert (min)",
+        "alertsRaised": "alertes levées",
+        "towerWakes": "réveils tour",
+        "loopsCaught": "boucles arrêtées"
+      },
+      "beforeAfterHeading": "Avant la tour ({window})",
+      "beforeAfterNote": "La tour n’a pas encore tourné en mode automatisé (zéro passage enregistré à ce stade) ; seule la fenêtre de référence préalable est remplie.",
+      "beforeColumns": {
+        "metric": "Compteur",
+        "before": "Avant ({window})",
+        "after": "Après"
+      },
+      "beforeMetrics": {
+        "alerts": "alertes",
+        "teamEnded": "fin d’équipe",
+        "crack": "reprise (crack)",
+        "needsOwner": "sans responsable",
+        "teamEndedAckedByHand": "fins d’équipe acquittées à la main"
+      },
+      "notRunYet": "pas encore exécutée",
+      "topKindsHeading": "Principaux types d’alertes (lignes en table et occurrences)",
+      "topKindsColumns": {
+        "kind": "Type",
+        "rows": "Lignes",
+        "occurrences": "Occurrences",
+        "status": "Statut"
+      },
+      "kindStatuses": {
+        "tuned": "réglé",
+        "observed": "observé"
+      },
+      "ciMinutesHeading": "Minutes CI",
+      "ciMinutesUnavailable": "Indisponibles dans cet extrait : les minutes CI ne figurent pas dans l’export local du veilleur."
+    }
+  },
+  "migration": {
+    "sourceLabel": "Source du contrat : {repo} {file} · extrait du {date}",
+    "summary": {
+      "total": "alias au total",
+      "prefixRename": "renommages de préfixe d’organisation",
+      "providerToRole": "renommages fournisseur vers rôle"
+    },
+    "providerHeading": "Noms de fournisseurs déplacés vers des noms de rôle neutres",
+    "prefixHeading": "Préfixes d’organisation déplacés vers des préfixes de rôle",
+    "columns": {
+      "oldName": "Ancien nom",
+      "newName": "Nouveau nom de rôle",
+      "rolePrefix": "Préfixe de rôle"
+    }
   }
 }

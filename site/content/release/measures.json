@@ -1,0 +1,97 @@
+{
+  "schema": "krizaka.measures/1",
+  "lanesOffSince": "2026-11-22",
+  "sources": {
+    "watchdogStats": {
+      "command": "watchdog.py stats --since 7d",
+      "date": "2026-11-23"
+    },
+    "alertsList": {
+      "command": "alerts.py list",
+      "date": "2026-11-22"
+    }
+  },
+  "windowHours": {
+    "value": 168,
+    "source": "watchdogStats"
+  },
+  "daily": {
+    "source": "watchdogStats",
+    "targetPerDay": 50,
+    "days": [
+      {
+        "date": "2026-11-20",
+        "alertsSent": 62,
+        "ctoWakeups": 62,
+        "towerRuns": 0,
+        "lanes": "on",
+        "partial": false
+      },
+      {
+        "date": "2026-11-21",
+        "alertsSent": 102,
+        "ctoWakeups": 102,
+        "towerRuns": 0,
+        "lanes": "on",
+        "partial": false
+      },
+      {
+        "date": "2026-11-22",
+        "alertsSent": 117,
+        "ctoWakeups": 117,
+        "towerRuns": 0,
+        "lanes": "turned-off",
+        "partial": false
+      },
+      {
+        "date": "2026-11-23",
+        "alertsSent": 32,
+        "ctoWakeups": 32,
+        "towerRuns": 0,
+        "lanes": "off",
+        "partial": true
+      }
+    ]
+  },
+  "totals": {
+    "source": "watchdogStats",
+    "merges": 950,
+    "redsFixed": 93,
+    "timeToGreenMedianMinutes": 180,
+    "alertsRaised": 336,
+    "towerWakes": 7,
+    "loopsCaught": 2
+  },
+  "towerBeforeAfter": {
+    "source": "watchdogStats",
+    "before": {
+      "window": "2026-11-13..2026-11-20",
+      "alerts": 1104,
+      "teamEnded": 358,
+      "crack": 195,
+      "needsOwner": 107,
+      "teamEndedAckedByHand": 36
+    },
+    "after": null
+  },
+  "topAlertKinds": {
+    "source": "alertsList",
+    "rows": [
+      { "kind": "github-quota", "rows": 309, "occurrences": 434, "status": "tuned" },
+      { "kind": "team-ended", "rows": 257, "occurrences": 260, "status": "tuned" },
+      { "kind": "crack", "rows": 177, "occurrences": 178, "status": "tuned" },
+      { "kind": "check-never-started", "rows": 88, "occurrences": 88, "status": "observed" },
+      { "kind": "needs-owner", "rows": 85, "occurrences": 3052, "status": "tuned" },
+      { "kind": "credential-age", "rows": 59, "occurrences": 2537, "status": "tuned" },
+      { "kind": "debt-meter", "rows": 42, "occurrences": 1392, "status": "tuned" },
+      { "kind": "log-audit", "rows": 32, "occurrences": 96, "status": "observed" },
+      { "kind": "schedule-red", "rows": 25, "occurrences": 4041, "status": "tuned" },
+      { "kind": "gpu-pod-check", "rows": 16, "occurrences": 28, "status": "observed" }
+    ]
+  },
+  "ciMinutes": {
+    "available": false,
+    "value": null,
+    "source": null
+  }
+}
