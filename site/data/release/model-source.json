@@ -1,0 +1,10 @@
+{
+  "schema": "krizaka.model-source/1",
+  "source": {
+    "repository": "krizaka-agents",
+    "path": "docs/architecture/krizaka-agents.c4",
+    "copiedDate": "2026-11-23"
+  },
+  "file": "krizaka-agents.c4",
+  "sha256": "3bcb49293f9c7ff2b7e7e6f38e40bced7c97a3c5af8731997fce5caf306ea07b"
+}

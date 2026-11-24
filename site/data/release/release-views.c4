@@ -1,0 +1,45 @@
+// The views the 1.0 draft draws (krizaka-internal#4498). Each one only picks elements of the model (krizaka-agents.c4, copied
+// from krizaka-agents docs/architecture, source in model-source.json): every box, every arrow and every word comes from it, the
+// layout from @krizaka/architecture. Nothing here adds an element or a relationship: a view only includes, and `exclude a -> b`
+// leaves an arrow of the model out of one view so it fits a desktop column (scripts/check-overflow.mjs).
+// Two descriptions are said in the site's words: « harness » is a word this site does not use (tests/words-and-contact.test.mjs),
+// so the views say « system » in its place and change nothing else (tests/release-diagrams.test.mjs holds that).
+// Left out on purpose: agents.profile and agents.crons, whose words in the model (« Installation profile », a path to the
+// installer's file) read as an offer to the site's publication rules (scripts/publication-rules.mjs). The model keeps them.
+views {
+  view v1_c1 {
+    title 'Krizaka Agents 1.0 · system context (C1)'
+    include founder, github, models
+    include agents with {
+      description 'The delivery system for coding agents, working with Claude Code: commands and guards, sessions, trains, coordinator, operations service and crons around Claude Code.'
+    }
+  }
+  view v1_c2 of agents {
+    title 'Krizaka Agents 1.0 · the core talks to ports (C2)'
+    autoLayout LeftRight 120 20
+    include agents.ports with {
+      description 'The interfaces between the system and what it depends on: VCS host, agent runtime, model provider, secrets store, storage, notifications, operations store. The coordinator, the trains, the guards and the watchdog import only these.'
+    }
+    include agents.builder, agents.commands, agents.trains, agents.coordinator, agents.watchdog, agents.envContract
+    exclude agents.commands -> agents.trains
+  }
+  view v1_adapters of agents {
+    title 'Krizaka Agents 1.0 · adapters implement the ports (C2)'
+    autoLayout LeftRight
+    include agents.ports with {
+      description 'The interfaces between the system and what it depends on: VCS host, agent runtime, model provider, secrets store, storage, notifications, operations store. The coordinator, the trains, the guards and the watchdog import only these.'
+    }
+    include agents.vcsGithub, agents.runtimeClaudeCode, agents.modelClaude, agents.secretsAdapter, agents.notifyAdapter, agents.storageAdapter
+    exclude agents.runtimeClaudeCode -> agents.modelClaude
+  }
+  view v1_tower of agents {
+    title 'Krizaka Agents 1.0 · the tower: what watches the work'
+    autoLayout TopBottom 80 30
+    include founder, agents.automatic, agents.watchdog, agents.rotation, agents.ops, agents.opsStore, agents.cockpit, agents.observability
+  }
+  view v1_events of agents {
+    title 'Krizaka Agents 1.0 · one event format, one sink'
+    autoLayout TopBottom 80 30
+    include agents.builder, agents.commands, agents.trains, agents.events, agents.ops, agents.opsStore, agents.observability
+  }
+}

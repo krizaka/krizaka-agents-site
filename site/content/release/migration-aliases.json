@@ -1,0 +1,695 @@
+{
+  "schema": "krizaka.migration-aliases/1",
+  "source": {
+    "repository": "krizaka-agents",
+    "file": "env.json",
+    "date": "2026-11-23",
+    "aliasesSha256": "cf4a5febfca8624ac5c9ddd69dfebb5545d232aeaa2c07e2de62039bb4b92980"
+  },
+  "aliases": [
+    {
+      "oldName": "_KRIZAKA_MINT_CMD",
+      "newName": "AGENTS_MINT_CMD",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "_KRIZAKA_WAIT_CMD",
+      "newName": "AGENTS_WAIT_CMD",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "AGENTS_MCP_GITHUB_CHILD",
+      "newName": "AGENTS_MCP_VCS_CHILD",
+      "kind": "provider-to-role",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "AGENTS_MCP_GITHUB_FAKE_TOKEN",
+      "newName": "AGENTS_MCP_VCS_FAKE_TOKEN",
+      "kind": "provider-to-role",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "AGENTS_MCP_GITHUB_INIT_TIMEOUT_S",
+      "newName": "AGENTS_MCP_VCS_INIT_TIMEOUT_S",
+      "kind": "provider-to-role",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "AGENTS_MCP_GITHUB_ROTATE_S",
+      "newName": "AGENTS_MCP_VCS_ROTATE_S",
+      "kind": "provider-to-role",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "AGENTS_MCP_GRAFANA_BIN",
+      "newName": "AGENTS_MCP_OBSERVABILITY_BIN",
+      "kind": "provider-to-role",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "AI_GPU_RUNPOD_API_KEY",
+      "newName": "GPU_API_KEY",
+      "kind": "provider-to-role",
+      "rolePrefix": "GPU_"
+    },
+    {
+      "oldName": "KRIZAKA_ACTIONS_COST_ALERT_PCT",
+      "newName": "AGENTS_ACTIONS_COST_ALERT_PCT",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_AGENTS_DIR",
+      "newName": "AGENTS_REPO_DIR",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_ALERTS_JOURNAL",
+      "newName": "OPS_ALERTS_JOURNAL",
+      "kind": "prefix-rename",
+      "rolePrefix": "OPS_"
+    },
+    {
+      "oldName": "KRIZAKA_BACKUPS_DIR",
+      "newName": "AGENTS_BACKUPS_DIR",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_BOARD_PROJECT",
+      "newName": "AGENTS_BOARD_PROJECT",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_BOARD_PROJECT_RESTRICTED",
+      "newName": "AGENTS_BOARD_PROJECT_RESTRICTED",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_BROWSER",
+      "newName": "AGENTS_BROWSER",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_CLAUDE_BIN",
+      "newName": "AGENTS_CLAUDE_BIN",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_CLAUDE_SETTINGS",
+      "newName": "AGENTS_CLAUDE_SETTINGS",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_COCKPIT_DATA",
+      "newName": "AGENTS_COCKPIT_DATA",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_COCKPIT_PORT",
+      "newName": "AGENTS_COCKPIT_PORT",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_COMPANY_DIR",
+      "newName": "AGENTS_COMPANY_DIR",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_COORD_AUTO",
+      "newName": "AGENTS_COORD_AUTO",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_COORD_DB",
+      "newName": "AGENTS_COORD_DB",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_COORD_PORT",
+      "newName": "AGENTS_COORD_PORT",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_COORD_REPOS",
+      "newName": "AGENTS_COORD_REPOS",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_COORD_TOKEN",
+      "newName": "AGENTS_COORD_TOKEN",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_COORD_URL",
+      "newName": "AGENTS_COORD_URL",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_CORBEILLE",
+      "newName": "AGENTS_CORBEILLE",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_CREDENTIALS_INVENTORY",
+      "newName": "AGENTS_CREDENTIALS_INVENTORY",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_CRONTAB_FILE",
+      "newName": "AGENTS_CRONTAB_FILE",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_DOCS_MAP",
+      "newName": "AGENTS_DOCS_MAP",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_DOCS_REFERENCE",
+      "newName": "AGENTS_DOCS_REFERENCE",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_DOCS_ROOTS",
+      "newName": "AGENTS_DOCS_ROOTS",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_ENGINE_PROGRESS",
+      "newName": "AGENTS_ENGINE_PROGRESS",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_ENGINE_TIMEOUT",
+      "newName": "AGENTS_ENGINE_TIMEOUT",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_ENV_REPORTS",
+      "newName": "AGENTS_ENV_REPORTS",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_FUTURE_CLOCK_NOW",
+      "newName": "AGENTS_FUTURE_CLOCK_NOW",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_GIT_GUARD_CACHE",
+      "newName": "AGENTS_GIT_GUARD_CACHE",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_GIT_GUARD_NO_TOOLS",
+      "newName": "AGENTS_GIT_GUARD_NO_TOOLS",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_GIT_GUARD_SHARED",
+      "newName": "AGENTS_GIT_GUARD_SHARED",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_GUARDS_BASE",
+      "newName": "AGENTS_GUARDS_BASE",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_HQ",
+      "newName": "AGENTS_HQ",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_IDENTITIES_REF",
+      "newName": "AGENTS_IDENTITIES_REF",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_JAVA",
+      "newName": "AGENTS_JAVA",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_LAUNCH_AGENTS_DIR",
+      "newName": "AGENTS_LAUNCH_AGENTS_DIR",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_LOGS",
+      "newName": "AGENTS_LOGS",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_METRICS_CACHE",
+      "newName": "AGENTS_METRICS_CACHE",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_METRICS_CACHE_ALERT_PCT",
+      "newName": "AGENTS_METRICS_CACHE_ALERT_PCT",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_METRICS_CACHE_MAX_MB",
+      "newName": "AGENTS_METRICS_CACHE_MAX_MB",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_METRICS_CACHE_OLD",
+      "newName": "AGENTS_METRICS_CACHE_OLD",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_MINT_SLEEP_UNIT",
+      "newName": "AGENTS_MINT_SLEEP_UNIT",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_MODEL_ROLES",
+      "newName": "AGENTS_MODEL_ROLES",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_MODELS",
+      "newName": "AGENTS_MODELS",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_NO_CRON",
+      "newName": "AGENTS_NO_CRON",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_NO_ENTRY_POINTS",
+      "newName": "AGENTS_NO_ENTRY_POINTS",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_NO_GITCONFIG",
+      "newName": "AGENTS_NO_GITCONFIG",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_NO_HOOKS",
+      "newName": "AGENTS_NO_HOOKS",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_NO_LAUNCHAGENTS",
+      "newName": "AGENTS_NO_LAUNCHAGENTS",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_NO_MCP",
+      "newName": "AGENTS_NO_MCP",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_NO_PLUGINS",
+      "newName": "AGENTS_NO_PLUGINS",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_NOW",
+      "newName": "AGENTS_NOW",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_OPERATIONS_DB",
+      "newName": "OPS_DB",
+      "kind": "prefix-rename",
+      "rolePrefix": "OPS_"
+    },
+    {
+      "oldName": "KRIZAKA_OPS_ADMIN_TOKEN_FILE",
+      "newName": "OPS_ADMIN_TOKEN_FILE",
+      "kind": "prefix-rename",
+      "rolePrefix": "OPS_"
+    },
+    {
+      "oldName": "KRIZAKA_OPS_JOURNAL",
+      "newName": "OPS_JOURNAL",
+      "kind": "prefix-rename",
+      "rolePrefix": "OPS_"
+    },
+    {
+      "oldName": "KRIZAKA_OPS_TOKEN_FILE",
+      "newName": "OPS_TOKEN_FILE",
+      "kind": "prefix-rename",
+      "rolePrefix": "OPS_"
+    },
+    {
+      "oldName": "KRIZAKA_OPS_URL",
+      "newName": "OPS_URL",
+      "kind": "prefix-rename",
+      "rolePrefix": "OPS_"
+    },
+    {
+      "oldName": "KRIZAKA_ORG",
+      "newName": "AGENTS_ORG",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_OTLP",
+      "newName": "OPS_OTLP",
+      "kind": "prefix-rename",
+      "rolePrefix": "OPS_"
+    },
+    {
+      "oldName": "KRIZAKA_OTLP_ENDPOINT",
+      "newName": "OPS_OTLP_ENDPOINT",
+      "kind": "prefix-rename",
+      "rolePrefix": "OPS_"
+    },
+    {
+      "oldName": "KRIZAKA_OTLP_HEADERS",
+      "newName": "OPS_OTLP_HEADERS",
+      "kind": "prefix-rename",
+      "rolePrefix": "OPS_"
+    },
+    {
+      "oldName": "KRIZAKA_OWNERSHIP_ENFORCE_FILE",
+      "newName": "AGENTS_OWNERSHIP_ENFORCE_FILE",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_POLICY",
+      "newName": "AGENTS_POLICY",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_PRIVATE_DIR",
+      "newName": "AGENTS_PRIVATE_DIR",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_PROVIDERS",
+      "newName": "AGENTS_PROVIDERS",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_PUBLIC_ISSUE",
+      "newName": "AGENTS_PUBLIC_ISSUE",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_REPOS",
+      "newName": "AGENTS_REPOS",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_RESCUE",
+      "newName": "AGENTS_RESCUE",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_RESCUE_DELETE",
+      "newName": "AGENTS_RESCUE_DELETE",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_SECRET_SCAN_CACHE",
+      "newName": "AGENTS_SECRET_SCAN_CACHE",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_SECRET_SCAN_NO_GITLEAKS",
+      "newName": "AGENTS_SECRET_SCAN_NO_GITLEAKS",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_SECRET_SCAN_WORKFLOW",
+      "newName": "AGENTS_SECRET_SCAN_WORKFLOW",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_SECRETS_MAP",
+      "newName": "AGENTS_SECRETS_MAP",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_SESSION_ID",
+      "newName": "AGENTS_SESSION_ID",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_SESSION_KIND",
+      "newName": "AGENTS_SESSION_KIND",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_SESSION_NAME",
+      "newName": "AGENTS_SESSION_NAME",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_SESSION_RUN",
+      "newName": "AGENTS_SESSION_RUN",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_SESSIONS_JOURNAL",
+      "newName": "OPS_SESSIONS_JOURNAL",
+      "kind": "prefix-rename",
+      "rolePrefix": "OPS_"
+    },
+    {
+      "oldName": "KRIZAKA_SWEEP_MIN_AGE_HOURS",
+      "newName": "AGENTS_SWEEP_MIN_AGE_HOURS",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_TMP",
+      "newName": "AGENTS_TMP",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_TOOLCHAIN",
+      "newName": "AGENTS_TOOLCHAIN",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_TOOLS",
+      "newName": "AGENTS_TOOLS",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_TOOLS_STATE",
+      "newName": "AGENTS_TOOLS_STATE",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_TRACE_ID",
+      "newName": "AGENTS_TRACE_ID",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_WORKSPACE",
+      "newName": "AGENTS_WORKSPACE",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KRIZAKA_WORKTREES",
+      "newName": "AGENTS_WORKTREES",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KZ_BOARD_DB",
+      "newName": "AGENTS_BOARD_DB",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KZ_BOARD_LIVE",
+      "newName": "AGENTS_BOARD_LIVE",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KZ_BOARD_PROJECT",
+      "newName": "AGENTS_BOARD_PROJECT",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KZ_BOARD_PROJECT_RESTRICTED",
+      "newName": "AGENTS_BOARD_PROJECT_RESTRICTED",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KZ_CONFIG",
+      "newName": "AGENTS_CONFIG",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KZ_CONFIG_BIN",
+      "newName": "AGENTS_CONFIG_BIN",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KZ_MCP_GITHUB_CHILD",
+      "newName": "AGENTS_MCP_VCS_CHILD",
+      "kind": "provider-to-role",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KZ_MCP_GITHUB_FAKE_TOKEN",
+      "newName": "AGENTS_MCP_VCS_FAKE_TOKEN",
+      "kind": "provider-to-role",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KZ_MCP_GITHUB_INIT_TIMEOUT_S",
+      "newName": "AGENTS_MCP_VCS_INIT_TIMEOUT_S",
+      "kind": "provider-to-role",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KZ_MCP_GITHUB_ROTATE_S",
+      "newName": "AGENTS_MCP_VCS_ROTATE_S",
+      "kind": "provider-to-role",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KZ_MCP_GRAFANA_BIN",
+      "newName": "AGENTS_MCP_OBSERVABILITY_BIN",
+      "kind": "provider-to-role",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KZ_NO_WT_SWEEP",
+      "newName": "AGENTS_NO_WT_SWEEP",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KZ_RENAMES_TABLE",
+      "newName": "AGENTS_RENAMES_TABLE",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KZ_REQUIRED_CACHE",
+      "newName": "AGENTS_REQUIRED_CACHE",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KZ_TEST_HOME",
+      "newName": "AGENTS_TEST_HOME",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KZ_TOOLS",
+      "newName": "AGENTS_TOOLS",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "KZ_TRAIN_DIR",
+      "newName": "AGENTS_TRAIN_DIR",
+      "kind": "prefix-rename",
+      "rolePrefix": "AGENTS_"
+    },
+    {
+      "oldName": "RUNPOD_API_BASE",
+      "newName": "GPU_API_BASE",
+      "kind": "provider-to-role",
+      "rolePrefix": "GPU_"
+    },
+    {
+      "oldName": "RUNPOD_GRAPHQL_URL",
+      "newName": "GPU_GRAPHQL_URL",
+      "kind": "provider-to-role",
+      "rolePrefix": "GPU_"
+    },
+    {
+      "oldName": "SONAR_TOKEN",
+      "newName": "CODE_ANALYSIS_TOKEN",
+      "kind": "provider-to-role",
+      "rolePrefix": "CODE_ANALYSIS_"
+    }
+  ]
+}

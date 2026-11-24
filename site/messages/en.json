@@ -111,5 +111,49 @@
       },
       "stackedOn": "stacked on {pr}"
     }
+  },
+  "release": {
+    "draftBadge": "Draft · 1.0 · not published",
+    "navLabels": {
+      "v1": "1.0 (draft)",
+      "migration": "Migration (draft)"
+    },
+    "switchLanguage": {
+      "v1": "Lire le brouillon en français",
+      "migration": "Lire la migration en français"
+    },
+    "modelSource": "Laid out from {repo} {path} (copied {date}) by @krizaka/architecture.",
+    "captions": {
+      "v1_c1": "System context (C1): who uses Krizaka Agents and what it reaches.",
+      "v1_c2": "Containers, the core (C2): the session builder, the commands, the trains, the coordinator and the watchdog import only the service ports.",
+      "v1_adapters": "Containers, the adapters (C2): each port has one adapter, and the vendor lives there.",
+      "v1_tower": "The tower: what watches the sessions, the trains and the alerts, and where the founder looks.",
+      "v1_events": "The event flow: every producer writes one event format, into one sink, exported as OpenTelemetry logs."
+    },
+    "measures": {
+      "heading": "Measures before and after",
+      "pending": "Not measured yet: this section waits for the alert series of ticket {issue}. No figure is shown until it is recorded.",
+      "names": {
+        "alertsPerDay": "alerts sent per day",
+        "ctoWakeups": "CTO wake-ups per day",
+        "ciMinutes": "CI minutes"
+      },
+      "recordedBy": "Recorded by"
+    }
+  },
+  "migration": {
+    "sourceLabel": "Contract source: {repo} {file} · snapshot {date}",
+    "summary": {
+      "total": "total aliases",
+      "prefixRename": "organisation-prefix renames",
+      "providerToRole": "provider-to-role renames"
+    },
+    "providerHeading": "Provider names moved to neutral role names",
+    "prefixHeading": "Organisation prefixes moved to role prefixes",
+    "columns": {
+      "oldName": "Old variable name",
+      "newName": "New role name",
+      "rolePrefix": "Role prefix"
+    }
   }
 }

@@ -111,5 +111,49 @@
       },
       "stackedOn": "empilée sur {pr}"
     }
+  },
+  "release": {
+    "draftBadge": "Brouillon · 1.0 · non publié",
+    "navLabels": {
+      "v1": "1.0 (brouillon)",
+      "migration": "Migration (brouillon)"
+    },
+    "switchLanguage": {
+      "v1": "Read the draft in English",
+      "migration": "Read the migration in English"
+    },
+    "modelSource": "Disposé depuis {repo} {path} (copié le {date}) par @krizaka/architecture.",
+    "captions": {
+      "v1_c1": "Contexte du système (C1) : qui se sert de Krizaka Agents et ce qu’il atteint.",
+      "v1_c2": "Conteneurs, le cœur (C2) : le constructeur de sessions, les commandes, les trains, le coordinateur et le watchdog n’importent que les ports de service.",
+      "v1_adapters": "Conteneurs, les adaptateurs (C2) : chaque port a un adaptateur, et le fournisseur vit là.",
+      "v1_tower": "La tour : ce qui surveille les sessions, les trains et les alertes, et où regarde le fondateur.",
+      "v1_events": "Le flux d’événements : chaque producteur écrit un seul format d’événement, dans un seul puits, exporté en journaux OpenTelemetry."
+    },
+    "measures": {
+      "heading": "Les mesures avant et après",
+      "pending": "Pas encore mesuré : cette section attend la série d’alertes du ticket {issue}. Aucun chiffre n’est affiché avant qu’elle soit enregistrée.",
+      "names": {
+        "alertsPerDay": "alertes envoyées par jour",
+        "ctoWakeups": "réveils du CTO par jour",
+        "ciMinutes": "minutes de CI"
+      },
+      "recordedBy": "Enregistré par"
+    }
+  },
+  "migration": {
+    "sourceLabel": "Source du contrat : {repo} {file} · extrait du {date}",
+    "summary": {
+      "total": "alias au total",
+      "prefixRename": "renommages de préfixe d’organisation",
+      "providerToRole": "renommages fournisseur vers rôle"
+    },
+    "providerHeading": "Noms de fournisseurs déplacés vers des noms de rôle neutres",
+    "prefixHeading": "Préfixes d’organisation déplacés vers des préfixes de rôle",
+    "columns": {
+      "oldName": "Ancien nom",
+      "newName": "Nouveau nom de rôle",
+      "rolePrefix": "Préfixe de rôle"
+    }
   }
 }

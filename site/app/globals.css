@@ -632,3 +632,56 @@ main {
 .kz-hero-links {
   margin: 0.75rem 0 0;
 }
+
+/* ─── Draft release & migration pages: badge bar, model provenance, the pending measures and alias tables ─── */
+.kz-draft-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+.kz-draft-bar a {
+  color: var(--kz-accent-text);
+  text-underline-offset: 3px;
+}
+.kz-view-source {
+  margin: 0.35rem 0 0;
+  font-family: var(--kz-font-mono);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--kz-text-secondary);
+}
+.kz-measures,
+.kz-aliases {
+  margin-block: var(--line);
+  min-width: 0;
+}
+.kz-measure-source {
+  margin-top: 0.5rem;
+  font-family: var(--kz-font-mono);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--kz-text-secondary);
+}
+.kz-measure-source code {
+  font-family: var(--kz-font-mono);
+  background: var(--kz-surface-2);
+  padding: 0 0.25rem;
+}
+.kz-measures code,
+.kz-aliases code {
+  font-family: var(--kz-font-mono);
+  font-size: 0.875em;
+}
+.kz-measure-block {
+  margin-top: var(--line);
+}
+.kz-measure-block h4 {
+  font-family: var(--kz-font-display);
+  font-weight: 400;
+  font-size: 1.15rem;
+  line-height: var(--line);
+  margin-bottom: 0.5rem;
+}

@@ -1,0 +1,9 @@
+{
+  "schema": "krizaka.measures/1",
+  "status": "pending",
+  "waitsFor": {
+    "issue": "#4665",
+    "measures": ["alertsPerDay", "ctoWakeups", "ciMinutes"],
+    "command": "watchdog.py stats --since 7d"
+  }
+}

@@ -1,0 +1,3926 @@
+{
+  "schema": "krizaka.layout/1",
+  "tool": {
+    "name": "@krizaka/architecture",
+    "likec4": "1.60.0"
+  },
+  "sources": {
+    "model": [
+      {
+        "path": "krizaka-agents.c4",
+        "sha256": "3bcb49293f9c7ff2b7e7e6f38e40bced7c97a3c5af8731997fce5caf306ea07b"
+      },
+      {
+        "path": "release-views.c4",
+        "sha256": "167aab3839e0f4ce80ad04e088f8a6cf8c21e3d9492568d9ac589779bd99788b"
+      }
+    ],
+    "base": [
+      {
+        "path": "org.c4",
+        "sha256": "93b98888f7251d64840003fc883671ce9a891dbf5f2a5f4ae386033524981cd8"
+      },
+      {
+        "path": "specification.c4",
+        "sha256": "3e02a37911f2dcd67a88304b5342e8fa7d1ff7e9d57cd204fe94365a9db01764"
+      }
+    ]
+  },
+  "check": {
+    "status": "ok",
+    "system": "agents",
+    "errors": [],
+    "elements": [
+      "agents.automatic",
+      "agents.boardCache",
+      "agents.builder",
+      "agents.checkers",
+      "agents.cockpit",
+      "agents.cockpitFeeds",
+      "agents.commands",
+      "agents.companyDb",
+      "agents.coordStore",
+      "agents.coordinator",
+      "agents.crons",
+      "agents.cto",
+      "agents.dbDrift",
+      "agents.designReview",
+      "agents.devDb",
+      "agents.envContract",
+      "agents.events",
+      "agents.gpu",
+      "agents.hooks",
+      "agents.logFiles",
+      "agents.mcp",
+      "agents.modelClaude",
+      "agents.notifyAdapter",
+      "agents.observability",
+      "agents.ops",
+      "agents.opsStore",
+      "agents.ports",
+      "agents.profile",
+      "agents.quality",
+      "agents.research",
+      "agents.rotation",
+      "agents.runner",
+      "agents.runtimeClaudeCode",
+      "agents.schemas",
+      "agents.secretFiles",
+      "agents.secrets",
+      "agents.secretsAdapter",
+      "agents.sessions",
+      "agents.skills",
+      "agents.stateFiles",
+      "agents.storageAdapter",
+      "agents.svc",
+      "agents.trains",
+      "agents.vcsGithub",
+      "agents.watchdog",
+      "agents.workspace"
+    ]
+  },
+  "views": [
+    {
+      "id": "v1_c1",
+      "title": "Krizaka Agents 1.0 · system context (C1)",
+      "dynamic": false,
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 782,
+        "height": 826
+      },
+      "nodes": [
+        {
+          "id": "founder",
+          "parent": null,
+          "kind": "person",
+          "shape": "person",
+          "title": "Founder",
+          "technology": null,
+          "description": "Decides the direction and the money. A second app approves pull requests and the train merges them.",
+          "compound": false,
+          "x": 206,
+          "y": 0,
+          "width": 354,
+          "height": 180
+        },
+        {
+          "id": "agents",
+          "parent": null,
+          "kind": "system",
+          "shape": "rectangle",
+          "title": "Krizaka Agents",
+          "technology": null,
+          "description": "The delivery system for coding agents, working with Claude Code: commands and guards, sessions, trains, coordinator, operations service and crons around Claude Code.",
+          "compound": false,
+          "x": 216,
+          "y": 323,
+          "width": 334,
+          "height": 180
+        },
+        {
+          "id": "github",
+          "parent": null,
+          "kind": "external",
+          "shape": "rectangle",
+          "title": "GitHub",
+          "technology": null,
+          "description": "Code, issues, pull requests, CI, the merge queue and the tags.",
+          "compound": false,
+          "x": 0,
+          "y": 646,
+          "width": 320,
+          "height": 180
+        },
+        {
+          "id": "models",
+          "parent": null,
+          "kind": "external",
+          "shape": "rectangle",
+          "title": "Model providers",
+          "technology": null,
+          "description": "The AI models the products and the agents run on, local or hosted.",
+          "compound": false,
+          "x": 430,
+          "y": 646,
+          "width": 352,
+          "height": 180
+        }
+      ],
+      "edges": [
+        {
+          "id": "1ckcfsx",
+          "source": "founder",
+          "target": "agents",
+          "label": "[...]",
+          "points": [
+            [
+              383,
+              180
+            ],
+            [
+              383,
+              221
+            ],
+            [
+              383,
+              270
+            ],
+            [
+              383,
+              313
+            ]
+          ],
+          "labelBBox": {
+            "x": 384,
+            "y": 239,
+            "width": 25,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "1j43c91",
+          "source": "agents",
+          "target": "github",
+          "label": "issues, pull requests, merge queue",
+          "points": [
+            [
+              294,
+              503
+            ],
+            [
+              277,
+              522
+            ],
+            [
+              260,
+              542
+            ],
+            [
+              246,
+              563
+            ],
+            [
+              230,
+              586
+            ],
+            [
+              216,
+              612
+            ],
+            [
+              203,
+              637
+            ]
+          ],
+          "labelBBox": {
+            "x": 247,
+            "y": 564,
+            "width": 221,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "1k1tj5o",
+          "source": "agents",
+          "target": "models",
+          "label": "[...]",
+          "points": [
+            [
+              449,
+              503
+            ],
+            [
+              463,
+              522
+            ],
+            [
+              478,
+              543
+            ],
+            [
+              492,
+              563
+            ],
+            [
+              509,
+              587
+            ],
+            [
+              526,
+              613
+            ],
+            [
+              543,
+              637
+            ]
+          ],
+          "labelBBox": {
+            "x": 506,
+            "y": 561,
+            "width": 25,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        }
+      ]
+    },
+    {
+      "id": "v1_c2",
+      "title": "Krizaka Agents 1.0 · the core talks to ports (C2)",
+      "dynamic": false,
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1185,
+        "height": 980
+      },
+      "nodes": [
+        {
+          "id": "agents.builder",
+          "parent": null,
+          "kind": "container",
+          "shape": "rectangle",
+          "title": "Session builder and team runner",
+          "technology": "Python, launchd",
+          "description": "Builds every headless session the same way (pinned CLI, isolated settings, allowed MCP servers, caps on turns, budget and minutes, the preamble), gates its start on load, index and tool health, checks its init, runs it as a one-shot launch agent and records its end once.",
+          "compound": false,
+          "x": 7,
+          "y": 0,
+          "width": 337,
+          "height": 180
+        },
+        {
+          "id": "agents.commands",
+          "parent": null,
+          "kind": "container",
+          "shape": "rectangle",
+          "title": "Commands and gates",
+          "technology": "Python 3, POSIX shell",
+          "description": "What a session runs at each step (start, issue, pull request, push, queue, end), each command holding its rules and counting its refusals.",
+          "compound": false,
+          "x": 10,
+          "y": 200,
+          "width": 331,
+          "height": 180
+        },
+        {
+          "id": "agents.trains",
+          "parent": null,
+          "kind": "container",
+          "shape": "rectangle",
+          "title": "Trains",
+          "technology": "Python, bash, GitHub merge queue",
+          "description": "One ordered landing queue per repository and one runner that takes each green pull request through the merge queue; stops on red, counts reds, calls for help at the second.",
+          "compound": false,
+          "x": 0,
+          "y": 400,
+          "width": 351,
+          "height": 180
+        },
+        {
+          "id": "agents.coordinator",
+          "parent": null,
+          "kind": "container",
+          "shape": "rectangle",
+          "title": "Coordinator",
+          "technology": "Python, HTTP on loopback (LaunchAgent)",
+          "description": "Tasks, leases with a fencing token and granted file scopes, so parallel sessions never write the same files; lands one task at a time.",
+          "compound": false,
+          "x": 10,
+          "y": 600,
+          "width": 331,
+          "height": 180
+        },
+        {
+          "id": "agents.watchdog",
+          "parent": null,
+          "kind": "container",
+          "shape": "rectangle",
+          "title": "Watchdog",
+          "technology": "Python",
+          "description": "Reads the runs, the trains, the sessions, the checks of main, the service keys, the age of every credential and the GPU pods; raises and resolves alerts. Never writes code.",
+          "compound": false,
+          "x": 0,
+          "y": 800,
+          "width": 351,
+          "height": 180
+        },
+        {
+          "id": "agents.envContract",
+          "parent": null,
+          "kind": "library",
+          "shape": "component",
+          "title": "Environment contract",
+          "technology": "Python, JSON Schema",
+          "description": "One declared list of environment variables named by role, never by provider (AI_MODEL_*, AGENT_RUNTIME_*, VCS_*, SECRETS_*, STORAGE_*, NOTIFY_*, OPS_*); a missing or unknown name refuses the start.",
+          "compound": false,
+          "x": 716,
+          "y": 0,
+          "width": 469,
+          "height": 180
+        },
+        {
+          "id": "agents.ports",
+          "parent": null,
+          "kind": "library",
+          "shape": "component",
+          "title": "Service ports",
+          "technology": "Python protocols, contract tests",
+          "description": "The interfaces between the system and what it depends on: VCS host, agent runtime, model provider, secrets store, storage, notifications, operations store. The coordinator, the trains, the guards and the watchdog import only these.",
+          "compound": false,
+          "x": 756,
+          "y": 400,
+          "width": 389,
+          "height": 180
+        }
+      ],
+      "edges": [
+        {
+          "id": "1925lq9",
+          "source": "agents.builder",
+          "target": "agents.ports",
+          "label": "drives the agent runtime port",
+          "points": [
+            [
+              345,
+              161
+            ],
+            [
+              438,
+              202
+            ],
+            [
+              555,
+              256
+            ],
+            [
+              656,
+              310
+            ],
+            [
+              704,
+              336
+            ],
+            [
+              756,
+              366
+            ],
+            [
+              802,
+              395
+            ]
+          ],
+          "labelBBox": {
+            "x": 443,
+            "y": 174,
+            "width": 182,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "1ep6vhw",
+          "source": "agents.commands",
+          "target": "agents.ports",
+          "label": "VCS host, secrets, storage, notifications",
+          "points": [
+            [
+              341,
+              333
+            ],
+            [
+              460,
+              363
+            ],
+            [
+              620,
+              405
+            ],
+            [
+              746,
+              437
+            ]
+          ],
+          "labelBBox": {
+            "x": 447,
+            "y": 316,
+            "width": 174,
+            "height": 35
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "je1ukz",
+          "source": "agents.trains",
+          "target": "agents.ports",
+          "label": "VCS host",
+          "points": [
+            [
+              352,
+              490
+            ],
+            [
+              469,
+              490
+            ],
+            [
+              623,
+              490
+            ],
+            [
+              746,
+              490
+            ]
+          ],
+          "labelBBox": {
+            "x": 502,
+            "y": 468,
+            "width": 63,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "10ipgoq",
+          "source": "agents.coordinator",
+          "target": "agents.ports",
+          "label": "VCS host",
+          "points": [
+            [
+              342,
+              647
+            ],
+            [
+              460,
+              617
+            ],
+            [
+              620,
+              575
+            ],
+            [
+              746,
+              543
+            ]
+          ],
+          "labelBBox": {
+            "x": 502,
+            "y": 544,
+            "width": 63,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "8r93ad",
+          "source": "agents.watchdog",
+          "target": "agents.ports",
+          "label": "VCS host, notifications, operations store",
+          "points": [
+            [
+              352,
+              816
+            ],
+            [
+              443,
+              775
+            ],
+            [
+              557,
+              722
+            ],
+            [
+              656,
+              670
+            ],
+            [
+              704,
+              644
+            ],
+            [
+              755,
+              614
+            ],
+            [
+              801,
+              585
+            ]
+          ],
+          "labelBBox": {
+            "x": 425,
+            "y": 631,
+            "width": 218,
+            "height": 35
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "19z7z44",
+          "source": "agents.builder",
+          "target": "agents.envContract",
+          "label": "refuses a missing or unknown variable",
+          "points": [
+            [
+              345,
+              90
+            ],
+            [
+              450,
+              90
+            ],
+            [
+              589,
+              90
+            ],
+            [
+              706,
+              90
+            ]
+          ],
+          "labelBBox": {
+            "x": 413,
+            "y": 68,
+            "width": 242,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        }
+      ]
+    },
+    {
+      "id": "v1_adapters",
+      "title": "Krizaka Agents 1.0 · adapters implement the ports (C2)",
+      "dynamic": false,
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1085,
+        "height": 1630
+      },
+      "nodes": [
+        {
+          "id": "agents.vcsGithub",
+          "parent": null,
+          "kind": "container",
+          "shape": "rectangle",
+          "title": "GitHub adapter",
+          "technology": "Python, gh",
+          "description": "The VCS host port on GitHub: REST and GraphQL with the app tokens, the merge queue, checks, the board.",
+          "compound": false,
+          "x": 0,
+          "y": 0,
+          "width": 378,
+          "height": 180
+        },
+        {
+          "id": "agents.runtimeClaudeCode",
+          "parent": null,
+          "kind": "container",
+          "shape": "rectangle",
+          "title": "Claude Code runtime adapter",
+          "technology": "Python, Claude Code headless",
+          "description": "The agent runtime port on Claude Code: one session spec in (model, caps, tools, workdir, prompt), one stream of normalised events out, one end (outcome, turns, cost). Hooks and plugins stay its own.",
+          "compound": false,
+          "x": 16,
+          "y": 290,
+          "width": 346,
+          "height": 180
+        },
+        {
+          "id": "agents.modelClaude",
+          "parent": null,
+          "kind": "container",
+          "shape": "rectangle",
+          "title": "Claude model adapter",
+          "technology": "Python",
+          "description": "The model provider port: a model chosen by role (planner, builder, reviewer, scan) and mapped to the id of a provider; today Claude, through the runtime.",
+          "compound": false,
+          "x": 19,
+          "y": 580,
+          "width": 340,
+          "height": 180
+        },
+        {
+          "id": "agents.secretsAdapter",
+          "parent": null,
+          "kind": "container",
+          "shape": "rectangle",
+          "title": "Secrets adapter",
+          "technology": "Python",
+          "description": "The secrets store port: the macOS keychain today, a cloud secret manager at a client.",
+          "compound": false,
+          "x": 23,
+          "y": 870,
+          "width": 332,
+          "height": 180
+        },
+        {
+          "id": "agents.notifyAdapter",
+          "parent": null,
+          "kind": "container",
+          "shape": "rectangle",
+          "title": "Notification adapter",
+          "technology": "Python",
+          "description": "The notification port: alerts to the operations store and the cockpit today; e-mail or chat at a client.",
+          "compound": false,
+          "x": 29,
+          "y": 1160,
+          "width": 320,
+          "height": 180
+        },
+        {
+          "id": "agents.storageAdapter",
+          "parent": null,
+          "kind": "container",
+          "shape": "rectangle",
+          "title": "Storage adapter",
+          "technology": "Python",
+          "description": "The storage port for captures, reports and backups: a local folder today, an object store at a client.",
+          "compound": false,
+          "x": 29,
+          "y": 1450,
+          "width": 320,
+          "height": 180
+        },
+        {
+          "id": "agents.ports",
+          "parent": null,
+          "kind": "library",
+          "shape": "component",
+          "title": "Service ports",
+          "technology": "Python protocols, contract tests",
+          "description": "The interfaces between the system and what it depends on: VCS host, agent runtime, model provider, secrets store, storage, notifications, operations store. The coordinator, the trains, the guards and the watchdog import only these.",
+          "compound": false,
+          "x": 696,
+          "y": 725,
+          "width": 389,
+          "height": 180
+        }
+      ],
+      "edges": [
+        {
+          "id": "1qutxxf",
+          "source": "agents.vcsGithub",
+          "target": "agents.ports",
+          "label": "implements the VCS host",
+          "points": [
+            [
+              312,
+              180
+            ],
+            [
+              334,
+              197
+            ],
+            [
+              358,
+              216
+            ],
+            [
+              379,
+              235
+            ],
+            [
+              501,
+              343
+            ],
+            [
+              528,
+              374
+            ],
+            [
+              636,
+              496
+            ],
+            [
+              700,
+              568
+            ],
+            [
+              767,
+              653
+            ],
+            [
+              816,
+              717
+            ]
+          ],
+          "labelBBox": {
+            "x": 456,
+            "y": 270,
+            "width": 162,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "wgpeej",
+          "source": "agents.runtimeClaudeCode",
+          "target": "agents.ports",
+          "label": "implements the agent runtime",
+          "points": [
+            [
+              335,
+              470
+            ],
+            [
+              452,
+              543
+            ],
+            [
+              617,
+              645
+            ],
+            [
+              736,
+              720
+            ]
+          ],
+          "labelBBox": {
+            "x": 443,
+            "y": 524,
+            "width": 188,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "1gr29dh",
+          "source": "agents.modelClaude",
+          "target": "agents.ports",
+          "label": "implements the model provider",
+          "points": [
+            [
+              359,
+              705
+            ],
+            [
+              457,
+              725
+            ],
+            [
+              582,
+              751
+            ],
+            [
+              686,
+              773
+            ]
+          ],
+          "labelBBox": {
+            "x": 440,
+            "y": 703,
+            "width": 195,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "9530ia",
+          "source": "agents.secretsAdapter",
+          "target": "agents.ports",
+          "label": "implements the secrets store",
+          "points": [
+            [
+              356,
+              926
+            ],
+            [
+              455,
+              905
+            ],
+            [
+              581,
+              879
+            ],
+            [
+              686,
+              857
+            ]
+          ],
+          "labelBBox": {
+            "x": 446,
+            "y": 848,
+            "width": 183,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "1xyjcpg",
+          "source": "agents.notifyAdapter",
+          "target": "agents.ports",
+          "label": "implements the notifications",
+          "points": [
+            [
+              335,
+              1160
+            ],
+            [
+              452,
+              1087
+            ],
+            [
+              617,
+              985
+            ],
+            [
+              736,
+              910
+            ]
+          ],
+          "labelBBox": {
+            "x": 449,
+            "y": 959,
+            "width": 177,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "khhlse",
+          "source": "agents.storageAdapter",
+          "target": "agents.ports",
+          "label": "implements the storage",
+          "points": [
+            [
+              312,
+              1450
+            ],
+            [
+              334,
+              1433
+            ],
+            [
+              358,
+              1414
+            ],
+            [
+              379,
+              1395
+            ],
+            [
+              501,
+              1287
+            ],
+            [
+              528,
+              1256
+            ],
+            [
+              636,
+              1134
+            ],
+            [
+              700,
+              1062
+            ],
+            [
+              767,
+              977
+            ],
+            [
+              816,
+              913
+            ]
+          ],
+          "labelBBox": {
+            "x": 463,
+            "y": 1112,
+            "width": 150,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        }
+      ]
+    },
+    {
+      "id": "v1_tower",
+      "title": "Krizaka Agents 1.0 · the tower: what watches the work",
+      "dynamic": false,
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1228,
+        "height": 1331
+      },
+      "nodes": [
+        {
+          "id": "agents.automatic",
+          "parent": null,
+          "kind": "container",
+          "shape": "rectangle",
+          "title": "Automatic launchers",
+          "technology": "Python",
+          "description": "Scans that start a capped session by themselves: the crack on a red pull request at the cap, the recette after a merge, the lane dispatch on a ready item, the log audit every hour.",
+          "compound": false,
+          "x": 38,
+          "y": 0,
+          "width": 326,
+          "height": 180
+        },
+        {
+          "id": "agents.watchdog",
+          "parent": null,
+          "kind": "container",
+          "shape": "rectangle",
+          "title": "Watchdog",
+          "technology": "Python",
+          "description": "Reads the runs, the trains, the sessions, the checks of main, the service keys, the age of every credential and the GPU pods; raises and resolves alerts. Never writes code.",
+          "compound": false,
+          "x": 394,
+          "y": 0,
+          "width": 351,
+          "height": 180
+        },
+        {
+          "id": "founder",
+          "parent": null,
+          "kind": "person",
+          "shape": "person",
+          "title": "Founder",
+          "technology": null,
+          "description": "Decides the direction and the money. A second app approves pull requests and the train merges them.",
+          "compound": false,
+          "x": 809,
+          "y": 0,
+          "width": 354,
+          "height": 180
+        },
+        {
+          "id": "agents.rotation",
+          "parent": null,
+          "kind": "container",
+          "shape": "rectangle",
+          "title": "Credential rotation",
+          "technology": "Python",
+          "description": "Rotates a credential through a journaled flow (planned, created, staged, copies updated, verified, promoted, old revoked, recorded) and reports the age of each one against its inventory in the restricted repository; each run is a row of the operations database.",
+          "compound": false,
+          "x": 269,
+          "y": 283,
+          "width": 337,
+          "height": 180
+        },
+        {
+          "id": "agents.cockpit",
+          "parent": null,
+          "kind": "app",
+          "shape": "browser",
+          "title": "Cockpit",
+          "technology": "Next.js, @krizaka/ui (on the Mac, not deployed)",
+          "description": "The local dashboard of the founder: trains, alerts, sessions, costs, the board and the architecture of every product.",
+          "compound": false,
+          "x": 585,
+          "y": 1151,
+          "width": 329,
+          "height": 180
+        },
+        {
+          "id": "agents.ops",
+          "parent": null,
+          "kind": "container",
+          "shape": "rectangle",
+          "title": "Operations service",
+          "technology": "Python, HTTP on loopback (LaunchAgent)",
+          "description": "The one process that opens the operations database: events, alerts, sessions and work copies, synced tables, long-poll waits; one token per caller; a journal when it is down.",
+          "compound": false,
+          "x": 370,
+          "y": 566,
+          "width": 331,
+          "height": 180
+        },
+        {
+          "id": "agents.opsStore",
+          "parent": null,
+          "kind": "datastore",
+          "shape": "storage",
+          "title": "Operations database",
+          "technology": "SQLite",
+          "description": "The one database of the operations: events, alerts, sessions and work copies, the ledger (transactions), cloud costs, social, checkpoints, product health and the credential rotations journal. Opened only by the operations service; the cockpit reads it through the service.",
+          "compound": false,
+          "x": 0,
+          "y": 849,
+          "width": 333,
+          "height": 200
+        },
+        {
+          "id": "agents.observability",
+          "parent": null,
+          "kind": "external",
+          "shape": "rectangle",
+          "title": "Observability stack",
+          "technology": "Grafana Cloud",
+          "description": "Synthetic probes of the public sites and the dev health routes.",
+          "compound": false,
+          "x": 364,
+          "y": 859,
+          "width": 326,
+          "height": 180
+        }
+      ],
+      "edges": [
+        {
+          "id": "nvhukb",
+          "source": "agents.watchdog",
+          "target": "agents.rotation",
+          "label": "reads the age of each credential",
+          "points": [
+            [
+              462,
+              180
+            ],
+            [
+              452,
+              192
+            ],
+            [
+              444,
+              206
+            ],
+            [
+              438,
+              220
+            ],
+            [
+              431,
+              236
+            ],
+            [
+              428,
+              255
+            ],
+            [
+              427,
+              273
+            ]
+          ],
+          "labelBBox": {
+            "x": 439,
+            "y": 221,
+            "width": 204,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "1kd226b",
+          "source": "agents.watchdog",
+          "target": "agents.ops",
+          "label": "raises and resolves alerts",
+          "points": [
+            [
+              631,
+              180
+            ],
+            [
+              637,
+              193
+            ],
+            [
+              643,
+              206
+            ],
+            [
+              647,
+              220
+            ],
+            [
+              683,
+              351
+            ],
+            [
+              694,
+              398
+            ],
+            [
+              647,
+              526
+            ],
+            [
+              643,
+              536
+            ],
+            [
+              637,
+              547
+            ],
+            [
+              631,
+              557
+            ]
+          ],
+          "labelBBox": {
+            "x": 679,
+            "y": 362,
+            "width": 163,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "1xv9ic2",
+          "source": "agents.rotation",
+          "target": "agents.ops",
+          "label": "journals each step and each run",
+          "points": [
+            [
+              429,
+              462
+            ],
+            [
+              429,
+              484
+            ],
+            [
+              432,
+              506
+            ],
+            [
+              439,
+              526
+            ],
+            [
+              442,
+              536
+            ],
+            [
+              447,
+              547
+            ],
+            [
+              453,
+              557
+            ]
+          ],
+          "labelBBox": {
+            "x": 440,
+            "y": 504,
+            "width": 203,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "1s9mexh",
+          "source": "agents.ops",
+          "target": "agents.opsStore",
+          "label": "the only opener",
+          "points": [
+            [
+              408,
+              745
+            ],
+            [
+              390,
+              759
+            ],
+            [
+              371,
+              772
+            ],
+            [
+              354,
+              786
+            ],
+            [
+              331,
+              804
+            ],
+            [
+              308,
+              823
+            ],
+            [
+              285,
+              843
+            ]
+          ],
+          "labelBBox": {
+            "x": 355,
+            "y": 787,
+            "width": 101,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "1tblpba",
+          "source": "founder",
+          "target": "agents.cockpit",
+          "label": "watches the work and the architecture",
+          "points": [
+            [
+              986,
+              180
+            ],
+            [
+              986,
+              235
+            ],
+            [
+              986,
+              308
+            ],
+            [
+              986,
+              372
+            ],
+            [
+              986,
+              372
+            ],
+            [
+              986,
+              372
+            ],
+            [
+              986,
+              950
+            ],
+            [
+              986,
+              1026
+            ],
+            [
+              936,
+              1094
+            ],
+            [
+              882,
+              1144
+            ]
+          ],
+          "labelBBox": {
+            "x": 987,
+            "y": 645,
+            "width": 240,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "1gyo973",
+          "source": "agents.cockpit",
+          "target": "agents.ops",
+          "label": "reads events, alerts, sessions",
+          "points": [
+            [
+              755,
+              1152
+            ],
+            [
+              761,
+              1037
+            ],
+            [
+              764,
+              846
+            ],
+            [
+              730,
+              786
+            ],
+            [
+              723,
+              774
+            ],
+            [
+              715,
+              763
+            ],
+            [
+              706,
+              753
+            ]
+          ],
+          "labelBBox": {
+            "x": 760,
+            "y": 938,
+            "width": 188,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "1ivqykb",
+          "source": "agents.ops",
+          "target": "agents.observability",
+          "label": "exports the events (OpenTelemetry logs)",
+          "points": [
+            [
+              482,
+              745
+            ],
+            [
+              476,
+              758
+            ],
+            [
+              471,
+              772
+            ],
+            [
+              467,
+              786
+            ],
+            [
+              462,
+              806
+            ],
+            [
+              464,
+              828
+            ],
+            [
+              470,
+              849
+            ]
+          ],
+          "labelBBox": {
+            "x": 468,
+            "y": 787,
+            "width": 258,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "6grjsu",
+          "source": "agents.observability",
+          "target": "agents.cockpit",
+          "label": "probe results beside the alerts",
+          "points": [
+            [
+              515,
+              1038
+            ],
+            [
+              516,
+              1063
+            ],
+            [
+              520,
+              1090
+            ],
+            [
+              533,
+              1111
+            ],
+            [
+              545,
+              1130
+            ],
+            [
+              560,
+              1147
+            ],
+            [
+              577,
+              1161
+            ]
+          ],
+          "labelBBox": {
+            "x": 534,
+            "y": 1090,
+            "width": 192,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        }
+      ]
+    },
+    {
+      "id": "v1_events",
+      "title": "Krizaka Agents 1.0 · one event format, one sink",
+      "dynamic": false,
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1264,
+        "height": 1348
+      },
+      "nodes": [
+        {
+          "id": "agents.commands",
+          "parent": null,
+          "kind": "container",
+          "shape": "rectangle",
+          "title": "Commands and gates",
+          "technology": "Python 3, POSIX shell",
+          "description": "What a session runs at each step (start, issue, pull request, push, queue, end), each command holding its rules and counting its refusals.",
+          "compound": false,
+          "x": 109,
+          "y": 0,
+          "width": 331,
+          "height": 180
+        },
+        {
+          "id": "agents.builder",
+          "parent": null,
+          "kind": "container",
+          "shape": "rectangle",
+          "title": "Session builder and team runner",
+          "technology": "Python, launchd",
+          "description": "Builds every headless session the same way (pinned CLI, isolated settings, allowed MCP servers, caps on turns, budget and minutes, the preamble), gates its start on load, index and tool health, checks its init, runs it as a one-shot launch agent and records its end once.",
+          "compound": false,
+          "x": 744,
+          "y": 0,
+          "width": 337,
+          "height": 180
+        },
+        {
+          "id": "agents.trains",
+          "parent": null,
+          "kind": "container",
+          "shape": "rectangle",
+          "title": "Trains",
+          "technology": "Python, bash, GitHub merge queue",
+          "description": "One ordered landing queue per repository and one runner that takes each green pull request through the merge queue; stops on red, counts reds, calls for help at the second.",
+          "compound": false,
+          "x": 99,
+          "y": 283,
+          "width": 351,
+          "height": 180
+        },
+        {
+          "id": "agents.events",
+          "parent": null,
+          "kind": "library",
+          "shape": "component",
+          "title": "Event client",
+          "technology": "Python; OpenTelemetry log data model",
+          "description": "One structured event format for every session, train, refusal, cron run and alert (time, source, kind, subject, outcome, trace and session ids, bounded detail), one writer, one sink.",
+          "compound": false,
+          "x": 375,
+          "y": 582,
+          "width": 373,
+          "height": 180
+        },
+        {
+          "id": "agents.ops",
+          "parent": null,
+          "kind": "container",
+          "shape": "rectangle",
+          "title": "Operations service",
+          "technology": "Python, HTTP on loopback (LaunchAgent)",
+          "description": "The one process that opens the operations database: events, alerts, sessions and work copies, synced tables, long-poll waits; one token per caller; a journal when it is down.",
+          "compound": false,
+          "x": 181,
+          "y": 865,
+          "width": 331,
+          "height": 180
+        },
+        {
+          "id": "agents.opsStore",
+          "parent": null,
+          "kind": "datastore",
+          "shape": "storage",
+          "title": "Operations database",
+          "technology": "SQLite",
+          "description": "The one database of the operations: events, alerts, sessions and work copies, the ledger (transactions), cloud costs, social, checkpoints, product health and the credential rotations journal. Opened only by the operations service; the cockpit reads it through the service.",
+          "compound": false,
+          "x": 0,
+          "y": 1148,
+          "width": 333,
+          "height": 200
+        },
+        {
+          "id": "agents.observability",
+          "parent": null,
+          "kind": "external",
+          "shape": "rectangle",
+          "title": "Observability stack",
+          "technology": "Grafana Cloud",
+          "description": "Synthetic probes of the public sites and the dev health routes.",
+          "compound": false,
+          "x": 364,
+          "y": 1158,
+          "width": 326,
+          "height": 180
+        }
+      ],
+      "edges": [
+        {
+          "id": "11755zh",
+          "source": "agents.commands",
+          "target": "agents.trains",
+          "label": "queues a green pull request",
+          "points": [
+            [
+              275,
+              180
+            ],
+            [
+              275,
+              209
+            ],
+            [
+              275,
+              243
+            ],
+            [
+              275,
+              273
+            ]
+          ],
+          "labelBBox": {
+            "x": 276,
+            "y": 221,
+            "width": 178,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "1ni43p0",
+          "source": "agents.builder",
+          "target": "agents.events",
+          "label": "writes every session start, progress and end",
+          "points": [
+            [
+              847,
+              180
+            ],
+            [
+              826,
+              211
+            ],
+            [
+              803,
+              248
+            ],
+            [
+              786,
+              283
+            ],
+            [
+              750,
+              359
+            ],
+            [
+              768,
+              389
+            ],
+            [
+              729,
+              463
+            ],
+            [
+              708,
+              502
+            ],
+            [
+              679,
+              541
+            ],
+            [
+              652,
+              575
+            ]
+          ],
+          "labelBBox": {
+            "x": 787,
+            "y": 354,
+            "width": 251,
+            "height": 35
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "1ae7hb5",
+          "source": "agents.commands",
+          "target": "agents.events",
+          "label": "writes every event and refusal",
+          "points": [
+            [
+              427,
+              180
+            ],
+            [
+              440,
+              192
+            ],
+            [
+              452,
+              205
+            ],
+            [
+              462,
+              220
+            ],
+            [
+              500,
+              277
+            ],
+            [
+              532,
+              457
+            ],
+            [
+              548,
+              572
+            ]
+          ],
+          "labelBBox": {
+            "x": 531,
+            "y": 362,
+            "width": 190,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "dytj8m",
+          "source": "agents.trains",
+          "target": "agents.events",
+          "label": "writes every step",
+          "points": [
+            [
+              319,
+              463
+            ],
+            [
+              335,
+              490
+            ],
+            [
+              355,
+              519
+            ],
+            [
+              377,
+              542
+            ],
+            [
+              388,
+              554
+            ],
+            [
+              400,
+              565
+            ],
+            [
+              413,
+              576
+            ]
+          ],
+          "labelBBox": {
+            "x": 378,
+            "y": 512,
+            "width": 109,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "19mtdrb",
+          "source": "agents.builder",
+          "target": "agents.ops",
+          "label": "records the start, the progress and the end",
+          "points": [
+            [
+              989,
+              180
+            ],
+            [
+              1010,
+              211
+            ],
+            [
+              1031,
+              246
+            ],
+            [
+              1042,
+              283
+            ],
+            [
+              1065,
+              359
+            ],
+            [
+              1071,
+              388
+            ],
+            [
+              1042,
+              463
+            ],
+            [
+              954,
+              687
+            ],
+            [
+              697,
+              824
+            ],
+            [
+              522,
+              895
+            ]
+          ],
+          "labelBBox": {
+            "x": 1021,
+            "y": 504,
+            "width": 241,
+            "height": 35
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "1hsj64y",
+          "source": "agents.commands",
+          "target": "agents.ops",
+          "label": "writes events and refusals",
+          "points": [
+            [
+              158,
+              180
+            ],
+            [
+              128,
+              209
+            ],
+            [
+              100,
+              244
+            ],
+            [
+              84,
+              283
+            ],
+            [
+              40,
+              389
+            ],
+            [
+              52,
+              432
+            ],
+            [
+              85,
+              542
+            ],
+            [
+              120,
+              661
+            ],
+            [
+              201,
+              779
+            ],
+            [
+              263,
+              857
+            ]
+          ],
+          "labelBBox": {
+            "x": 86,
+            "y": 512,
+            "width": 166,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "w1kuut",
+          "source": "agents.trains",
+          "target": "agents.ops",
+          "label": "writes events",
+          "points": [
+            [
+              265,
+              463
+            ],
+            [
+              258,
+              542
+            ],
+            [
+              253,
+              661
+            ],
+            [
+              272,
+              762
+            ],
+            [
+              278,
+              794
+            ],
+            [
+              289,
+              827
+            ],
+            [
+              301,
+              856
+            ]
+          ],
+          "labelBBox": {
+            "x": 273,
+            "y": 662,
+            "width": 86,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "ro92ah",
+          "source": "agents.events",
+          "target": "agents.ops",
+          "label": "one sink",
+          "points": [
+            [
+              494,
+              762
+            ],
+            [
+              471,
+              792
+            ],
+            [
+              445,
+              826
+            ],
+            [
+              421,
+              857
+            ]
+          ],
+          "labelBBox": {
+            "x": 462,
+            "y": 803,
+            "width": 56,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "1s9mexh",
+          "source": "agents.ops",
+          "target": "agents.opsStore",
+          "label": "the only opener",
+          "points": [
+            [
+              292,
+              1045
+            ],
+            [
+              274,
+              1075
+            ],
+            [
+              253,
+              1108
+            ],
+            [
+              234,
+              1138
+            ]
+          ],
+          "labelBBox": {
+            "x": 263,
+            "y": 1086,
+            "width": 101,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        },
+        {
+          "id": "1ivqykb",
+          "source": "agents.ops",
+          "target": "agents.observability",
+          "label": "exports the events (OpenTelemetry logs)",
+          "points": [
+            [
+              402,
+              1045
+            ],
+            [
+              422,
+              1078
+            ],
+            [
+              445,
+              1116
+            ],
+            [
+              466,
+              1149
+            ]
+          ],
+          "labelBBox": {
+            "x": 438,
+            "y": 1086,
+            "width": 258,
+            "height": 18
+          },
+          "step": null,
+          "back": false
+        }
+      ]
+    }
+  ],
+  "translations": {
+    "fr": {
+      "path": "krizaka-agents.fr.json",
+      "sha256": "7a38d523a5898b67fbe331dc11b656d1903c946a43999246d530d2579b2df164",
+      "views": [
+        {
+          "id": "v1_c1",
+          "title": "Krizaka Agents 1.0 · contexte du système (C1)",
+          "dynamic": false,
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 782,
+            "height": 826
+          },
+          "nodes": [
+            {
+              "id": "founder",
+              "parent": null,
+              "kind": "person",
+              "shape": "person",
+              "title": "Fondateur",
+              "technology": null,
+              "description": "Décide de la direction et de l'argent. Une seconde application approuve les pull requests et le train les fusionne.",
+              "compound": false,
+              "x": 206,
+              "y": 0,
+              "width": 354,
+              "height": 180
+            },
+            {
+              "id": "agents",
+              "parent": null,
+              "kind": "system",
+              "shape": "rectangle",
+              "title": "Krizaka Agents",
+              "technology": null,
+              "description": "Le système de livraison des agents de code, qui travaille avec Claude Code : commandes et garde-fous, sessions, trains, coordinateur, service d'opérations et tâches planifiées autour de Claude Code.",
+              "compound": false,
+              "x": 216,
+              "y": 323,
+              "width": 334,
+              "height": 180
+            },
+            {
+              "id": "github",
+              "parent": null,
+              "kind": "external",
+              "shape": "rectangle",
+              "title": "GitHub",
+              "technology": null,
+              "description": "Le code, les tickets, les pull requests, la CI, la file de fusion et les tags.",
+              "compound": false,
+              "x": 0,
+              "y": 646,
+              "width": 320,
+              "height": 180
+            },
+            {
+              "id": "models",
+              "parent": null,
+              "kind": "external",
+              "shape": "rectangle",
+              "title": "Fournisseurs de modèles",
+              "technology": null,
+              "description": "Les modèles d'IA sur lesquels tournent les produits et les agents, en local ou hébergés.",
+              "compound": false,
+              "x": 430,
+              "y": 646,
+              "width": 352,
+              "height": 180
+            }
+          ],
+          "edges": [
+            {
+              "id": "1ckcfsx",
+              "source": "founder",
+              "target": "agents",
+              "label": "[...]",
+              "points": [
+                [
+                  383,
+                  180
+                ],
+                [
+                  383,
+                  221
+                ],
+                [
+                  383,
+                  270
+                ],
+                [
+                  383,
+                  313
+                ]
+              ],
+              "labelBBox": {
+                "x": 384,
+                "y": 239,
+                "width": 25,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "1j43c91",
+              "source": "agents",
+              "target": "github",
+              "label": "tickets, pull requests, file de fusion",
+              "points": [
+                [
+                  294,
+                  503
+                ],
+                [
+                  277,
+                  522
+                ],
+                [
+                  260,
+                  542
+                ],
+                [
+                  246,
+                  563
+                ],
+                [
+                  230,
+                  586
+                ],
+                [
+                  216,
+                  612
+                ],
+                [
+                  203,
+                  637
+                ]
+              ],
+              "labelBBox": {
+                "x": 247,
+                "y": 564,
+                "width": 221,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "1k1tj5o",
+              "source": "agents",
+              "target": "models",
+              "label": "[...]",
+              "points": [
+                [
+                  449,
+                  503
+                ],
+                [
+                  463,
+                  522
+                ],
+                [
+                  478,
+                  543
+                ],
+                [
+                  492,
+                  563
+                ],
+                [
+                  509,
+                  587
+                ],
+                [
+                  526,
+                  613
+                ],
+                [
+                  543,
+                  637
+                ]
+              ],
+              "labelBBox": {
+                "x": 506,
+                "y": 561,
+                "width": 25,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            }
+          ]
+        },
+        {
+          "id": "v1_c2",
+          "title": "Krizaka Agents 1.0 · le cœur parle aux ports (C2)",
+          "dynamic": false,
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1185,
+            "height": 980
+          },
+          "nodes": [
+            {
+              "id": "agents.builder",
+              "parent": null,
+              "kind": "container",
+              "shape": "rectangle",
+              "title": "Constructeur de sessions et lanceur d'équipes",
+              "technology": "Python, launchd",
+              "description": "Construit chaque session sans interface de la même façon (CLI épinglée, réglages isolés, serveurs MCP permis, plafonds de tours, de budget et de minutes, le préambule), ne la démarre que si la charge, l'index et les outils sont sains, vérifie son initialisation, la lance comme agent de lancement à usage unique et enregistre sa fin une seule fois.",
+              "compound": false,
+              "x": 7,
+              "y": 0,
+              "width": 337,
+              "height": 180
+            },
+            {
+              "id": "agents.commands",
+              "parent": null,
+              "kind": "container",
+              "shape": "rectangle",
+              "title": "Commandes et barrières",
+              "technology": "Python 3, shell POSIX",
+              "description": "Ce qu'une session lance à chaque étape (début, ticket, pull request, push, file, fin), chaque commande portant ses règles et comptant ses refus.",
+              "compound": false,
+              "x": 10,
+              "y": 200,
+              "width": 331,
+              "height": 180
+            },
+            {
+              "id": "agents.trains",
+              "parent": null,
+              "kind": "container",
+              "shape": "rectangle",
+              "title": "Trains",
+              "technology": "Python, bash, file de fusion GitHub",
+              "description": "Une file d'atterrissage ordonnée par dépôt et un exécutant qui fait passer chaque pull request verte par la file de fusion ; s'arrête au rouge, compte les rouges, appelle à l'aide au deuxième.",
+              "compound": false,
+              "x": 0,
+              "y": 400,
+              "width": 351,
+              "height": 180
+            },
+            {
+              "id": "agents.coordinator",
+              "parent": null,
+              "kind": "container",
+              "shape": "rectangle",
+              "title": "Coordinateur",
+              "technology": "Python, HTTP en boucle locale (LaunchAgent)",
+              "description": "Des tâches, des baux avec un jeton de fencing et des périmètres de fichiers accordés, pour que des sessions parallèles n'écrivent jamais les mêmes fichiers ; fait atterrir une tâche à la fois.",
+              "compound": false,
+              "x": 10,
+              "y": 600,
+              "width": 331,
+              "height": 180
+            },
+            {
+              "id": "agents.watchdog",
+              "parent": null,
+              "kind": "container",
+              "shape": "rectangle",
+              "title": "Watchdog",
+              "technology": "Python",
+              "description": "Lit les exécutions, les trains, les sessions, les checks de main, les clés de service, l'âge de chaque identifiant et les pods GPU ; lève et résout les alertes. N'écrit jamais de code.",
+              "compound": false,
+              "x": 0,
+              "y": 800,
+              "width": 351,
+              "height": 180
+            },
+            {
+              "id": "agents.envContract",
+              "parent": null,
+              "kind": "library",
+              "shape": "component",
+              "title": "Contrat d'environnement",
+              "technology": "Python, JSON Schema",
+              "description": "Une liste déclarée de variables d'environnement nommées par rôle, jamais par fournisseur (AI_MODEL_*, AGENT_RUNTIME_*, VCS_*, SECRETS_*, STORAGE_*, NOTIFY_*, OPS_*) ; un nom manquant ou inconnu refuse le démarrage.",
+              "compound": false,
+              "x": 716,
+              "y": 0,
+              "width": 469,
+              "height": 180
+            },
+            {
+              "id": "agents.ports",
+              "parent": null,
+              "kind": "library",
+              "shape": "component",
+              "title": "Ports de service",
+              "technology": "Protocoles Python, tests de contrat",
+              "description": "Les interfaces entre le système et ce dont il dépend : hébergeur VCS, exécution d'agent, fournisseur de modèles, coffre de secrets, stockage, notifications, magasin d'opérations. Le coordinateur, les trains, les garde-fous et le watchdog n'importent que celles-ci.",
+              "compound": false,
+              "x": 756,
+              "y": 400,
+              "width": 389,
+              "height": 180
+            }
+          ],
+          "edges": [
+            {
+              "id": "1925lq9",
+              "source": "agents.builder",
+              "target": "agents.ports",
+              "label": "pilote le port d'exécution d'agent",
+              "points": [
+                [
+                  345,
+                  161
+                ],
+                [
+                  438,
+                  202
+                ],
+                [
+                  555,
+                  256
+                ],
+                [
+                  656,
+                  310
+                ],
+                [
+                  704,
+                  336
+                ],
+                [
+                  756,
+                  366
+                ],
+                [
+                  802,
+                  395
+                ]
+              ],
+              "labelBBox": {
+                "x": 443,
+                "y": 174,
+                "width": 182,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "1ep6vhw",
+              "source": "agents.commands",
+              "target": "agents.ports",
+              "label": "hébergeur VCS, secrets, stockage, notifications",
+              "points": [
+                [
+                  341,
+                  333
+                ],
+                [
+                  460,
+                  363
+                ],
+                [
+                  620,
+                  405
+                ],
+                [
+                  746,
+                  437
+                ]
+              ],
+              "labelBBox": {
+                "x": 447,
+                "y": 316,
+                "width": 174,
+                "height": 35
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "je1ukz",
+              "source": "agents.trains",
+              "target": "agents.ports",
+              "label": "hébergeur VCS",
+              "points": [
+                [
+                  352,
+                  490
+                ],
+                [
+                  469,
+                  490
+                ],
+                [
+                  623,
+                  490
+                ],
+                [
+                  746,
+                  490
+                ]
+              ],
+              "labelBBox": {
+                "x": 502,
+                "y": 468,
+                "width": 63,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "10ipgoq",
+              "source": "agents.coordinator",
+              "target": "agents.ports",
+              "label": "hébergeur VCS",
+              "points": [
+                [
+                  342,
+                  647
+                ],
+                [
+                  460,
+                  617
+                ],
+                [
+                  620,
+                  575
+                ],
+                [
+                  746,
+                  543
+                ]
+              ],
+              "labelBBox": {
+                "x": 502,
+                "y": 544,
+                "width": 63,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "8r93ad",
+              "source": "agents.watchdog",
+              "target": "agents.ports",
+              "label": "hébergeur VCS, notifications, magasin d'opérations",
+              "points": [
+                [
+                  352,
+                  816
+                ],
+                [
+                  443,
+                  775
+                ],
+                [
+                  557,
+                  722
+                ],
+                [
+                  656,
+                  670
+                ],
+                [
+                  704,
+                  644
+                ],
+                [
+                  755,
+                  614
+                ],
+                [
+                  801,
+                  585
+                ]
+              ],
+              "labelBBox": {
+                "x": 425,
+                "y": 631,
+                "width": 218,
+                "height": 35
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "19z7z44",
+              "source": "agents.builder",
+              "target": "agents.envContract",
+              "label": "refuse une variable manquante ou inconnue",
+              "points": [
+                [
+                  345,
+                  90
+                ],
+                [
+                  450,
+                  90
+                ],
+                [
+                  589,
+                  90
+                ],
+                [
+                  706,
+                  90
+                ]
+              ],
+              "labelBBox": {
+                "x": 413,
+                "y": 68,
+                "width": 242,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            }
+          ]
+        },
+        {
+          "id": "v1_adapters",
+          "title": "Krizaka Agents 1.0 · les adaptateurs implémentent les ports (C2)",
+          "dynamic": false,
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1085,
+            "height": 1630
+          },
+          "nodes": [
+            {
+              "id": "agents.vcsGithub",
+              "parent": null,
+              "kind": "container",
+              "shape": "rectangle",
+              "title": "Adaptateur GitHub",
+              "technology": "Python, gh",
+              "description": "Le port de l'hébergeur VCS sur GitHub : REST et GraphQL avec les jetons d'application, la file de fusion, les checks, le tableau.",
+              "compound": false,
+              "x": 0,
+              "y": 0,
+              "width": 378,
+              "height": 180
+            },
+            {
+              "id": "agents.runtimeClaudeCode",
+              "parent": null,
+              "kind": "container",
+              "shape": "rectangle",
+              "title": "Adaptateur d'exécution Claude Code",
+              "technology": "Python, Claude Code sans interface",
+              "description": "Le port d'exécution d'agent sur Claude Code : une spécification de session en entrée (modèle, plafonds, outils, dossier de travail, consigne), un flux d'événements normalisés en sortie, une fin (issue, tours, coût). Les hooks et les plugins restent les siens.",
+              "compound": false,
+              "x": 16,
+              "y": 290,
+              "width": 346,
+              "height": 180
+            },
+            {
+              "id": "agents.modelClaude",
+              "parent": null,
+              "kind": "container",
+              "shape": "rectangle",
+              "title": "Adaptateur de modèle Claude",
+              "technology": "Python",
+              "description": "Le port du fournisseur de modèles : un modèle choisi par rôle (planification, construction, revue, scan) et associé à l'identifiant d'un fournisseur ; aujourd'hui Claude, par l'exécution.",
+              "compound": false,
+              "x": 19,
+              "y": 580,
+              "width": 340,
+              "height": 180
+            },
+            {
+              "id": "agents.secretsAdapter",
+              "parent": null,
+              "kind": "container",
+              "shape": "rectangle",
+              "title": "Adaptateur de secrets",
+              "technology": "Python",
+              "description": "Le port du coffre de secrets : le trousseau macOS aujourd'hui, un gestionnaire de secrets cloud chez un client.",
+              "compound": false,
+              "x": 23,
+              "y": 870,
+              "width": 332,
+              "height": 180
+            },
+            {
+              "id": "agents.notifyAdapter",
+              "parent": null,
+              "kind": "container",
+              "shape": "rectangle",
+              "title": "Adaptateur de notifications",
+              "technology": "Python",
+              "description": "Le port des notifications : les alertes vers le magasin d'opérations et le cockpit aujourd'hui ; courriel ou messagerie chez un client.",
+              "compound": false,
+              "x": 29,
+              "y": 1160,
+              "width": 320,
+              "height": 180
+            },
+            {
+              "id": "agents.storageAdapter",
+              "parent": null,
+              "kind": "container",
+              "shape": "rectangle",
+              "title": "Adaptateur de stockage",
+              "technology": "Python",
+              "description": "Le port de stockage des captures, des rapports et des sauvegardes : un dossier local aujourd'hui, un stockage objet chez un client.",
+              "compound": false,
+              "x": 29,
+              "y": 1450,
+              "width": 320,
+              "height": 180
+            },
+            {
+              "id": "agents.ports",
+              "parent": null,
+              "kind": "library",
+              "shape": "component",
+              "title": "Ports de service",
+              "technology": "Protocoles Python, tests de contrat",
+              "description": "Les interfaces entre le système et ce dont il dépend : hébergeur VCS, exécution d'agent, fournisseur de modèles, coffre de secrets, stockage, notifications, magasin d'opérations. Le coordinateur, les trains, les garde-fous et le watchdog n'importent que celles-ci.",
+              "compound": false,
+              "x": 696,
+              "y": 725,
+              "width": 389,
+              "height": 180
+            }
+          ],
+          "edges": [
+            {
+              "id": "1qutxxf",
+              "source": "agents.vcsGithub",
+              "target": "agents.ports",
+              "label": "implémente l'hébergeur VCS",
+              "points": [
+                [
+                  312,
+                  180
+                ],
+                [
+                  334,
+                  197
+                ],
+                [
+                  358,
+                  216
+                ],
+                [
+                  379,
+                  235
+                ],
+                [
+                  501,
+                  343
+                ],
+                [
+                  528,
+                  374
+                ],
+                [
+                  636,
+                  496
+                ],
+                [
+                  700,
+                  568
+                ],
+                [
+                  767,
+                  653
+                ],
+                [
+                  816,
+                  717
+                ]
+              ],
+              "labelBBox": {
+                "x": 456,
+                "y": 270,
+                "width": 162,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "wgpeej",
+              "source": "agents.runtimeClaudeCode",
+              "target": "agents.ports",
+              "label": "implémente l'exécution d'agent",
+              "points": [
+                [
+                  335,
+                  470
+                ],
+                [
+                  452,
+                  543
+                ],
+                [
+                  617,
+                  645
+                ],
+                [
+                  736,
+                  720
+                ]
+              ],
+              "labelBBox": {
+                "x": 443,
+                "y": 524,
+                "width": 188,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "1gr29dh",
+              "source": "agents.modelClaude",
+              "target": "agents.ports",
+              "label": "implémente le fournisseur de modèles",
+              "points": [
+                [
+                  359,
+                  705
+                ],
+                [
+                  457,
+                  725
+                ],
+                [
+                  582,
+                  751
+                ],
+                [
+                  686,
+                  773
+                ]
+              ],
+              "labelBBox": {
+                "x": 440,
+                "y": 703,
+                "width": 195,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "9530ia",
+              "source": "agents.secretsAdapter",
+              "target": "agents.ports",
+              "label": "implémente le coffre de secrets",
+              "points": [
+                [
+                  356,
+                  926
+                ],
+                [
+                  455,
+                  905
+                ],
+                [
+                  581,
+                  879
+                ],
+                [
+                  686,
+                  857
+                ]
+              ],
+              "labelBBox": {
+                "x": 446,
+                "y": 848,
+                "width": 183,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "1xyjcpg",
+              "source": "agents.notifyAdapter",
+              "target": "agents.ports",
+              "label": "implémente les notifications",
+              "points": [
+                [
+                  335,
+                  1160
+                ],
+                [
+                  452,
+                  1087
+                ],
+                [
+                  617,
+                  985
+                ],
+                [
+                  736,
+                  910
+                ]
+              ],
+              "labelBBox": {
+                "x": 449,
+                "y": 959,
+                "width": 177,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "khhlse",
+              "source": "agents.storageAdapter",
+              "target": "agents.ports",
+              "label": "implémente le stockage",
+              "points": [
+                [
+                  312,
+                  1450
+                ],
+                [
+                  334,
+                  1433
+                ],
+                [
+                  358,
+                  1414
+                ],
+                [
+                  379,
+                  1395
+                ],
+                [
+                  501,
+                  1287
+                ],
+                [
+                  528,
+                  1256
+                ],
+                [
+                  636,
+                  1134
+                ],
+                [
+                  700,
+                  1062
+                ],
+                [
+                  767,
+                  977
+                ],
+                [
+                  816,
+                  913
+                ]
+              ],
+              "labelBBox": {
+                "x": 463,
+                "y": 1112,
+                "width": 150,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            }
+          ]
+        },
+        {
+          "id": "v1_tower",
+          "title": "Krizaka Agents 1.0 · la tour : ce qui surveille le travail",
+          "dynamic": false,
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1228,
+            "height": 1331
+          },
+          "nodes": [
+            {
+              "id": "agents.automatic",
+              "parent": null,
+              "kind": "container",
+              "shape": "rectangle",
+              "title": "Lanceurs automatiques",
+              "technology": "Python",
+              "description": "Des scans qui démarrent seuls une session plafonnée : le crack sur une pull request rouge au plafond, la recette après une fusion, la répartition des voies sur un élément prêt, l'audit des journaux toutes les heures.",
+              "compound": false,
+              "x": 38,
+              "y": 0,
+              "width": 326,
+              "height": 180
+            },
+            {
+              "id": "agents.watchdog",
+              "parent": null,
+              "kind": "container",
+              "shape": "rectangle",
+              "title": "Watchdog",
+              "technology": "Python",
+              "description": "Lit les exécutions, les trains, les sessions, les checks de main, les clés de service, l'âge de chaque identifiant et les pods GPU ; lève et résout les alertes. N'écrit jamais de code.",
+              "compound": false,
+              "x": 394,
+              "y": 0,
+              "width": 351,
+              "height": 180
+            },
+            {
+              "id": "founder",
+              "parent": null,
+              "kind": "person",
+              "shape": "person",
+              "title": "Fondateur",
+              "technology": null,
+              "description": "Décide de la direction et de l'argent. Une seconde application approuve les pull requests et le train les fusionne.",
+              "compound": false,
+              "x": 809,
+              "y": 0,
+              "width": 354,
+              "height": 180
+            },
+            {
+              "id": "agents.rotation",
+              "parent": null,
+              "kind": "container",
+              "shape": "rectangle",
+              "title": "Rotation des identifiants",
+              "technology": "Python",
+              "description": "Fait tourner un identifiant par un flux journalisé (prévu, créé, préparé, copies mises à jour, vérifié, promu, ancien révoqué, enregistré) et rapporte l'âge de chacun face à son inventaire dans le dépôt restreint ; chaque exécution est une ligne de la base des opérations.",
+              "compound": false,
+              "x": 269,
+              "y": 283,
+              "width": 337,
+              "height": 180
+            },
+            {
+              "id": "agents.cockpit",
+              "parent": null,
+              "kind": "app",
+              "shape": "browser",
+              "title": "Cockpit",
+              "technology": "Next.js, @krizaka/ui (sur le Mac, non déployé)",
+              "description": "Le tableau de bord local du fondateur : trains, alertes, sessions, coûts, le tableau et l'architecture de chaque produit.",
+              "compound": false,
+              "x": 585,
+              "y": 1151,
+              "width": 329,
+              "height": 180
+            },
+            {
+              "id": "agents.ops",
+              "parent": null,
+              "kind": "container",
+              "shape": "rectangle",
+              "title": "Service d'opérations",
+              "technology": "Python, HTTP en boucle locale (LaunchAgent)",
+              "description": "Le seul processus qui ouvre la base des opérations : événements, alertes, sessions et copies de travail, tables synchronisées, attentes en long-poll ; un jeton par appelant ; un journal quand il est arrêté.",
+              "compound": false,
+              "x": 370,
+              "y": 566,
+              "width": 331,
+              "height": 180
+            },
+            {
+              "id": "agents.opsStore",
+              "parent": null,
+              "kind": "datastore",
+              "shape": "storage",
+              "title": "Base des opérations",
+              "technology": "SQLite",
+              "description": "La seule base des opérations : événements, alertes, sessions et copies de travail, le grand livre (transactions), coûts cloud, social, points de reprise, santé des produits et le journal des rotations d'identifiants. Ouverte seulement par le service d'opérations ; le cockpit la lit par le service.",
+              "compound": false,
+              "x": 0,
+              "y": 849,
+              "width": 333,
+              "height": 200
+            },
+            {
+              "id": "agents.observability",
+              "parent": null,
+              "kind": "external",
+              "shape": "rectangle",
+              "title": "Pile d'observabilité",
+              "technology": "Grafana Cloud",
+              "description": "Des sondes synthétiques des sites publics et des routes de santé de dev.",
+              "compound": false,
+              "x": 364,
+              "y": 859,
+              "width": 326,
+              "height": 180
+            }
+          ],
+          "edges": [
+            {
+              "id": "nvhukb",
+              "source": "agents.watchdog",
+              "target": "agents.rotation",
+              "label": "lit l'âge de chaque identifiant",
+              "points": [
+                [
+                  462,
+                  180
+                ],
+                [
+                  452,
+                  192
+                ],
+                [
+                  444,
+                  206
+                ],
+                [
+                  438,
+                  220
+                ],
+                [
+                  431,
+                  236
+                ],
+                [
+                  428,
+                  255
+                ],
+                [
+                  427,
+                  273
+                ]
+              ],
+              "labelBBox": {
+                "x": 439,
+                "y": 221,
+                "width": 204,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "1kd226b",
+              "source": "agents.watchdog",
+              "target": "agents.ops",
+              "label": "lève et résout les alertes",
+              "points": [
+                [
+                  631,
+                  180
+                ],
+                [
+                  637,
+                  193
+                ],
+                [
+                  643,
+                  206
+                ],
+                [
+                  647,
+                  220
+                ],
+                [
+                  683,
+                  351
+                ],
+                [
+                  694,
+                  398
+                ],
+                [
+                  647,
+                  526
+                ],
+                [
+                  643,
+                  536
+                ],
+                [
+                  637,
+                  547
+                ],
+                [
+                  631,
+                  557
+                ]
+              ],
+              "labelBBox": {
+                "x": 679,
+                "y": 362,
+                "width": 163,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "1xv9ic2",
+              "source": "agents.rotation",
+              "target": "agents.ops",
+              "label": "journalise chaque étape et chaque exécution",
+              "points": [
+                [
+                  429,
+                  462
+                ],
+                [
+                  429,
+                  484
+                ],
+                [
+                  432,
+                  506
+                ],
+                [
+                  439,
+                  526
+                ],
+                [
+                  442,
+                  536
+                ],
+                [
+                  447,
+                  547
+                ],
+                [
+                  453,
+                  557
+                ]
+              ],
+              "labelBBox": {
+                "x": 440,
+                "y": 504,
+                "width": 203,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "1s9mexh",
+              "source": "agents.ops",
+              "target": "agents.opsStore",
+              "label": "le seul à l'ouvrir",
+              "points": [
+                [
+                  408,
+                  745
+                ],
+                [
+                  390,
+                  759
+                ],
+                [
+                  371,
+                  772
+                ],
+                [
+                  354,
+                  786
+                ],
+                [
+                  331,
+                  804
+                ],
+                [
+                  308,
+                  823
+                ],
+                [
+                  285,
+                  843
+                ]
+              ],
+              "labelBBox": {
+                "x": 355,
+                "y": 787,
+                "width": 101,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "1tblpba",
+              "source": "founder",
+              "target": "agents.cockpit",
+              "label": "surveille le travail et l'architecture",
+              "points": [
+                [
+                  986,
+                  180
+                ],
+                [
+                  986,
+                  235
+                ],
+                [
+                  986,
+                  308
+                ],
+                [
+                  986,
+                  372
+                ],
+                [
+                  986,
+                  372
+                ],
+                [
+                  986,
+                  372
+                ],
+                [
+                  986,
+                  950
+                ],
+                [
+                  986,
+                  1026
+                ],
+                [
+                  936,
+                  1094
+                ],
+                [
+                  882,
+                  1144
+                ]
+              ],
+              "labelBBox": {
+                "x": 987,
+                "y": 645,
+                "width": 240,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "1gyo973",
+              "source": "agents.cockpit",
+              "target": "agents.ops",
+              "label": "lit les événements, les alertes, les sessions",
+              "points": [
+                [
+                  755,
+                  1152
+                ],
+                [
+                  761,
+                  1037
+                ],
+                [
+                  764,
+                  846
+                ],
+                [
+                  730,
+                  786
+                ],
+                [
+                  723,
+                  774
+                ],
+                [
+                  715,
+                  763
+                ],
+                [
+                  706,
+                  753
+                ]
+              ],
+              "labelBBox": {
+                "x": 760,
+                "y": 938,
+                "width": 188,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "1ivqykb",
+              "source": "agents.ops",
+              "target": "agents.observability",
+              "label": "exporte les événements (journaux OpenTelemetry)",
+              "points": [
+                [
+                  482,
+                  745
+                ],
+                [
+                  476,
+                  758
+                ],
+                [
+                  471,
+                  772
+                ],
+                [
+                  467,
+                  786
+                ],
+                [
+                  462,
+                  806
+                ],
+                [
+                  464,
+                  828
+                ],
+                [
+                  470,
+                  849
+                ]
+              ],
+              "labelBBox": {
+                "x": 468,
+                "y": 787,
+                "width": 258,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "6grjsu",
+              "source": "agents.observability",
+              "target": "agents.cockpit",
+              "label": "résultats des sondes à côté des alertes",
+              "points": [
+                [
+                  515,
+                  1038
+                ],
+                [
+                  516,
+                  1063
+                ],
+                [
+                  520,
+                  1090
+                ],
+                [
+                  533,
+                  1111
+                ],
+                [
+                  545,
+                  1130
+                ],
+                [
+                  560,
+                  1147
+                ],
+                [
+                  577,
+                  1161
+                ]
+              ],
+              "labelBBox": {
+                "x": 534,
+                "y": 1090,
+                "width": 192,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            }
+          ]
+        },
+        {
+          "id": "v1_events",
+          "title": "Krizaka Agents 1.0 · un seul format d'événement, un seul puits",
+          "dynamic": false,
+          "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 1264,
+            "height": 1348
+          },
+          "nodes": [
+            {
+              "id": "agents.commands",
+              "parent": null,
+              "kind": "container",
+              "shape": "rectangle",
+              "title": "Commandes et barrières",
+              "technology": "Python 3, shell POSIX",
+              "description": "Ce qu'une session lance à chaque étape (début, ticket, pull request, push, file, fin), chaque commande portant ses règles et comptant ses refus.",
+              "compound": false,
+              "x": 109,
+              "y": 0,
+              "width": 331,
+              "height": 180
+            },
+            {
+              "id": "agents.builder",
+              "parent": null,
+              "kind": "container",
+              "shape": "rectangle",
+              "title": "Constructeur de sessions et lanceur d'équipes",
+              "technology": "Python, launchd",
+              "description": "Construit chaque session sans interface de la même façon (CLI épinglée, réglages isolés, serveurs MCP permis, plafonds de tours, de budget et de minutes, le préambule), ne la démarre que si la charge, l'index et les outils sont sains, vérifie son initialisation, la lance comme agent de lancement à usage unique et enregistre sa fin une seule fois.",
+              "compound": false,
+              "x": 744,
+              "y": 0,
+              "width": 337,
+              "height": 180
+            },
+            {
+              "id": "agents.trains",
+              "parent": null,
+              "kind": "container",
+              "shape": "rectangle",
+              "title": "Trains",
+              "technology": "Python, bash, file de fusion GitHub",
+              "description": "Une file d'atterrissage ordonnée par dépôt et un exécutant qui fait passer chaque pull request verte par la file de fusion ; s'arrête au rouge, compte les rouges, appelle à l'aide au deuxième.",
+              "compound": false,
+              "x": 99,
+              "y": 283,
+              "width": 351,
+              "height": 180
+            },
+            {
+              "id": "agents.events",
+              "parent": null,
+              "kind": "library",
+              "shape": "component",
+              "title": "Client d'événements",
+              "technology": "Python ; modèle de données des journaux OpenTelemetry",
+              "description": "Un seul format d'événement structuré pour chaque session, train, refus, tâche planifiée et alerte (heure, source, type, sujet, issue, identifiants de trace et de session, détail borné), un seul écrivain, un seul puits.",
+              "compound": false,
+              "x": 375,
+              "y": 582,
+              "width": 373,
+              "height": 180
+            },
+            {
+              "id": "agents.ops",
+              "parent": null,
+              "kind": "container",
+              "shape": "rectangle",
+              "title": "Service d'opérations",
+              "technology": "Python, HTTP en boucle locale (LaunchAgent)",
+              "description": "Le seul processus qui ouvre la base des opérations : événements, alertes, sessions et copies de travail, tables synchronisées, attentes en long-poll ; un jeton par appelant ; un journal quand il est arrêté.",
+              "compound": false,
+              "x": 181,
+              "y": 865,
+              "width": 331,
+              "height": 180
+            },
+            {
+              "id": "agents.opsStore",
+              "parent": null,
+              "kind": "datastore",
+              "shape": "storage",
+              "title": "Base des opérations",
+              "technology": "SQLite",
+              "description": "La seule base des opérations : événements, alertes, sessions et copies de travail, le grand livre (transactions), coûts cloud, social, points de reprise, santé des produits et le journal des rotations d'identifiants. Ouverte seulement par le service d'opérations ; le cockpit la lit par le service.",
+              "compound": false,
+              "x": 0,
+              "y": 1148,
+              "width": 333,
+              "height": 200
+            },
+            {
+              "id": "agents.observability",
+              "parent": null,
+              "kind": "external",
+              "shape": "rectangle",
+              "title": "Pile d'observabilité",
+              "technology": "Grafana Cloud",
+              "description": "Des sondes synthétiques des sites publics et des routes de santé de dev.",
+              "compound": false,
+              "x": 364,
+              "y": 1158,
+              "width": 326,
+              "height": 180
+            }
+          ],
+          "edges": [
+            {
+              "id": "11755zh",
+              "source": "agents.commands",
+              "target": "agents.trains",
+              "label": "met en file une pull request verte",
+              "points": [
+                [
+                  275,
+                  180
+                ],
+                [
+                  275,
+                  209
+                ],
+                [
+                  275,
+                  243
+                ],
+                [
+                  275,
+                  273
+                ]
+              ],
+              "labelBBox": {
+                "x": 276,
+                "y": 221,
+                "width": 178,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "1ni43p0",
+              "source": "agents.builder",
+              "target": "agents.events",
+              "label": "écrit chaque début, progrès et fin de session",
+              "points": [
+                [
+                  847,
+                  180
+                ],
+                [
+                  826,
+                  211
+                ],
+                [
+                  803,
+                  248
+                ],
+                [
+                  786,
+                  283
+                ],
+                [
+                  750,
+                  359
+                ],
+                [
+                  768,
+                  389
+                ],
+                [
+                  729,
+                  463
+                ],
+                [
+                  708,
+                  502
+                ],
+                [
+                  679,
+                  541
+                ],
+                [
+                  652,
+                  575
+                ]
+              ],
+              "labelBBox": {
+                "x": 787,
+                "y": 354,
+                "width": 251,
+                "height": 35
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "1ae7hb5",
+              "source": "agents.commands",
+              "target": "agents.events",
+              "label": "écrit chaque événement et chaque refus",
+              "points": [
+                [
+                  427,
+                  180
+                ],
+                [
+                  440,
+                  192
+                ],
+                [
+                  452,
+                  205
+                ],
+                [
+                  462,
+                  220
+                ],
+                [
+                  500,
+                  277
+                ],
+                [
+                  532,
+                  457
+                ],
+                [
+                  548,
+                  572
+                ]
+              ],
+              "labelBBox": {
+                "x": 531,
+                "y": 362,
+                "width": 190,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "dytj8m",
+              "source": "agents.trains",
+              "target": "agents.events",
+              "label": "écrit chaque étape",
+              "points": [
+                [
+                  319,
+                  463
+                ],
+                [
+                  335,
+                  490
+                ],
+                [
+                  355,
+                  519
+                ],
+                [
+                  377,
+                  542
+                ],
+                [
+                  388,
+                  554
+                ],
+                [
+                  400,
+                  565
+                ],
+                [
+                  413,
+                  576
+                ]
+              ],
+              "labelBBox": {
+                "x": 378,
+                "y": 512,
+                "width": 109,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "19mtdrb",
+              "source": "agents.builder",
+              "target": "agents.ops",
+              "label": "enregistre le début, le progrès et la fin",
+              "points": [
+                [
+                  989,
+                  180
+                ],
+                [
+                  1010,
+                  211
+                ],
+                [
+                  1031,
+                  246
+                ],
+                [
+                  1042,
+                  283
+                ],
+                [
+                  1065,
+                  359
+                ],
+                [
+                  1071,
+                  388
+                ],
+                [
+                  1042,
+                  463
+                ],
+                [
+                  954,
+                  687
+                ],
+                [
+                  697,
+                  824
+                ],
+                [
+                  522,
+                  895
+                ]
+              ],
+              "labelBBox": {
+                "x": 1021,
+                "y": 504,
+                "width": 241,
+                "height": 35
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "1hsj64y",
+              "source": "agents.commands",
+              "target": "agents.ops",
+              "label": "écrit les événements et les refus",
+              "points": [
+                [
+                  158,
+                  180
+                ],
+                [
+                  128,
+                  209
+                ],
+                [
+                  100,
+                  244
+                ],
+                [
+                  84,
+                  283
+                ],
+                [
+                  40,
+                  389
+                ],
+                [
+                  52,
+                  432
+                ],
+                [
+                  85,
+                  542
+                ],
+                [
+                  120,
+                  661
+                ],
+                [
+                  201,
+                  779
+                ],
+                [
+                  263,
+                  857
+                ]
+              ],
+              "labelBBox": {
+                "x": 86,
+                "y": 512,
+                "width": 166,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "w1kuut",
+              "source": "agents.trains",
+              "target": "agents.ops",
+              "label": "écrit les événements",
+              "points": [
+                [
+                  265,
+                  463
+                ],
+                [
+                  258,
+                  542
+                ],
+                [
+                  253,
+                  661
+                ],
+                [
+                  272,
+                  762
+                ],
+                [
+                  278,
+                  794
+                ],
+                [
+                  289,
+                  827
+                ],
+                [
+                  301,
+                  856
+                ]
+              ],
+              "labelBBox": {
+                "x": 273,
+                "y": 662,
+                "width": 86,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "ro92ah",
+              "source": "agents.events",
+              "target": "agents.ops",
+              "label": "un seul puits",
+              "points": [
+                [
+                  494,
+                  762
+                ],
+                [
+                  471,
+                  792
+                ],
+                [
+                  445,
+                  826
+                ],
+                [
+                  421,
+                  857
+                ]
+              ],
+              "labelBBox": {
+                "x": 462,
+                "y": 803,
+                "width": 56,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "1s9mexh",
+              "source": "agents.ops",
+              "target": "agents.opsStore",
+              "label": "le seul à l'ouvrir",
+              "points": [
+                [
+                  292,
+                  1045
+                ],
+                [
+                  274,
+                  1075
+                ],
+                [
+                  253,
+                  1108
+                ],
+                [
+                  234,
+                  1138
+                ]
+              ],
+              "labelBBox": {
+                "x": 263,
+                "y": 1086,
+                "width": 101,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            },
+            {
+              "id": "1ivqykb",
+              "source": "agents.ops",
+              "target": "agents.observability",
+              "label": "exporte les événements (journaux OpenTelemetry)",
+              "points": [
+                [
+                  402,
+                  1045
+                ],
+                [
+                  422,
+                  1078
+                ],
+                [
+                  445,
+                  1116
+                ],
+                [
+                  466,
+                  1149
+                ]
+              ],
+              "labelBBox": {
+                "x": 438,
+                "y": 1086,
+                "width": 258,
+                "height": 18
+              },
+              "step": null,
+              "back": false
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

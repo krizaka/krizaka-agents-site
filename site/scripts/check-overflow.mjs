@@ -7,9 +7,9 @@ import { mkdirSync } from "node:fs";
 import { createRequire } from "node:module";
 
 const WIDTHS = [360, 390, 768, 1024, 1440];
-/** The pages captured with --shots: the three that draw an architecture view and the proofs, in both languages. */
-const SHOTS = new Set(["", "flow", "alerts", "proofs"].flatMap((s) => [`/${s ? s + "/" : ""}`, `/fr/${s ? s + "/" : ""}`]));
-const PATHS = ["", "flow", "rules", "alerts", "cockpit", "proofs"].flatMap((s) => [`/${s ? s + "/" : ""}`, `/fr/${s ? s + "/" : ""}`]);
+/** The pages captured with --shots: the ones that draw an architecture view, the proofs and the migration, in both languages. */
+const SHOTS = new Set(["", "flow", "alerts", "proofs", "v1", "migration"].flatMap((s) => [`/${s ? s + "/" : ""}`, `/fr/${s ? s + "/" : ""}`]));
+const PATHS = ["", "flow", "rules", "alerts", "cockpit", "proofs", "v1", "migration"].flatMap((s) => [`/${s ? s + "/" : ""}`, `/fr/${s ? s + "/" : ""}`]);
 
 function measure() {
   const width = document.documentElement.clientWidth;

@@ -32,6 +32,7 @@
 - Name things by what they do (`media-store.ts`, never `postgres.ts`); no `utils`, `helpers`, `manager`.
 - Type errors with a stable code, mapped to HTTP once; user messages come from the catalogues.
 - Architecture views are drawn from the org model `krizaka-agents.c4` of krizaka/.github into `site/lib/architecture.json` by `site/scripts/architecture.mjs`; a page places one with `<!--view:<id>-->` and a replayed real run with `<!--run:<id>-->` (ids listed in `site/lib/views.ts`; an unknown id stops the build).
+- The 1.0 draft pages (`/v1/`, `/migration/`, `noindex`) draw the model of krizaka-agents copied into `site/data/release/` (never edited by hand: copy it again and update `model-source.json`), laid out into `site/lib/release-architecture.json` by `site/scripts/release-architecture.mjs` and checked by the same CI job; their measures show no figure until one is recorded.
 - Run proofs live in `site/content/proofs/`, described by `sources.json` (repository, path, commit, sha256).
 - Hierarchy: this root file holds the rules of the whole repository; a sub-folder with its own rules adds a local `AGENTS.md` that says only what differs there. The nearest file wins.
 
