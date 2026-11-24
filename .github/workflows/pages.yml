@@ -80,6 +80,9 @@ jobs:
       # The CLI is a tool of this check only, pinned here like playwright below (bundle-require: a module LikeC4's config loads)
       - run: npm install --ignore-scripts --no-save --no-audit --no-fund @krizaka/architecture@0.4.0 bundle-require@5.1.0
       - run: node scripts/architecture.mjs check ../org-model
+      # The 1.0 draft's views (site/lib/release-architecture.json): the copied krizaka-agents model and the site's views, on the
+      # same org base; red when one moved: `node scripts/release-architecture.mjs layout <krizaka/.github checkout>`.
+      - run: node scripts/release-architecture.mjs check ../org-model
 
   site:
     name: Static site

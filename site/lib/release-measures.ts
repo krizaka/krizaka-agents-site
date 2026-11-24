@@ -1,85 +1,20 @@
-/* Typed loader for the 1.0 release measures data (content/release/measures.json). */
+/* The measures of the 1.0 draft (content/release/measures.json). They wait for ticket #4665 (the alert series): until it is
+   recorded the section names what it waits for and shows no number, since a figure here is read from a recorded measurement,
+   never typed (tickets #4572 and #4499). */
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
-export const LANE_STATES = ["on", "turned-off", "off"] as const;
-export type LaneState = (typeof LANE_STATES)[number];
+/** The measures the page will show: alerts sent per day, CTO wake-ups per day, CI minutes. */
+export const MEASURE_IDS = ["alertsPerDay", "ctoWakeups", "ciMinutes"] as const;
+export type MeasureId = (typeof MEASURE_IDS)[number];
 
-export const ALERT_KIND_STATUSES = ["tuned", "observed"] as const;
-export type AlertKindStatus = (typeof ALERT_KIND_STATUSES)[number];
-
-export type MeasureSource = {
-  command: string;
-  date: string;
+export type PendingMeasures = {
+  schema: "krizaka.measures/1";
+  status: "pending";
+  waitsFor: { issue: string; measures: MeasureId[]; command: string };
 };
 
-export type MeasureSourceKey = "watchdogStats" | "alertsList";
-
-export type DailyAlertRow = {
-  date: string;
-  alertsSent: number;
-  ctoWakeups: number;
-  towerRuns: number;
-  lanes: LaneState;
-  partial: boolean;
-};
-
-export type TopAlertKindRow = {
-  kind: string;
-  rows: number;
-  occurrences: number;
-  status: AlertKindStatus;
-};
-
-export type ReleaseMeasuresData = {
-  schema: string;
-  lanesOffSince: string;
-  sources: Record<MeasureSourceKey, MeasureSource>;
-  windowHours: { value: number; source: MeasureSourceKey };
-  daily: { source: MeasureSourceKey; targetPerDay: number; days: DailyAlertRow[] };
-  totals: {
-    source: MeasureSourceKey;
-    merges: number;
-    redsFixed: number;
-    timeToGreenMedianMinutes: number;
-    alertsRaised: number;
-    towerWakes: number;
-    loopsCaught: number;
-  };
-  towerBeforeAfter: {
-    source: MeasureSourceKey;
-    before: {
-      window: string;
-      alerts: number;
-      teamEnded: number;
-      crack: number;
-      needsOwner: number;
-      teamEndedAckedByHand: number;
-    };
-    after: null;
-  };
-  topAlertKinds: {
-    source: MeasureSourceKey;
-    rows: TopAlertKindRow[];
-  };
-  ciMinutes: {
-    available: false;
-    value: null;
-    source: null;
-  };
-};
-
-export type MeasureSectionKey = "windowHours" | "daily" | "totals" | "towerBeforeAfter" | "topAlertKinds";
-
-/** Reads the release measures JSON from content/release/measures.json. */
-export function readReleaseMeasures(): ReleaseMeasuresData {
-  return JSON.parse(readFileSync(join(process.cwd(), "content", "release", "measures.json"), "utf8")) as ReleaseMeasuresData;
-}
-
-/** Resolves the command and date source for a named measure block. */
-export function measureSourceOf(data: ReleaseMeasuresData, section: MeasureSectionKey): MeasureSource {
-  const key = data[section].source;
-  const source = data.sources[key];
-  if (!source) throw new Error(`measures.json: missing source ${key} for ${section}`);
-  return source;
+/** Reads content/release/measures.json. */
+export function readReleaseMeasures(): PendingMeasures {
+  return JSON.parse(readFileSync(join(process.cwd(), "content", "release", "measures.json"), "utf8")) as PendingMeasures;
 }

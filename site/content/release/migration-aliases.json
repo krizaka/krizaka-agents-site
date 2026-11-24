@@ -3,7 +3,8 @@
   "source": {
     "repository": "krizaka-agents",
     "file": "env.json",
-    "date": "2026-11-23"
+    "date": "2026-11-23",
+    "aliasesSha256": "cf4a5febfca8624ac5c9ddd69dfebb5545d232aeaa2c07e2de62039bb4b92980"
   },
   "aliases": [
     {

@@ -633,7 +633,7 @@ main {
   margin: 0.75rem 0 0;
 }
 
-/* ─── Draft release & migration pages: badge bar, model provenance, measured figures and alias tables ─── */
+/* ─── Draft release & migration pages: badge bar, model provenance, the pending measures and alias tables ─── */
 .kz-draft-bar {
   display: flex;
   flex-wrap: wrap;
@@ -658,27 +658,6 @@ main {
   margin-block: var(--line);
   min-width: 0;
 }
-.kz-measure-context {
-  padding: 0.75rem 1rem;
-  border-inline-start: 3px solid var(--kz-accent);
-  background: var(--kz-surface-1);
-  line-height: 1.55;
-}
-.kz-measure-block {
-  margin-top: var(--line);
-}
-.kz-measure-block h4 {
-  font-family: var(--kz-font-display);
-  font-weight: 400;
-  font-size: 1.15rem;
-  line-height: var(--line);
-  margin-bottom: 0.5rem;
-}
-.kz-measure-note {
-  margin-bottom: 0.75rem;
-  color: var(--kz-text-secondary);
-  line-height: 1.55;
-}
 .kz-measure-source {
   margin-top: 0.5rem;
   font-family: var(--kz-font-mono);
@@ -695,4 +674,14 @@ main {
 .kz-aliases code {
   font-family: var(--kz-font-mono);
   font-size: 0.875em;
+}
+.kz-measure-block {
+  margin-top: var(--line);
+}
+.kz-measure-block h4 {
+  font-family: var(--kz-font-display);
+  font-weight: 400;
+  font-size: 1.15rem;
+  line-height: var(--line);
+  margin-bottom: 0.5rem;
 }

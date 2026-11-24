@@ -1,3 +1,7 @@
+/* The 1.0 draft's architecture views: laid out by @krizaka/architecture from the copied krizaka-agents model and the views this
+   site picks (scripts/release-architecture.mjs). The CI job « Architecture views » proves the layout current against the org base;
+   these tests prove what needs no checkout: the copy is the recorded one, the views add nothing to the model, the words pass the
+   publication rules, and the built pages draw every view. */
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
@@ -5,152 +9,109 @@ import { join } from "node:path";
 import { parse } from "parse5";
 import { sha256 } from "../scripts/proofs.mjs";
 import { aiLook, problems } from "../scripts/publication-rules.mjs";
-import { parseC4Model, generateReleaseDiagrams, RELEASE_VIEW_IDS } from "../scripts/generate-release-diagrams.mjs";
 import { built, root } from "./published-texts.mjs";
 
-const LOCALES = ["en", "fr"];
+const VIEW_IDS = ["v1_c1", "v1_c2", "v1_adapters", "v1_tower", "v1_events"];
+const data = (name) => join(root, "data", "release", name);
+const readJson = (path) => JSON.parse(readFileSync(path, "utf8"));
+const layout = () => readJson(join(root, "lib", "release-architecture.json"));
 
-const readJson = (rel) => JSON.parse(readFileSync(join(root, rel), "utf8"));
-
-/** Collect all string leaves from an ArchView (titles, technologies, descriptions, edge labels). */
 function viewStrings(view) {
   const out = [view.title];
-  for (const n of view.nodes) {
-    out.push(n.title);
-    if (n.technology) out.push(n.technology);
-    if (n.description) out.push(n.description);
-  }
-  for (const e of view.edges) {
-    if (e.label) out.push(e.label);
-  }
+  for (const n of view.nodes) out.push(...[n.title, n.technology, n.description].filter((s) => s !== null));
+  for (const e of view.edges) if (e.label !== null) out.push(e.label);
   return out;
 }
 
-/** Collect elements matching a predicate from a parse5 tree. */
 function find(node, match, out = []) {
   if (match(node)) out.push(node);
   for (const child of (node.childNodes ?? []).concat(node.content?.childNodes ?? [])) find(child, match, out);
   return out;
 }
-
 const attr = (node, name) => node.attrs?.find((a) => a.name === name)?.value;
 const textOf = (node) => (node.nodeName === "#text" ? node.value : (node.childNodes ?? []).map(textOf).join(""));
 
-test("the copied architecture model records its source and date and matches its sha256", () => {
-  const meta = readJson("data/model-source.json");
+test("the copied model is the recorded one: its source, its date and its sha256", () => {
+  const meta = readJson(data("model-source.json"));
   assert.equal(meta.schema, "krizaka.model-source/1");
-  assert.equal(meta.file, "krizaka-agents.c4");
   assert.equal(meta.source.repository, "krizaka-agents");
   assert.equal(meta.source.path, "docs/architecture/krizaka-agents.c4");
   assert.match(meta.source.copiedDate, /^\d{4}-\d{2}-\d{2}$/);
-  const c4Bytes = readFileSync(join(root, "data", meta.file));
-  assert.equal(sha256(c4Bytes), meta.sha256);
+  assert.equal(sha256(readFileSync(data(meta.file))), meta.sha256);
+  const input = join(root, "..", ".inputs", "krizaka-agents.c4");
+  if (existsSync(input)) assert.equal(sha256(readFileSync(input)), meta.sha256, "the copy is the model handed to the session");
+});
 
-  const inputsC4 = join(root, "..", ".inputs", "krizaka-agents.c4");
-  if (existsSync(inputsC4)) {
-    assert.equal(sha256(readFileSync(inputsC4)), meta.sha256, "site/data/krizaka-agents.c4 matches .inputs/krizaka-agents.c4");
+test("the layout was made from the committed model, views and French words", () => {
+  const out = layout();
+  assert.equal(out.schema, "krizaka.layout/1");
+  assert.equal(out.tool.name, "@krizaka/architecture");
+  assert.equal(out.check.status, "ok");
+  const recorded = Object.fromEntries(out.sources.model.map((m) => [m.path, m.sha256]));
+  assert.deepEqual(recorded, {
+    "krizaka-agents.c4": sha256(readFileSync(data("krizaka-agents.c4"))),
+    "release-views.c4": sha256(readFileSync(data("release-views.c4"))),
+  });
+  assert.equal(out.translations.fr.sha256, sha256(readFileSync(data("krizaka-agents.fr.json"))));
+  assert.deepEqual(out.views.map((v) => v.id), VIEW_IDS);
+  assert.deepEqual(out.translations.fr.views.map((v) => v.id), VIEW_IDS);
+});
+
+test("the site's views only pick elements of the model: no element, no relationship of their own", () => {
+  const views = readFileSync(data("release-views.c4"), "utf8").replace(/\/\/.*$/gm, "").replace(/^\s*exclude [\w.]+ -> [\w.]+$/gm, "");
+  assert.doesNotMatch(views, /\bmodel\s*\{|->|\bextend\b/, "release-views.c4 holds views only (an arrow only in an exclude)");
+  for (const id of VIEW_IDS) assert.match(views, new RegExp(`view ${id}\\b`), `release-views.c4 declares ${id}`);
+});
+
+/* The org base (specification.c4, org.c4) lives in krizaka/.github: the CI job « Architecture views » checks it out, a session can
+   point ORG_ARCHITECTURE at its docs/architecture. Without it, an override of a base element is checked there only. */
+const ORG = process.env.ORG_ARCHITECTURE;
+
+test("a view says a model description in other words only to drop « harness »: « system » in its place, nothing else", () => {
+  const views = readFileSync(data("release-views.c4"), "utf8");
+  const overrides = [...views.matchAll(/include ([\w.]+) with \{\s*description '([^']*)'\s*\}/g)];
+  assert.ok(overrides.length > 0);
+  assert.equal((views.match(/ with \{/g) ?? []).length, overrides.length, "an override says a description and nothing else");
+  const sources = [readFileSync(data("krizaka-agents.c4"), "utf8")];
+  if (ORG) sources.push(readFileSync(join(ORG, "org.c4"), "utf8"));
+  for (const [, element, words] of overrides) {
+    assert.doesNotMatch(words, /harness/i, element);
+    const original = `description '${words.replace(/\bsystem\b/, "harness")}'`;
+    const found = sources.some((text) => text.includes(original));
+    if (ORG || element.startsWith("agents.")) assert.ok(found, `${element}: the model says « ${original} »`);
   }
 });
 
-test("parseC4Model parses the copied .c4 model elements, relations, and public views", () => {
-  const source = readFileSync(join(root, "data", "krizaka-agents.c4"), "utf8");
-  const model = parseC4Model(source);
-  assert.equal(model.elements.size, 46);
-  assert.equal(model.relations.length, 87);
-  assert.ok(model.views.has("agents_public_current"));
-  assert.ok(model.views.has("agents_public_target"));
-});
-
-test("generateReleaseDiagrams builds C1, C2, tower, and event flow deterministically in EN and FR", () => {
-  const generated = generateReleaseDiagrams(root);
-  const committedText = readFileSync(join(root, "lib", "release-diagrams.json"), "utf8");
-  assert.equal(`${JSON.stringify(generated, null, 2)}\n`, committedText, "lib/release-diagrams.json matches generated output");
-
-  assert.equal(generated.schema, "krizaka.layout/1");
-  assert.equal(generated.source.file, "krizaka-agents.c4");
-  assert.deepEqual(
-    generated.views.map((v) => v.id),
-    [...RELEASE_VIEW_IDS],
-  );
-  assert.deepEqual(
-    generated.translations.fr.views.map((v) => v.id),
-    [...RELEASE_VIEW_IDS],
-  );
-
+test("every word the views draw passes the publication rules, in both languages, with the same geometry", () => {
+  const out = layout();
   const box = (v) => v.nodes.map(({ id, x, y, width, height }) => [id, x, y, width, height]);
-  const model = parseC4Model(readFileSync(join(root, "data", "krizaka-agents.c4"), "utf8"));
-  const targetIncludes = model.views.get("agents_public_target").include;
-
-  for (const id of RELEASE_VIEW_IDS) {
-    const en = generated.views.find((v) => v.id === id);
-    const fr = generated.translations.fr.views.find((v) => v.id === id);
-    assert.ok(en && fr, `${id} exists in en and fr`);
-    assert.deepEqual(box(fr), box(en), `${id}: EN and FR share exact geometry`);
-    assert.notEqual(fr.title, en.title, `${id}: French title is translated`);
-
+  for (const en of out.views) {
+    const fr = out.translations.fr.views.find((v) => v.id === en.id);
+    assert.deepEqual(box(fr), box(en), `${en.id}: one geometry`);
+    assert.notEqual(fr.title, en.title, `${en.id}: the French title is French`);
     for (const s of [...viewStrings(en), ...viewStrings(fr)]) {
-      assert.deepEqual(problems(s), [], `${id}: public rules clean for "${s}"`);
-      assert.doesNotMatch(s, /harness/i, `${id}: no "harness" in "${s}"`);
-      assert.deepEqual(aiLook(s), [], `${id}: no AI-look words in "${s}"`);
-    }
-
-    // Geometry bounds check: all nodes and Bezier points fit inside view bounds, and min desktop width <= 900px
-    assert.ok((en.bounds.width + 53) * 0.6 <= 900, `${id}: desktop min width fits inside 900px frame`);
-    for (const n of en.nodes) {
-      assert.ok(n.x >= en.bounds.x && n.y >= en.bounds.y, `${id}/${n.id}: inside top-left bounds`);
-      assert.ok(n.x + n.width <= en.bounds.x + en.bounds.width, `${id}/${n.id}: inside right bound`);
-      assert.ok(n.y + n.height <= en.bounds.y + en.bounds.height, `${id}/${n.id}: inside bottom bound`);
-    }
-    for (const e of en.edges) {
-      assert.equal((e.points.length - 1) % 3, 0, `${id}/${e.id}: cubic Bezier point count 3k+1`);
-      for (const [px, py] of e.points) {
-        assert.ok(px >= en.bounds.x && px <= en.bounds.x + en.bounds.width, `${id}/${e.id}: point x inside bounds`);
-        assert.ok(py >= en.bounds.y && py <= en.bounds.y + en.bounds.height, `${id}/${e.id}: point y inside bounds`);
-      }
-      if (e.labelBBox) {
-        assert.ok(e.labelBBox.x >= en.bounds.x, `${id}/${e.id}: label x inside bounds`);
-        assert.ok(e.labelBBox.x + e.labelBBox.width <= en.bounds.x + en.bounds.width, `${id}/${e.id}: label right inside bounds`);
-      }
+      assert.deepEqual(problems(s), [], `${en.id}: « ${s} »`);
+      assert.deepEqual(aiLook(s), [], `${en.id}: « ${s} »`);
     }
   }
-
-  // C2 includes every element listed in view agents_public_target of the .c4 model
-  const c2Ids = new Set(generated.views.find((v) => v.id === "v1_c2").nodes.map((n) => n.id));
-  for (const inc of targetIncludes) {
-    assert.ok(c2Ids.has(inc), `v1_c2 includes ${inc} from agents_public_target`);
-  }
-
-  // Event flow is dynamic with sequential steps 1..N
-  const eventsView = generated.views.find((v) => v.id === "v1_events");
-  assert.equal(eventsView.dynamic, true);
-  assert.ok(eventsView.edges.length >= 8);
-  assert.deepEqual(
-    eventsView.edges.map((e) => e.step),
-    Array.from({ length: eventsView.edges.length }, (_, i) => i + 1),
-  );
 });
 
-test("the built 1.0 draft pages render all four model-generated diagrams in EN and FR", { skip: !built() }, () => {
-  for (const locale of LOCALES) {
+/* The desktop column of a page is 900 px and the kit draws a view at no less than 0.6 of its size, with its 53 px of margin: a
+   wider view would scroll on a desktop, which scripts/check-overflow.mjs refuses. */
+test("every view fits the desktop column at the kit's smallest scale", () => {
+  for (const v of layout().views) assert.ok((v.bounds.width + 53) * 0.6 <= 900, `${v.id}: ${v.bounds.width}px wide`);
+});
+
+test("the built 1.0 draft draws every view with its caption, in English and in French", { skip: !built() }, () => {
+  for (const locale of ["en", "fr"]) {
     const file = join(root, "out", locale === "en" ? "" : "fr", "v1", "index.html");
     const page = parse(readFileSync(file, "utf8"));
-    const generated = readJson("lib/release-diagrams.json");
-    const messages = readJson(`messages/${locale}.json`);
-    const views = locale === "en" ? generated.views : generated.translations.fr.views;
-
-    for (const id of RELEASE_VIEW_IDS) {
+    const captions = readJson(join(root, "messages", `${locale}.json`)).release.captions;
+    for (const id of VIEW_IDS) {
       const [figure] = find(page, (n) => attr(n, "data-view") === id);
       assert.ok(figure, `${file}: draws ${id}`);
-      assert.ok(find(figure, (n) => n.nodeName === "svg").length > 0, `${file}/${id}: renders SVG`);
-      assert.ok(textOf(figure).includes(messages.release.captions[id]), `${file}/${id}: includes caption`);
-
-      const modelView = views.find((v) => v.id === id);
-      if (modelView.dynamic) {
-        const openDetails = find(figure, (n) => n.nodeName === "details" && attr(n, "open") !== undefined);
-        assert.equal(openDetails.length, 1, `${file}/${id}: dynamic view text list is open`);
-        const items = find(openDetails[0], (n) => n.nodeName === "ol").flatMap((ol) => find(ol, (n) => n.nodeName === "li"));
-        assert.equal(items.length, modelView.edges.length, `${file}/${id}: one step item per edge`);
-      }
+      assert.ok(find(figure, (n) => n.nodeName === "svg").length > 0, `${file}/${id}: an SVG`);
+      assert.ok(textOf(figure).includes(captions[id]), `${file}/${id}: its caption`);
     }
   }
 });

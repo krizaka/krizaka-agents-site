@@ -3,7 +3,7 @@ title: "Krizaka Agents 1.0 : migration des variables d’environnement (brouillo
 description: "Brouillon non publié listant chaque alias ancien vers nouveau de Krizaka Agents 1.0, vérifié face au contrat."
 ---
 
-**Avis de brouillon** — Cette référence accompagne le [brouillon 1.0 d’architecture et de mesures](/fr/v1/). Elle n’est pas publiée et documente une transition interne de nommage ; il n’y a rien à acheter ni à demander ici.
+**Avis de brouillon** — Cette référence accompagne le [brouillon d’architecture 1.0](/fr/v1/). Elle n’est pas publiée et documente une transition interne de nommage ; il n’y a rien à acheter ni à demander ici.
 
 ### § 1 — Préfixes de rôle et neutralité des fournisseurs
 

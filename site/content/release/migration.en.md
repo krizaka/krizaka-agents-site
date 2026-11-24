@@ -3,7 +3,7 @@ title: "Krizaka Agents 1.0: environment variable migration (draft)"
 description: "Unpublished draft listing every old-to-new environment variable alias in Krizaka Agents 1.0, checked against the contract."
 ---
 
-**Draft notice** — This migration reference accompanies the [1.0 architecture and measures draft](/v1/). It is unpublished and describes an internal naming transition; there is nothing to buy or to request here.
+**Draft notice** — This migration reference accompanies the [1.0 architecture draft](/v1/). It is unpublished and describes an internal naming transition; there is nothing to buy or to request here.
 
 ### § 1 — Role prefixes and provider neutrality
 

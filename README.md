@@ -228,6 +228,13 @@ by `@krizaka/architecture` into `site/lib/architecture.json` (`node site/scripts
 checkout>`) and drawn by `@krizaka/ui`'s `ArchitectureDiagram` with the text version under each. The « Architecture views » job
 checks the committed layout against the model on krizaka/.github's main (`… check <checkout>`): when it is red, lay it out again.
 
+Two draft pages, not linked from the published ones and marked `noindex`, prepare 1.0: `/v1/` (the architecture, the measures it
+waits for, the renamed environment) and `/migration/` (every old environment name and its new one). Their views come from the
+model of krizaka-agents itself, copied into `site/data/release/` with its source and sha256, through the views the site picks
+(`release-views.c4`), laid out into `site/lib/release-architecture.json` by `node site/scripts/release-architecture.mjs layout
+<krizaka/.github checkout>`; the same CI job checks it. The alias table comes from krizaka-agents' `env.json` through
+`node site/scripts/sync-env-aliases.mjs <env.json>`, with the table's sha256 that the tests compare.
+
 ```bash
 cd site && npm ci && npm run lint && npm test && npm run build
 ```

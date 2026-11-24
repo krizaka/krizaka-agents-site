@@ -4,6 +4,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { ALIAS_KINDS, ROLE_PREFIXES, aliasSummary, readMigrationAliases, toAliasMap } from "../lib/migration-aliases.ts";
 import { problems } from "../scripts/publication-rules.mjs";
+import { aliasTableDigest } from "../scripts/sync-env-aliases.mjs";
 import { built, root } from "./published-texts.mjs";
 
 const ENV_JSON = process.env.AGENTS_ENV_JSON || join(root, "..", ".inputs", "env.json");
@@ -39,10 +40,17 @@ test("migration-aliases.json holds sorted, unique, publication-clean old->new en
   );
 });
 
+test("the page's aliases are the alias table it was copied from: same digest, so none is added or left out by hand", () => {
+  const data = readMigrationAliases();
+  assert.match(data.source.aliasesSha256, /^[0-9a-f]{64}$/);
+  assert.equal(aliasTableDigest(toAliasMap(data.aliases)), data.source.aliasesSha256);
+});
+
 test("migration page alias data matches env.json alias table 1-to-1", { skip: !existsSync(ENV_JSON) }, () => {
   const env = JSON.parse(readFileSync(ENV_JSON, "utf8"));
   const data = readMigrationAliases();
   assert.deepEqual(toAliasMap(data.aliases), env.aliases);
+  assert.equal(aliasTableDigest(env.aliases), data.source.aliasesSha256, "the recorded digest is the table's");
 });
 
 test("built migration draft pages carry noindex and list every oldName and newName alias", { skip: !built() }, () => {

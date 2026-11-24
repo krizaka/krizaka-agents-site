@@ -6,8 +6,8 @@
   "description": "The information site of Krizaka Agents: six pages, French and English, a static export for GitHub Pages.",
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/generate-release-diagrams.mjs && next build",
-    "lint": "tsc --noEmit && node scripts/proofs.mjs check && node scripts/generate-release-diagrams.mjs check",
+    "build": "next build",
+    "lint": "tsc --noEmit && node scripts/proofs.mjs check",
     "test": "node --test tests/*.test.mjs"
   },
   "dependencies": {
